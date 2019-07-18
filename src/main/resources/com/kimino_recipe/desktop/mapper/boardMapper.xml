@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <!-- namespce : (패키지>Mapper) 경로  -->
+ <mapper namespace="com.kimino_recipe.desktop.mapper.boardMapper">
+ 	
+ 	<!-- 기본게시판 -->
+ 	<select id="select_AllBoard" parameterType="hashmap" resultType="com.kimino_recipe.desktop.domain.boardVO">
+ 		select * from (select T.*, row_number() over(order by writedate desc) as rnum from kimino_recipe T where board_id = #{board_id})
+ 		where rnum between #{startNum} and #{endNum}
+ 	</select>
+ 	
+ 	<select id="boardView" resultType="com.kimino_recipe.desktop.domain.boardVO">
+ 		select * from kimino_recipe 
+ 		where board_num = #{board_num}
+ 	</select>
+ 	
+ 	<select id="select_UserName">
+ 	
+ 	</select>
+ 	
+	<update id="update_ReadCount">
+		update kimino_recipe set readcount = readcount+1 
+		where board_num = #{board_num}
+	</update>
+	
+ 	<update id="update_UpCount">
+ 		update kimino_recipe set up = up+1 
+ 		where board_num = #{board_num}
+ 	</update>
+ 	
+ 	<update id="update_DownCount">
+ 		update kimino_recipe set down = down+1 
+ 		where board_num = #{board_num}
+ 	</update>
+ 	
+ 	<update id="update_ReportCount">
+ 		update kimino_recipe set report = report+1 
+ 		where board_num = #{board_num}
+ 	</update>
+ 	
+ 	<select id="get_ReadCount" resultType="int">
+ 		select readcount from kimino_recipe 
+ 		where board_num = #{board_num}
+ 	</select>
+ 	
+ 	<select id="get_TotalCount" resultType="com.kimino_recipe.desktop.domain.countVO">
+ 		select up, down, report from kimino_recipe 
+ 		where board_num = #{board_num}
+ 	</select>
+ 	
+ 	<delete id="delete_Board">
+ 		delete from kimino_recipe 
+ 		where board_num = #{board_num}
+ 	</delete>
+ 	
+ 	<select id="get_BoardCount" resultType="int">
+ 		select count(*) from kimino_recipe 
+ 		where board_id = #{board_id}
+ 	</select>
+ 		
+ 	<insert id="insert_Board" parameterType="hashmap">
+ 		insert into kimino_recipe(board_num, board_id, user_id, user_name, title, content, image)
+ 		values(kimino_recipe_seq.nextval, #{boardVO.board_id}, #{boardVO.user_id}, #{boardVO.user_name}, #{boardVO.title}, #{boardVO.content}, #{boardVO.image})
+ 	</insert>
+ 	
+ 	<update id="update_Board">
+ 		update kimino_recipe set title = #{boardVO.title}, content = #{boardVO.content}, image = #{boardVO.image} 
+ 		where board_num = #{boardVO.board_num}  
+ 	</update>
+ 		
+ 
+ 	<!-- 추천 게시판 -->
+ 	<select id="select_AllBoard_Up" parameterType="hashmap" resultType="com.kimino_recipe.desktop.domain.boardVO">
+ 		select * from (select T.*, row_number() over(order by writedate desc) as rnum from kimino_recipe up <![CDATA[>]]> #{hotcount})
+ 		where rnum between #{startNum} and #{endNum}
+ 	</select>
+ 	
+ 	<select id="get_BoardCount_Up" resultType="int">
+ 		select count(*) from kimino_recipe 
+ 		where up <![CDATA[>]]> #{hotcount}
+ 	</select>
+ 	
+ 	 <!-- 비추천 게시판 -->
+ 	<select id="select_AllBoard_Down" parameterType="hashmap" resultType="com.kimino_recipe.desktop.domain.boardVO">
+ 		select * from (select T.*, row_number() over(order by writedate desc) as rnum from kimino_recipe down <![CDATA[>]]> #{hotcount})
+ 		where rnum between #{startNum} and #{endNum}
+ 	</select>
+ 	
+ 	<select id="get_BoardCount_Down" resultType="int">
+ 		select count(*) from kimino_recipe 
+ 		where down <![CDATA[>]]> #{hotcount}
+ 	</select>
+ 	
+ 	<!-- 통합게시판 -->
+ 	<select id="select_AllBoard_Total" parameterType="hashmap" resultType="com.kimino_recipe.desktop.domain.boardVO">
+ 		select * from 
+ 		(select T.*, row_number() over(order by writedate desc) as rnum from kimino_recipe T 
+ 		where title like '%'||#{searchVO.keyWord}||'%' or content  like '%'||#{searchVO.keyWord}||'%') 
+ 		where rnum between #{startNum} and #{endNum}
+ 	</select>
+ 	
+ 	<select id="get_BoardCount_Total" resultType="int">
+ 	 	select count(*) from 
+ 		(select * from kimino_recipe where title like '%'||#{searchVO.keyWord}||'%' or content like '%'||#{searchVO.keyWord}||'%')
+ 	</select>
+
+ 	
+ 	 <!-- 신고게시판 -->
+ 	<select id="select_AllBoard_Report" parameterType="hashmap" resultType="com.kimino_recipe.desktop.domain.boardVO">
+ 		select * from 
+ 		(select T.*, row_number() over(order by writedate desc) as rnum from kimino_recipe T 
+ 		where report <![CDATA[>=]]> 1 ) 
+ 		where rnum between #{startNum} and #{endNum}
+ 	</select>
+ 	
+ 	<select id="get_BoardCount_Report" resultType="int">
+ 		select count(*) from kimino_recipe 
+ 		where report <![CDATA[>=]]> 1
+ 	</select>
+ 	
+ 	 <!-- 공지사항 -->
+ 	<select id="" parameterType="hashmap" resultType="com.kimino_recipe.desktop.domain.boardVO">
+ 		select * from kimino_recipe 
+ 		where board_id = #{board_id}
+ 	</select>
+ 
+ 	
+ 	 <!-- 공지사항게시판 -->
+ 	<select id="select_AllBoard_Notice" parameterType="hashmap" resultType="com.kimino_recipe.desktop.domain.boardVO">
+ 		select * from 
+ 		(select T.*, row_number() over(order by writedate desc) as rnum from kimino_recipe T 
+ 		where board_id = #{board_id}) 
+ 		where rnum between #{startNum} and #{endNum}
+ 	</select>
+ 	
+ 	<select id="get_BoardCount_Notice" resultType="int">
+ 		select count(*) from kimino_recipe 
+ 		where board_id = #{board_id}
+ 	</select>
+ 	
+
+ 	<!-- 유저관리게시판 -->
+ 	<select id="select_AllBoard_User" parameterType="hashmap" resultType="com.kimino_recipe.desktop.domain.userVO">
+ 	 	select * from 
+ 		(select T.*, row_number() over(order by writedate desc) as rnum from kimino_recipe_user T) 
+ 		where rnum between #{startNum} and #{endNum}
+ 	</select>
+ 	<select id="get_BoardCount_User" resultType="int">
+ 		select count(*) from kimino_recipe_user
+ 	</select>
+ 	
+ 	
+ </mapper>

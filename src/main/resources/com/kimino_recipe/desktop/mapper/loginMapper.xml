@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <!-- namespce : (패키지>Mapper) 경로  -->
+ <mapper namespace="com.kimino_recipe.desktop.mapper.loginMapper">
+ 
+ 	<!-- 로그인 -->	
+ 	<select id="login_User" parameterType="hashmap" resultType="int">
+ 		select count(*) from kimino_recipe_user 
+ 		where user_id = #{id} and user_pass = #{pass}
+ 	</select>
+ 	
+ 	<select id="login_Admin" parameterType="hashmap" resultType="int">
+ 		select count(*) from kimino_recipe_admin 
+ 		where user_id = #{id} and user_pass = #{pass}
+ 	</select>
+ 
+ </mapper>

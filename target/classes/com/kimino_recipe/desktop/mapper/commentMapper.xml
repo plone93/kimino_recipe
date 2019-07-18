@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <!-- namespce : (패키지>Mapper) 경로  -->
+ <mapper namespace="com.kimino_recipe.desktop.mapper.commentMapper">
+ 	
+ 	<!-- 댓글  -->
+ 	<insert id="insert_Comment" parameterType="hashmap">
+ 		insert into kimino_recipe_comment(comment_num, board_num, board_id, user_id, user_name, content)
+ 		values(kimino_recipe_comment_seq.nextval, #{commentVO.board_num}, #{commentVO.board_id}, #{commentVO.user_id}, #{commentVO.user_name}, #{commentVO.content})
+ 	</insert>
+ 	
+ 	<select id="commentView" resultType="com.kimino_recipe.desktop.domain.commentVO">
+ 		select * from kimino_recipe_comment 
+ 		where comment_num = #{comment_num}
+ 	</select>
+ 	
+ 	<update id="update_Comment" parameterType="hashmap">
+ 		update kimino_recipe_comment set content = #{commentVO.content} 
+ 		where comment_num = #{comment_num}
+ 	</update>
+ 	
+ 	<delete id="delete_Comment">
+ 		delete from kimino_recipe_comment 
+ 		where comment_num = #{comment_num}
+ 	</delete>
+ 	
+ 	<update id="update_CommentCount">
+ 		update kimino_recipe set commentcount = #{commentCount} 
+ 		where board_num = #{board_num}
+ 	</update>
+ 	
+ 	<select id="select_Comment" resultType="com.kimino_recipe.desktop.domain.commentVO">
+ 		select * from (select * from kimino_recipe_comment order by writedate asc) 
+ 		where board_num = #{board_num}
+ 	</select>
+ 	
+ 	<select id="get_CommentCount" resultType="int">
+ 		select count(*) from kimino_recipe_comment 
+ 		where board_num = #{board_num}
+ 	</select>
+ 	
+ </mapper>

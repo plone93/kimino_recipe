@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <!-- namespce : (패키지>Mapper) 경로  -->
+ <mapper namespace="com.kimino_recipe.desktop.mapper.searchMapper">
+ 
+ 	<!-- 일반 게시판 검색 -->
+ 	<select id="search">
+ 		select * from 
+ 		(select T.*, row_number() over(order by writedate desc) as rnum from kimino_recipe T 
+ 		where board_id = #{board_id} and (title like '%'||#{searchVO.keyWord}||'%' or content like '%'||#{searchVO.keyWord}||'%')) 
+ 		where rnum between #{startNum} and #{endNum}
+ 	</select>
+ 	
+ 	<select id="search_Count" resultType="int">
+ 		select count(*) from kimino_recipe
+ 		where board_id = #{board_id} and (title like '%'||#{searchVO.keyWord}||'%' or content like '%'||#{searchVO.keyWord}||'%')	
+ 	</select>
+ 	
+ 	<!-- 공지사항게시판 검색 -->
+ 	<select id="search_Notice">
+ 	</select>
+ 	
+ 	<select id="search_Count_Notice">
+ 	</select>
+ 	
+ 	<!-- 추천 검색 -->
+	<select id="search_Up">
+		select * from 
+ 		(select T.*, row_number() over(order by writedate desc) as rnum from kimino_recipe T 
+ 		where up <![CDATA[>=]]> #{hotcount} and (title like '%'||#{searchVO.keyWord}||'%' or content like '%'||#{searchVO.keyWord}||'%')) 
+ 		where rnum between #{startNum} and #{endNum}
+	</select>
+	
+	<select id="search_Count_Up" resultType="int">
+		 select count(*) from (select * from kimino_recipe 
+		 where title like '%'||#{searchVO.keyWord}||'%' or content like '%'||#{searchVO.keyWord}||'%') 
+		 where up <![CDATA[>=]]> #{hotcount}
+	</select>
+	
+	 <!-- 비추천 검색 -->
+	<select id="search_Down">
+		select * from 
+ 		(select T.*, row_number() over(order by writedate desc) as rnum from kimino_recipe T 
+ 		where down <![CDATA[>=]]> #{hotcount} and (title like '%'||#{searchVO.keyWord}||'%' or content like '%'||#{searchVO.keyWord}||'%')) 
+ 		where rnum between #{startNum} and #{endNum}
+	</select>
+	
+	<select id="search_Count_Down" resultType="int">
+		 select count(*) from (select * from kimino_recipe 
+		 where title like '%'||#{searchVO.keyWord}||'%' or content like '%'||#{searchVO.keyWord}||'%') 
+		 where down <![CDATA[>=]]> #{hotcount}
+	</select>
+	
+	<!-- 신고 검색 -->
+	<select id="search_Report">
+	 	select * from 
+ 		(select T.*, row_number() over(order by writedate desc) as rnum from kimino_recipe T 
+ 		where report <![CDATA[>=]]> 1 and (title like '%'||#{searchVO.keyWord}||'%' or content like '%'||#{searchVO.keyWord}||'%')) 
+ 		where rnum between #{startNum} and #{endNum}
+	</select>
+	
+	<select id="search_Count_Report" resultType="int">
+		 select count(*) from (select * from kimino_recipe 
+		 where title like '%'||#{searchVO.keyWord}||'%' or content like '%'||#{searchVO.keyWord}||'%') 
+		 where report <![CDATA[>=]]> 1
+	</select>
+	
+	<!-- 통합 검색 --> 	
+ 	<select id="search_Total">
+ 		select * from 
+ 		(select T.*, row_number() over(order by writedate desc) as rnum from kimino_recipe T 
+ 		where title like '%'||#{searchVO.keyWord}||'%' or content  like '%'||#{searchVO.keyWord}||'%') 
+ 		where rnum between #{startNum} and #{endNum}
+ 	</select>
+ 	
+ 	<select id="search_Count_Total" resultType="int">
+ 		 select count(*) from (select * from kimino_recipe 
+		 where title like '%'||#{searchVO.keyWord}||'%' or content like '%'||#{searchVO.keyWord}||'%') 
+ 	</select>
+ 	
+ 	<!-- 회원관리 검색 -->
+ 	<select id="search_User">
+ 		select * from 
+ 		(select T.*, row_number() over(order by writedate desc) as rnum from kimino_recipe_user T 
+ 		where title like '%'||#{searchVO.keyWord}||'%' or content  like '%'||#{searchVO.keyWord}||'%') 
+ 		where rnum between #{startNum} and #{endNum}
+ 		
+ 	</select>
+ 	
+ 	<select id="search_Count_User">
+ 		 select count(*) from (select * from kimino_recipe_user
+		 where user_id like '%'||#{searchVO.keyWord}||'%' or user_name like '%'||#{searchVO.keyWord}||'%') 
+ 	</select>
+ 	
+ 	
+ </mapper>

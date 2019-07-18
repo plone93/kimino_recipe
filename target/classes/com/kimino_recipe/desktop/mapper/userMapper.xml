@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <!-- namespce : (패키지>Mapper) 경로  -->
+ <mapper namespace="com.kimino_recipe.desktop.mapper.userMapper">
+ 	
+ 	<!-- 유저 -->
+ 	<insert id="insert_User" parameterType="hashmap">
+ 		insert into kimino_recipe_user(user_num, user_id, user_pass, user_name, user_email)
+ 		values(kimino_recipe_user_seq.nextval, #{userVO.user_id}, #{userVO.user_pass}, #{userVO.user_name}, #{userVO.user_email})
+ 	</insert>
+ 	
+ 	<select id="get_User" resultType="com.kimino_recipe.desktop.domain.userVO">
+ 		select * from kimino_recipe_user 
+ 		where user_id = #{user_id}
+ 	</select>
+ 	
+ 	<select id="get_Admin" resultType="com.kimino_recipe.desktop.domain.userVO">
+ 		select * from kimino_recipe_admin 
+ 		where user_num = #{user_num}
+ 	</select>
+ 	
+ 	<update id="update_User" parameterType="hashmap">
+ 		update kimino_recipe_user 
+ 		set user_pass = #{userVO.user_pass}, user_name = #{userVO.name}, user_email = #{userVO.user_email} 
+ 		where user_num = #{user_num} 
+ 	</update>
+ 	
+ 	<select id="get_UserPass" resultType="String">
+ 		select user_pass from kimino_recipe_user 
+ 		where user_num = #{user_num}
+ 	</select>
+ 	
+ 	<delete id="delete_User">
+ 		delete from kimino_recipe_user 
+ 		where user_num = #{user_num}
+ 	</delete>
+ 	
+ 	<select id="idCheck" resultType="int">
+ 		select count(*) from kimino_recipe_user 
+ 		where user_id = #{id}
+ 	</select>
+ </mapper>
