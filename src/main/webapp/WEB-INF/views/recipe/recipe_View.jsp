@@ -87,8 +87,8 @@
                                         	        ㄹㅇ?<br>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-success" data-dismiss="modal">Yes</button>
-                                                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">No</button>
+                                                 <a href="delete_Comment?board_id=${boardVO.board_id }&board_num=${boardVO.board_num}&comment_num=${commentList.comment_num }" class="btn btn-secondary">Yes</a>
+                                                 <a class="btn btn-outline-secondary" data-dismiss="modal">No</a>
                                             </div>
                                         </div>
                                     </div>
@@ -125,11 +125,12 @@
             
             </c:if>
             
-            
-                <c:if test="${loginUser eq null or Admin eq null}">
+	            <c:if test="${loginUser eq null or Admin eq null}">
 				</c:if>
-				<c:if test="${loginUser ne null or Admin ne null}">
+				
                 <div class="row justify-content-center">
+                <c:if test="${loginUser ne null or Admin ne null}">
+                <c:if test="${loginUser.user_id eq writer or Admin ne null}" >
                 <div class="col-1 py-3">
                     <a class="btn btn-success" href="edit_Board?board_id=${boardVO.board_id }&board_num=${boardVO.board_num}" role="button">수정</a>                            
                 </div>
@@ -150,22 +151,26 @@
                                     (삭제 후 되돌릴 수 없습니다.)
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Yes</button>
-                                    <button type="button" class="btn btn-outline-secondary">No</button>
+                                     <a href="delete_Comment?board_id=${boardVO.board_id }&board_num=${boardVO.board_num}&comment_num=${commentList.comment_num }" class="btn btn-secondary">Yes</a>
+                                     <a class="btn btn-outline-secondary" data-dismiss="modal">No</a>
                                 </div>
                             </div>
                         </div>
                     </div>                     
                 </div>
+                </c:if>
+				<c:if test="${loginUser.user_id ne writer and Admin eq null}" >
+				</c:if>
+				</c:if>	
                 <div class="col-1 py-3">
-                    <a class="btn btn-success" href="boardList?board_id=${board_id}" role="button">목록</a>                            
+                    <a class="btn btn-success" href="boardList?board_id=${board_id}&page=${page}" role="button">목록</a>                            
                 </div>
                 <div class="col-1 py-3">
                     <a class="btn btn-danger" href="board_Report?board_id=${board_id }&board_num=${boardVO.board_num}" role="button">신고</a>                            
                 </div>
             </div> 
             
-				</c:if>	
+				
 				
 
         </div>     

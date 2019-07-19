@@ -6,16 +6,16 @@
  <mapper namespace="com.kimino_recipe.desktop.mapper.searchMapper">
  
  	<!-- 일반 게시판 검색 -->
- 	<select id="search">
+ 	<select id="search" parameterType="hashmap" resultType="com.kimino_recipe.desktop.domain.boardVO">
  		select * from 
  		(select T.*, row_number() over(order by writedate desc) as rnum from kimino_recipe T 
- 		where board_id = #{board_id} and (title like '%'||#{searchVO.keyWord}||'%' or content like '%'||#{searchVO.keyWord}||'%')) 
+ 		where board_id = #{board_id} and (title like '%'||#{searchVO.keyword}||'%' or content like '%'||#{searchVO.keyword}||'%')) 
  		where rnum between #{startNum} and #{endNum}
  	</select>
  	
- 	<select id="search_Count" resultType="int">
+ 	<select id="search_Count" parameterType="hashmap" resultType="int">
  		select count(*) from kimino_recipe
- 		where board_id = #{board_id} and (title like '%'||#{searchVO.keyWord}||'%' or content like '%'||#{searchVO.keyWord}||'%')	
+ 		where board_id = #{board_id} and (title like '%'||#{searchVO.keyword}||'%' or content like '%'||#{searchVO.keyword}||'%')	
  	</select>
  	
  	<!-- 공지사항게시판 검색 -->

@@ -21,7 +21,7 @@ public interface boardMapper {
 	public int delete_Board(String board_num); // 글삭제
 	public int insert_Board(HashMap<String, Object> map); //글 작성
 	public int update_Board(HashMap<String, Object> map); // 글 수정 
-
+	public String select_Writer(String board_num); //작성자 검색
 	
 	/*기본게시판*/
 	public List<boardVO> select_AllBoard(HashMap<String, Object> map); //모든 게시글 검색
@@ -50,5 +50,6 @@ public interface boardMapper {
 	/*회원관리 게시판*/
 	public List<userVO> select_AllBoard_User(int page); // 회원관리게시판에 몇개의 계정이 있는지 검색
 	public int get_UserCount(); //몇명의 회원이 있는지 검색
+	
 
 }

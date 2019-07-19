@@ -27,6 +27,8 @@ public class searchServiceImpl implements searchService {
 		
 		map.put("startNum", startNum);
 		map.put("endNum", endNum);
+		map.put("searchVO", searchVO);
+		map.put("board_id", board_id);
 		
 		return search.search(map);
 	}

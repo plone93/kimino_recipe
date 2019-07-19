@@ -40,7 +40,8 @@ public class searchController {
 							  @RequestParam("board_id")String board_id,
 							  searchVO searchVO,
 							  Model model) {
-		String url = "";
+		
+		String url = "recipe/recipe_List";
 		System.out.println("검색한 키워드 : "+searchVO.getKeyword());
 		
 		List<boardVO> boardList = new ArrayList<boardVO>();

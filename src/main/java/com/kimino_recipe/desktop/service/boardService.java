@@ -21,7 +21,7 @@ public interface boardService {
 	public int delete_Board(String board_num); // 글삭제
 	public int insert_Board(boardVO boardVO, String board_id); //글 작성
 	public int update_Board(boardVO boardVO, String board_num); // 글 수정 
-
+	public String select_Writer(String board_num); // 작성자 아이디 검색
 	
 	/*기본게시판*/
 	public List<boardVO> select_AllBoard(int page, String board_id); //모든 게시글 검색

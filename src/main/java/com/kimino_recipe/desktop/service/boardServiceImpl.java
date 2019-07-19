@@ -84,6 +84,14 @@ public class boardServiceImpl implements boardService {
 		
 		return board.update_Board(map);
 	}
+	
+	@Override
+	public String select_Writer(String board_num) {
+		return board.select_Writer(board_num);
+	}
+	
+	
+	/*기능 끝*/
 
 	@Override
 	public List<boardVO> select_AllBoard(int page, String board_id) {
@@ -218,6 +226,7 @@ public class boardServiceImpl implements boardService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
+
+
 	
 }

@@ -108,6 +108,76 @@ public class boardController {
 		return url;		
 	}
 	
+	//게시판 리스트
+	@GetMapping("/boardList2")
+	public String boardList2(HttpSession session, HttpServletRequest request,
+							@RequestParam("board_id") String board_id,
+							Model model) {
+		String url = "board/board_List";
+		List<boardVO> boardList = new ArrayList<boardVO>();
+		List<userVO> userList = new ArrayList<userVO>();
+		
+		int page = 1;
+		int boardCount = 0;
+		String hotcount = "5"; // 추천,비추천 게시판에 올라가기 위한  조건
+		String word;
+		
+		
+		if(request.getParameter("page") != null){
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+		pageVO pageVO = new pageVO();
+		pageVO.setPage(page);
+		
+		if(board_id.equals("추천")) {
+			word = "up";
+			boardList = board.select_AllBoard_Up(page, board_id, hotcount);
+			pageVO.setTotalCount(board.get_BoardCount_Up(board_id, hotcount));
+			boardCount = pageVO.getTotalCount();
+		} else if(board_id.equals("비추천")) {
+			word = "down";
+			boardList = board.select_AllBoard_Down(page, board_id, hotcount);
+			pageVO.setTotalCount(board.get_BoardCount_Down(board_id, hotcount));
+			boardCount = pageVO.getTotalCount();
+		} else if(board_id.equals("통합")) {
+			boardList = board.select_AllBoard_Total(page, board_id);
+			pageVO.setTotalCount(board.get_BoardCount_Total(board_id));
+			boardCount = pageVO.getTotalCount();
+		} else if(board_id.equals("신고")) {
+			word = "report";
+			boardList = board.select_AllBoard_Report(page, board_id, word);
+			pageVO.setTotalCount(board.get_BoardCount_Report(board_id, word));
+			boardCount = pageVO.getTotalCount();
+		} else if(board_id.equals("회원관리")) {
+			userList = board.select_AllBoard_User(page);
+			pageVO.setTotalCount(board.get_UserCount());
+			boardCount = pageVO.getTotalCount();
+			url = "";
+		} else {
+			boardList = board.select_AllBoard(page, board_id);
+			pageVO.setTotalCount(board.get_BoardCount(board_id));
+			boardCount = pageVO.getTotalCount();
+		}
+		
+		model.addAttribute("boardList", boardList);
+		model.addAttribute("boardCount", boardCount);
+		model.addAttribute("pageVO", pageVO);
+		model.addAttribute("board_id", board_id);
+		
+		/*일반게시판 공지사항*/
+		String noticeBoard_id = "공지사항";
+		List<boardVO> noticeList = board.select_AllBoard_Notice(page, noticeBoard_id);
+		model.addAttribute("noticeList", noticeList);
+		
+		/*리다이렉트로 날아온 메세지가 있다면 jsp로 보냄*/
+		if(request.getParameter("message") != null) {
+			model.addAttribute("message", request.getParameter("message"));
+		}
+		
+		return url;		
+	}
+	
+	
 	//뷰
 	@GetMapping("/boardView")
 	public String boardView(HttpSession session, HttpServletRequest request,
@@ -135,11 +205,13 @@ public class boardController {
 			int readCount = board.get_ReadCount(board_num);
 			board.update_ReadCount(board_num);
 			boardVO boardVO = board.boardView(board_num);
+			String writer = board.select_Writer(board_num);
 			
 			model.addAttribute("commentList", commentList);
 			model.addAttribute("readCount", readCount);
 			model.addAttribute("boardVO", boardVO);
 			model.addAttribute("board_id", board_id);
+			model.addAttribute("writer", writer);
 			
 			/*리다이렉트로 날아온 메세지가 있다면 jsp로 보냄*/
 			if(request.getParameter("message") != null) {

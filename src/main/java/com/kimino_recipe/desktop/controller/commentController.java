@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
+import com.kimino_recipe.desktop.domain.boardVO;
 import com.kimino_recipe.desktop.domain.commentVO;
 import com.kimino_recipe.desktop.service.boardService;
 import com.kimino_recipe.desktop.service.commentService;
@@ -68,7 +68,16 @@ public class commentController {
 							  @RequestParam("board_id")String board_id,
 							  @RequestParam("comment_num")String comment_num,
 							  Model model) {
-		String url = "";
+		String url = "recipe/recipe_ReWrite_Comment";
+		
+		int readCount = board.get_ReadCount(board_num);
+		board.update_ReadCount(board_num);
+		boardVO boardVO = board.boardView(board_num);
+		
+		model.addAttribute("readCount", readCount);
+		model.addAttribute("boardVO", boardVO);
+		model.addAttribute("board_id", board_id);
+
 		commentVO commentVO = comment.commentView(comment_num);
 		
 		model.addAttribute("commentVO", commentVO);
@@ -88,10 +97,11 @@ public class commentController {
 								commentVO commentVO,
 								Model model) {
 		
-		String url = "redirect:/";
+		String url = "redirect:/boardView";
 		
 		comment.update_Comment(commentVO, comment_num);
 		model.addAttribute("board_id", board_id);
+		model.addAttribute("board_num", board_num);
 		
 		return url;
 		

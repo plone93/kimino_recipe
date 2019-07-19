@@ -95,10 +95,10 @@
                 <a class="nav-link text-white" href="#">ランキング</a>
             </li>
             <li class="nav-item mx-5">
-                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">ヘルプ</a>
+                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">게시판</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                	<c:set var="notice" value="공지사항"/><a class="dropdown-item" href="boardList?board_id=${notice}">공지사항</a>
-                	<c:set var="free" value="자유게시판"/><a class="dropdown-item" href="boardList?board_id=${free}">자유게시판</a>                
+                	<c:set var="notice" value="공지사항"/><a class="dropdown-item" href="boardList2?board_id=${notice}">공지사항</a>
+                	<c:set var="free" value="자유게시판"/><a class="dropdown-item" href="boardList2?board_id=${free}">자유게시판</a>                
                 </div>
             </li>
         </ul>  
