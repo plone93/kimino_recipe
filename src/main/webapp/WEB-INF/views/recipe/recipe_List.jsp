@@ -10,8 +10,8 @@
                 </div>
             </div>          
             <div class="row"><div class="col py-3"></div></div>  
-            <div class="row justify-content-start">
             
+            <div class="row justify-content-start">
             <!-- 검색 -->
                 <div class="col-4">
                     <form action="search_Board?board_id=${board_id}" method="post">
@@ -36,23 +36,22 @@
 	                </div>
 				</c:if>	
 
-                
+                <!-- 메뉴 -->
                 <div class="col-1">
                     <div class="dropdown">
                         <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                        		     분류
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="#">댓글순</a>
-                            <a class="dropdown-item" href="#">조회순</a>
-                            <a class="dropdown-item" href="#">최신순</a>
-                            <a class="dropdown-item" href="#">추천순</a>
-                            <a class="dropdown-item" href="#">비추천수</a>
+                            <a class="dropdown-item" href="boardList_Comment?board_id=${board_id }">댓글순</a>
+                            <a class="dropdown-item" href="boardList_ReadCount?board_id=${board_id }">조회순</a>
+                            <a class="dropdown-item" href="boardList_Up?board_id=${board_id }">추천순</a>
+                            <a class="dropdown-item" href="boardList_Down?board_id=${board_id }">비추천수</a>
                         </div>
                     </div>
                 </div>
             </div>  
-            
+            	  <!-- 게시판 리스트ㅡ -->	
           		  <div class="row mt-5">
 		            <c:forEach var="boardList" items="${boardList}" varStatus="status" begin="0" end="9" step="1" >
 		            
@@ -63,14 +62,14 @@
 			                        	<img src="resources/images/food-1932466_640.jpg" class="card-img-top">
 			                        </c:if>
 			                        <c:if test="${boardList.image ne null}">
-			                        	<img src="resources/images/${boardList.image }.jpg" class="card-img-top">
+			                        	<img src="resources/images/${boardList.image}" class="card-img-top">
 			                        </c:if>	
 		                        </a>
 		                        
 		                        <div class="card-body">
-		                            <h5 class="card-title">${fn:substring(boardList.title,0,10)}</h5>
-		                            <p class="card-text"><a href="boardView?board_num=${boardList.board_num}&board_id=${board_id}" class="text-dark">${fn:substring(boardList.content,0,15)}</a></p>
-		                            <p class="card-text"><fmt:formatDate value="${boardList.writedate }"/></p>	      
+		                            <h5 class="card-title">${fn:substring(boardList.title,0,9)}</h5>
+		                            <p class="card-text"><a href="boardView?board_num=${boardList.board_num}&board_id=${board_id}&page=${pageVO.page}" class="text-dark">${fn:substring(boardList.content,0,15)}</a></p>
+		                            <p class="card-text"><fmt:formatDate value="${boardList.writedate }"/><span class="btn btn-outline-success" style="float: right;">${boardList.commentcount}</span></p>		                            	      
 		                        </div>
 		                        
 		                    </div>

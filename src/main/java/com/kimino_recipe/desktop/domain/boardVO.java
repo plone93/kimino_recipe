@@ -15,6 +15,7 @@ public class boardVO {
 	private String content;
 	private String image;
 	private int readcount;
+	private int commentcount;
 	private int up;
 	private int down;
 	private int report;

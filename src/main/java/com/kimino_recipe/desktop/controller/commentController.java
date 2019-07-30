@@ -37,6 +37,7 @@ public class commentController {
 	public String commentWrite(HttpSession session, HttpServletRequest request,
 							  @RequestParam("board_num")String board_num,
 							  @RequestParam("board_id")String board_id,
+							  @RequestParam("page")String page,
 							  commentVO commentVO,
 							  Model model) {
 		
@@ -56,6 +57,7 @@ public class commentController {
 		
 		model.addAttribute("board_id", board_id);
 		model.addAttribute("board_num", board_num);
+		model.addAttribute("page", page);
 		
 		return url;
 		
@@ -67,6 +69,7 @@ public class commentController {
 							  @RequestParam("board_num")String board_num,
 							  @RequestParam("board_id")String board_id,
 							  @RequestParam("comment_num")String comment_num,
+							  @RequestParam("page")String page,
 							  Model model) {
 		String url = "recipe/recipe_ReWrite_Comment";
 		
@@ -83,6 +86,7 @@ public class commentController {
 		model.addAttribute("commentVO", commentVO);
 		model.addAttribute("board_num", board_num);
 		model.addAttribute("board_id", board_id);
+		model.addAttribute("page", page);
 		
 		return url;
 		
@@ -94,6 +98,7 @@ public class commentController {
 								@RequestParam("board_num")String board_num,
 								@RequestParam("board_id")String board_id,
 								@RequestParam("comment_num")String comment_num,
+								@RequestParam("page")String page,
 								commentVO commentVO,
 								Model model) {
 		
@@ -102,6 +107,7 @@ public class commentController {
 		comment.update_Comment(commentVO, comment_num);
 		model.addAttribute("board_id", board_id);
 		model.addAttribute("board_num", board_num);
+		model.addAttribute("page", page);
 		
 		return url;
 		

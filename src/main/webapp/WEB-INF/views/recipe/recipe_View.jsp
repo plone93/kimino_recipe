@@ -29,17 +29,21 @@
             </div>   
             <div class="row">
                 <div class="col py-3">
+	                <c:if test="${boardVO.image ne null}">
+				       <img src="resources/images/${boardVO.image}" class="card-img-top">
+				    </c:if>	
+                <br>     
  			  	${boardVO.content }
  			   </div>
             </div>  
             
             <div class="row justify-content-center my-2">
                 <div class="col-2 py-3 text-center">
-                    <a href="board_Up?board_id=${board_id }&board_num=${boardVO.board_num}" class="btn btn-outline-success">+${boardVO.up }</a>
+                    <a href="board_Up?board_id=${board_id }&board_num=${boardVO.board_num}&page=${page}" class="btn btn-outline-success">+${boardVO.up }</a>
                 </div>
                 
                 <div class="col-2 py-3 text-center">
-                	<a href="board_Down?board_id=${board_id }&board_num=${boardVO.board_num}" class="btn btn-outline-danger">-${boardVO.down }</a>
+                	<a href="board_Down?board_id=${board_id }&board_num=${boardVO.board_num}&page=${page}" class="btn btn-outline-danger">-${boardVO.down }</a>
                 </div>
             </div>  
             
@@ -66,12 +70,14 @@
 	                    <div class="col-6">${commentList.content }</div>
 	                    <div class="col-2"><fmt:formatDate value="${commentList.writedate }"></fmt:formatDate></div>
 	                	<div class="col-2">
-	                        <div class="row">
+	                	
+	                	<c:if test="${loginUser.user_id eq writer or Admin ne null}" >
+	                        <div class="row">                 
 	                            <div class="col text-right">
-	                                <a href="edit_Comment?comment_num=${commentList.comment_num }&board_num=${boardVO.board_num}&board_id=${board_id}" class="badge badge-success">수정</a>                        
+	                                <a href="edit_Comment?comment_num=${commentList.comment_num }&board_num=${boardVO.board_num}&board_id=${board_id}&page=${page}" class="badge badge-success">수정</a>                        
 	                            </div>
 	                            <div class="col text-left">
-	                                <a href="delete_Comment?comment_num=${commentList.comment_num }&board_num=${boardVO.board_num}&board_id=${board_id}" class="badge badge-danger" data-toggle="modal" data-target="#confirmDelete">삭제</a>
+	                                <a href="delete_Comment?comment_num=${commentList.comment_num }&board_num=${boardVO.board_num}&board_id=${board_id}&page=${page}" class="badge badge-danger" data-toggle="modal" data-target="#confirmDelete">삭제</a>
 	                                
 	                            <!-- Modal -->
                                 <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -96,7 +102,9 @@
                                 
 	                            </div>
 	                        </div>
-                 	   </div>
+	                   </c:if>
+	                        
+                 	   </div>  
 	                </div>
                 </c:forEach>
                 
@@ -114,59 +122,38 @@
 							<input type="hidden" name="board_id" value="${board_id}">
 							<input type="hidden" name="user_id" value="${loginUser.user_id }">
 							<input type="hidden" name="user_name" value="${loginUser.user_name }">
+							<input type="hidden" name="page" value="${page}">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-success" type="submit" id="button-addon2">작성</button>
                             </div>
                         </div>
                     </div>
                 </div> 
-            </form>
-            
-            
+            </form>        
             </c:if>
             
 	            <c:if test="${loginUser eq null or Admin eq null}">
 				</c:if>
 				
                 <div class="row justify-content-center">
-                <c:if test="${loginUser ne null or Admin ne null}">
-                <c:if test="${loginUser.user_id eq writer or Admin ne null}" >
+                <c:if test="${loginUser.user_id eq writer or Admin ne null}">
+                
                 <div class="col-1 py-3">
-                    <a class="btn btn-success" href="edit_Board?board_id=${boardVO.board_id }&board_num=${boardVO.board_num}" role="button">수정</a>                            
+                    <a class="btn btn-success" href="edit_Board?board_id=${boardVO.board_id }&board_num=${boardVO.board_num}&page=${page}" role="button">수정</a>                            
                 </div>
                 <div class="col-1 py-3">
-                    <a class="btn btn-success" href="#" role="button" data-toggle="modal" data-target="#confirmDelete">삭제</a>       
-                    <!-- Modal -->
-                    <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">レシピを消し</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body text-left">
-                                 	   정말로 삭제하시겠습니까?<br>
-                                    (삭제 후 되돌릴 수 없습니다.)
-                                </div>
-                                <div class="modal-footer">
-                                     <a href="delete_Comment?board_id=${boardVO.board_id }&board_num=${boardVO.board_num}&comment_num=${commentList.comment_num }" class="btn btn-secondary">Yes</a>
-                                     <a class="btn btn-outline-secondary" data-dismiss="modal">No</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>                     
+                    <a class="btn btn-success" href="delete_Board?board_id=${boardVO.board_id }&board_num=${boardVO.board_num}&page=${page}" role="button">삭제</a>                         
                 </div>
                 </c:if>
+                
 				<c:if test="${loginUser.user_id ne writer and Admin eq null}" >
 				</c:if>
-				</c:if>	
+				
                 <div class="col-1 py-3">
                     <a class="btn btn-success" href="boardList?board_id=${board_id}&page=${page}" role="button">목록</a>                            
                 </div>
                 <div class="col-1 py-3">
-                    <a class="btn btn-danger" href="board_Report?board_id=${board_id }&board_num=${boardVO.board_num}" role="button">신고</a>                            
+                    <a class="btn btn-danger" href="board_Report?board_id=${board_id }&board_num=${boardVO.board_num}&page=${page}" role="button">신고</a>                            
                 </div>
             </div> 
             

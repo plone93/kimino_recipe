@@ -40,8 +40,8 @@ public interface boardService {
 	public int get_BoardCount_Total(String board_id); //통합게시판에 몇개의 글이 있는지 검색
 	
 	/*신고 게시판*/
-	public List<boardVO> select_AllBoard_Report(int page, String board_id, String word); // 신고게시판 검색
-	public int get_BoardCount_Report(String board_id, String word); //신고게시판에 몇개의 글이 있는지 검색
+	public List<boardVO> select_AllBoard_Report(int page); // 신고게시판 검색
+	public int get_BoardCount_Report(); //신고게시판에 몇개의 글이 있는지 검색
 
 	/*공지사항 게시판*/
 	public List<boardVO> select_AllBoard_Notice(int page, String board_id); //공지사항검색
@@ -50,5 +50,21 @@ public interface boardService {
 	/*회원관리 게시판*/
 	public List<userVO> select_AllBoard_User(int page); // 회원관리게시판에 몇개의 계정이 있는지 검색
 	public int get_UserCount(); //몇명의 회원이 있는지 검색
+	
+	/*메인 게시글*/
+	public List<boardVO> select_Season_Up(int page, String board_id1, String board_id2, String board_id3, String board_id4);
+	public List<boardVO> select_Country_Up(int page, String board_id11, String board_id22, String board_id33);
+	public List<boardVO> select_Single_Up(int page, String board_id111);
+	
+	/*게시판1에 해당하는 드롭메뉴*/
+	public List<boardVO> select_Board_Comment(int page, String board_id);
+	public List<boardVO> select_Board_ReadCount(int page, String board_id);
+	public List<boardVO> select_Board_Up(int page, String board_id);
+	public List<boardVO> select_Board_Down(int page, String board_id);
+	
+	/*마이페이지*/
+	public List<boardVO> select_MyWriteList(int page, String user_id); /*내가 작성한 글*/
+	public int select_MyWriteCount(String user_id);
 
+	
 }

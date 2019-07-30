@@ -13,10 +13,10 @@
             <div class="row">
                 <div class="col-2 ml-2 mt-5">
                     <div class="list-group">
-                        <button type="button" class="list-group-item list-group-item-action active list-group-item-success">내정보</button>
-                        <a href="myPage_modify.html" class="list-group-item list-group-item-action list-group-item-light">개인정보수정</a>
-                        <a href="myPage_list.html" class="list-group-item list-group-item-action list-group-item-light">내글목록</a>
-                        <a href="" class="list-group-item list-group-item-action list-group-item-light">회원탈퇴</a>                                    
+                        <button type="button" class="list-group-item list-group-item-action active list-group-item-light">내정보</button>
+                        <a href="edit_Profile?user_id=${loginUser.user_id }" class="list-group-item list-group-item-action list-group-item-light">개인정보수정</a>
+                        <a href="my_WriteList?user_id=${loginUser.user_id }" class="list-group-item list-group-item-action list-group-item-light">내글목록</a>
+                        <a href="cancel_User" class="list-group-item list-group-item-action list-group-item-success">회원탈퇴</a>                                    
                     </div>
                 </div>
                 <div class="col-9 mt-5">

@@ -7,7 +7,8 @@
  	
  	<!-- 기본게시판 -->
  	<select id="select_AllBoard" parameterType="hashmap" resultType="com.kimino_recipe.desktop.domain.boardVO">
- 		select * from (select T.*, row_number() over(order by writedate desc) as rnum from kimino_recipe T where board_id = #{board_id})
+ 		select * from 
+ 		(select T.*, row_number() over(order by writedate desc) as rnum from kimino_recipe T where board_id = #{board_id})
  		where rnum between #{startNum} and #{endNum}
  	</select>
  	
@@ -76,7 +77,8 @@
  
  	<!-- 추천 게시판 -->
  	<select id="select_AllBoard_Up" parameterType="hashmap" resultType="com.kimino_recipe.desktop.domain.boardVO">
- 		select * from (select T.*, row_number() over(order by writedate desc) as rnum from kimino_recipe up <![CDATA[>]]> #{hotcount})
+ 		select * from 
+ 		(select T.*, row_number() over(order by writedate desc) as rnum from kimino_recipe up <![CDATA[>]]> #{hotcount})
  		where rnum between #{startNum} and #{endNum}
  	</select>
  	
@@ -87,7 +89,8 @@
  	
  	 <!-- 비추천 게시판 -->
  	<select id="select_AllBoard_Down" parameterType="hashmap" resultType="com.kimino_recipe.desktop.domain.boardVO">
- 		select * from (select T.*, row_number() over(order by writedate desc) as rnum from kimino_recipe down <![CDATA[>]]> #{hotcount})
+ 		select * from 
+ 		(select T.*, row_number() over(order by writedate desc) as rnum from kimino_recipe down <![CDATA[>]]> #{hotcount})
  		where rnum between #{startNum} and #{endNum}
  	</select>
  	
@@ -113,7 +116,7 @@
  	 <!-- 신고게시판 -->
  	<select id="select_AllBoard_Report" parameterType="hashmap" resultType="com.kimino_recipe.desktop.domain.boardVO">
  		select * from 
- 		(select T.*, row_number() over(order by writedate desc) as rnum from kimino_recipe T 
+ 		(select T.*, row_number() over(order by report desc) as rnum from kimino_recipe T 
  		where report <![CDATA[>=]]> 1 ) 
  		where rnum between #{startNum} and #{endNum}
  	</select>
@@ -154,5 +157,56 @@
  		select count(*) from kimino_recipe_user
  	</select>
  	
+ 	<!-- 메인게시글 -->
+ 	<select id="select_Season_Up" parameterType="hashmap" resultType="com.kimino_recipe.desktop.domain.boardVO">
+ 		select * from
+ 		(select * from kimino_recipe where board_id = #{board_ida} or board_id = #{board_idb} or board_id = #{board_idc} or board_id = #{board_idd})
+ 		order by up desc
+ 	</select>
+ 	
+ 	<select id="select_Country_Up" parameterType="hashmap" resultType="com.kimino_recipe.desktop.domain.boardVO">
+ 		select * from
+ 		(select * from kimino_recipe where board_id = #{board_ida} or board_id = #{board_idb} or board_id = #{board_idc})
+ 		order by up desc
+ 	</select>
+ 	
+ 	<select id="select_Single_Up" parameterType="hashmap" resultType="com.kimino_recipe.desktop.domain.boardVO">
+ 	 	select * from
+ 		(select * from kimino_recipe where board_id = #{board_ida})
+ 		order by up desc
+ 	</select>
+ 	
+ 	<!-- 게시판1에 해당하는 드롭메뉴 기능 -->
+ 	<select id="select_Board_Comment" parameterType="hashmap" resultType="com.kimino_recipe.desktop.domain.boardVO">
+ 		select * from 
+ 		(select T.*, row_number() over(order by commentcount desc) as rnum from kimino_recipe T where board_id = #{board_id})
+ 		where rnum between #{startNum} and #{endNum} 		
+ 	</select>
+ 	<select id="select_Board_ReadCount" parameterType="hashmap" resultType="com.kimino_recipe.desktop.domain.boardVO">
+ 	 	select * from 
+ 		(select T.*, row_number() over(order by readcount desc) as rnum from kimino_recipe T where board_id = #{board_id})
+ 		where rnum between #{startNum} and #{endNum} 
+ 	</select>
+ 	<select id="select_Board_Up" parameterType="hashmap" resultType="com.kimino_recipe.desktop.domain.boardVO">
+ 		select * from 
+ 		(select T.*, row_number() over(order by up desc) as rnum from kimino_recipe T where board_id = #{board_id})
+ 		where rnum between #{startNum} and #{endNum} 
+ 	</select>
+ 	 <select id="select_Board_Down" parameterType="hashmap" resultType="com.kimino_recipe.desktop.domain.boardVO">
+ 		select * from 
+ 		(select T.*, row_number() over(order by down desc) as rnum from kimino_recipe T where board_id = #{board_id})
+ 		where rnum between #{startNum} and #{endNum} 
+ 	</select>
+ 	
+ 	<!-- 마이페이지 -->
+ 	<select id="select_MyWriteList" parameterType="hashmap" resultType="com.kimino_recipe.desktop.domain.boardVO">
+ 		select * from 
+ 		(select T.*, row_number() over(order by writedate desc) as rnum from kimino_recipe T where user_id = #{user_id})
+ 		where rnum between #{startNum} and #{endNum} 
+ 	</select>
+ 	<select id="select_MyWriteCount" resultType="int">
+ 		select count(*) from kimino_recipe where user_id = #{user_id}
+ 	</select>
+
  	
  </mapper>

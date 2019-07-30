@@ -63,6 +63,7 @@
 							<input type="hidden" name="user_id" value="${loginUser.user_id }">
 							<input type="hidden" name="user_name" value="${loginUser.user_name }">
 							<input type="hidden" name="comment_num" value="${commentVO.comment_num }">
+							<input type="hidden" name="page" value="${page }">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-success" type="submit" id="button-addon2">작성</button>
                             </div>

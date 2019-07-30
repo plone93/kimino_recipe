@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <!-- namespce : (패키지>Mapper) 경로  -->
+ <mapper namespace="com.kimino_recipe.desktop.mapper.productMapper">
+ 	
+ 	<!-- 기본게시판 -->
+ 	<select id="select_AllBoard" parameterType="hashmap" resultType="com.kimino_recipe.desktop.domain.productVO">
+ 		select * from 
+ 		(select T.*, row_number() over(order by writedate desc) as rnum from kimino_recipe_product T where board_id = #{board_id})
+ 		where rnum between #{startNum} and #{endNum}
+ 	</select>
+ 	
+ 	<select id="boardView" resultType="com.kimino_recipe.desktop.domain.productVO">
+ 		select * from kimino_recipe_product
+ 		where product_num = #{product_num}
+ 	</select>
+ 	
+ 	<insert id="addCart" parameterType="hashmap">
+ 		insert into kimino_recipe_cart(cart_num, user_id, product_name, price, content, image, amount)
+ 		values(kimino_recipe_cart_seq.nextval, #{cartVO.user_id}, #{cartVO.product_name}, #{cartVO.price}, #{cartVO.content}, #{cartVO.image}, #{cartVO.amount})
+ 	</insert>
+ 	
+ 	<delete id="delete_Board">
+ 		delete from kimino_recipe 
+ 		where board_num = #{board_num}
+ 	</delete>
+ 	
+ 	<select id="get_BoardCount" resultType="int">
+ 		select count(*) from kimino_recipe_product
+ 	</select>
+ 		
+ 	<insert id="insert_Board" parameterType="hashmap">
+ 		insert into kimino_recipe_product(product_num, product_name, price, content, image, board_id)
+ 		values(kimino_recipe_product_seq.nextval, #{productVO.product_name}, #{productVO.price}, #{productVO.content}, #{productVO.image}, #{board_id})
+ 	</insert>
+ 	
+ 	<update id="update_Board">
+ 		update kimino_recipe set title = #{boardVO.title}, content = #{boardVO.content}, image = #{boardVO.image} 
+ 		where board_num = #{boardVO.board_num}  
+ 	</update>
+ 	
+ 	<select id="select_Writer" resultType="String">
+ 		select user_id from kimino_recipe where board_num = #{board_num}
+ 	</select>
+ 	
+ 	
+ 	<!-- 카트 -->	
+ 	<select id="select_Cart" parameterType="hashmap" resultType="com.kimino_recipe.desktop.domain.cartVO">
+ 		select * from 
+ 		(select T.*, row_number() over(order by cart_num) as rnum from kimino_recipe_cart T where user_id = #{user_id})
+ 		where rnum between #{startNum} and #{endNum}
+ 	</select>
+ 	<select id="get_CartCount" resultType="int">
+ 		select count(*) from kimino_recipe_cart where user_id = #{user_id}
+ 	</select>
+ 	
+ 	<select id="totalPrice" resultType="int">
+ 		select count(*) from kimino_recipe_cart where user_id = #{user_id}
+ 	</select>
+ 	
+ 	<!-- 상품 수량 더하기 -->
+ 	<update id="amount_Up" parameterType="hashmap">
+ 		update kimino_recipe_cart set amount = amount+1
+ 		where cart_num = #{cart_num} and user_id = #{user_id}
+ 	</update>
+ 	<!-- 상품 수량 빼기 -->
+ 	 <update id="amount_Down" parameterType="hashmap">
+ 		update kimino_recipe_cart set amount = amount-1
+ 		where cart_num = #{cart_num} and user_id = #{user_id}
+ 	</update>
+ 	<!-- 카트에서 상품 삭제 -->
+ 	<delete id="cart_Delete">
+ 		delete from kimino_recipe_cart
+ 		where cart_num = #{cart_num}
+ 	</delete>
+ 	
+
+ 	
+ </mapper>

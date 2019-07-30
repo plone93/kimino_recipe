@@ -8,21 +8,23 @@
             <div class="row justify-content-center">
                 <div class="col-5 p-3 bg-success text-white rounded mt-5">
                     <h1 class="text-center mt-2">管理者ログイン</h1>
-                    <form action="/login" method="POST">
+                    
+                    <form action="Logined_Admin" method="POST">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Email address</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">      
+                            <label for="exampleInputEmail1">아디</label>
+                            <input type="text" name="admin_id" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="아디">      
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                            <label for="exampleInputPassword1">비번</label>
+                            <input type="password" name="admin_pass" class="form-control" id="exampleInputPassword1" placeholder="Password">
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-4 text-center">
                                 <button type="submit" class="btn btn-dark">ローグイン</button>
                             </div>                        
                         </div>    
-                    </form>                                        
+                    </form>         
+                                                   
                 </div>
             </div>
         </div>

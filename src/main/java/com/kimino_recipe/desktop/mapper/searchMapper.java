@@ -31,9 +31,9 @@ public interface searchMapper {
 	
 	/*통합 게시판 검색*/
 	public List<boardVO> search_Total(HashMap<String, Object> map);
-	public int search_Count_Total(searchVO searchVO);
+	public int search_Count_Total(HashMap<String, Object> map);
 	
 	/*회원관리 검색*/
 	public List<userVO> search_User(HashMap<String, Object> map);
-	public int search_Count_User(searchVO searchVO);
+	public int search_Count_User(HashMap<String, Object> map);
 }

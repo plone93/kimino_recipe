@@ -29,8 +29,11 @@
 		<beans:property name="uploadTempDir" value="file:/c:/upload/tmp"></beans:property>
 		<beans:property name="maxInMemorySize" value="10485756"></beans:property>
 	</beans:bean>
+	<beans:bean id="uploadPath" class="java.lang.String">
+		<beans:constructor-arg value="C:\Users\plone\workspace\spring\kimino_recipe\src\main\webapp\resources\images"></beans:constructor-arg>
+	</beans:bean>
 	
-	<context:component-scan base-package="com.kimino_recipe.desktop"></context:component-scan>
+	<!-- 어노테이션이 등록된 메서드를 빈으로 등록  -->
 	<context:component-scan base-package="com.kimino_recipe.desktop.controller"></context:component-scan>
 	<context:component-scan base-package="com.kimino_recipe.desktop.service"></context:component-scan>
 	

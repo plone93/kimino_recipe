@@ -8,16 +8,16 @@
             <div class="row justify-content-center">
                 <div class="col-7 pt-4 bg-success text-white rounded mt-5">
                     <h1 class="text-center mb-4">ID新規取得</h1>
-                    <form action="inserted_User" method="post">
+                    <form action="inserted_User" method="post" name="form" onsubmit="return signCheck()">
                         <div class="row my-3 pl-5">
                             <div class="col-3">
                                 <label for="ID">ID</label>
                             </div>
                             <div class="col-6">
-                                <input type="text" class="form-control" name="user_id" id="ID">
+                                <input type="text" class="form-control" name="user_id" id="id">
                             </div>
                             <div class="col-2">
-                                <button type="button" class="btn btn-dark">Check</button>
+                                <button type="button" class="btn btn-dark" value="0" id="idCheck">Check</button>
                             </div>
                         </div>
                         <div class="row my-3 pl-5">
@@ -27,7 +27,9 @@
                             <div class="col-6">
                                 <input type="text" class="form-control" name="user_name" id="name">
                             </div>
-                            <div class="col-2"></div>
+                            <div class="col-2">
+                            	<button type="button" class="btn btn-dark" value="0" id="nameCheck">Check</button>
+                            </div>
                         </div>
                         
                         <div class="row my-3 pl-5">
@@ -70,4 +72,112 @@
             </div>
         </div>
     </body> 
-</html>       
+</html>
+
+   
+<script>
+	$('#idCheck').click(function(){
+		var value = $('#id').val();
+	    var valueCheck = /^[a-zA-Z]+[a-z0-9A-Z]{5,19}$/g;
+	    
+	    if(!valueCheck.test(value)){
+	 		alert("IDはローマ字、またはローマ字＋数字で始まる6～２０字の合わせのみ可能です。");
+	 	} else {
+	 		$.ajax({
+	 			url:"idCheck",
+	 			type:"post",
+	 			data:{id:value},
+	 			dataType:"json",
+	 			success:function(data){
+	 				if(data != 1){
+	 					$('#idCheck').val('1');
+	 					alert("使用可能なIDです。");
+	 				} else {
+	 					$('#idCheck').val('0');
+	 					alert("既に使用されているIDです。");
+	 				}
+	 			}, error:function(request, status, error){
+	 				alert("エラーが発生しました。");
+	 			}
+	 		});
+	 	}
+	});
+</script>
+
+<script>
+	$('#nameCheck').click(function(){
+		var value = $('#name').val();
+	    var valueCheck = /^[a-zA-Z]+[a-z0-9A-Z]{1,19}$/g;
+	    
+	    if(!valueCheck.test(value)){
+	 		alert("ニックネームはローマ字、またはローマ字＋数字で始まる2～２０字の合わせのみ可能です。");
+	 	} else {
+	 		$.ajax({
+	 			url:"nameCheck",
+	 			type:"post",
+	 			data:{name:value},
+	 			dataType:"json",
+	 			success:function(data){
+	 				if(data != 1){
+	 					$('#nameCheck').val('1');
+	 					alert("使用可能なニックネームです。");
+	 				} else {
+	 					$('#nameCheck').val('0');
+	 					alert("既に使用されているニックネームです。");
+	 				}
+	 			}, error:function(request, status, error){
+	 				alert("エラーが発生しました。");
+	 			}
+	 		});
+	 	}
+	});
+</script>
+
+	<!-- 회원가입 체크 -->
+	<script>
+		function signCheck() {
+			if(document.form.user_id.value=="") {
+				alert("IDを入力してください。");
+				form.user_id.focus();
+				return false;
+			}
+			if(document.form.user_id.value.length<6) {
+				alert("IDは6字以上入力してください。");
+				form.user_id.focus();
+				return false;
+			}
+			if(form.idCheck.value==0) {
+				alert("IDチェックをしてください。");
+				form.user_id.focus;
+				return false;
+			}
+			if(document.form.user_name.value=="") {
+				alert("名前を入力してください。");
+				form.user_name.focus();
+				return false;
+			}
+			if(form.nameCheck.value==0) {
+				alert("IDチェックをしてください。");
+				form.user_id.focus;
+				return false;
+			}
+			if(document.form.user_pass.value.length==0) {
+				alert("パスワードを入力してください。");
+				form.user_pass.focus();
+				return false;
+			}
+			if(document.form.user_pass.value.length<5) {
+				alert("パスワードは6字以上入力してください。");
+				form.user_pass.focus();
+				return false;
+			} 
+				 	
+			if(document.form.user_pass.value!=document.form.pass1.value) {
+				alert("パスワードが一致していません。");
+				form.user_pass.focus();
+				return false;
+			}
+			
+			return true;
+	}
+	</script>           

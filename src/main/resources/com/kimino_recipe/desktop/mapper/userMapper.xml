@@ -16,11 +16,6 @@
  		where user_id = #{user_id}
  	</select>
  	
- 	<select id="get_Admin" resultType="com.kimino_recipe.desktop.domain.userVO">
- 		select * from kimino_recipe_admin 
- 		where user_num = #{user_num}
- 	</select>
- 	
  	<update id="update_User" parameterType="hashmap">
  		update kimino_recipe_user 
  		set user_pass = #{userVO.user_pass}, user_name = #{userVO.name}, user_email = #{userVO.user_email} 
@@ -40,5 +35,66 @@
  	<select id="idCheck" resultType="int">
  		select count(*) from kimino_recipe_user 
  		where user_id = #{id}
+ 	</select>
+ 	
+ 	<select id="emailCheck" resultType="int">
+ 		select count(*) from kimino_recipe_user
+ 		where user_email = #{user_email}
+ 	</select>
+ 	
+ 	<select id="nameCheck" resultType="int">
+ 		select count(*) from kimino_recipe_user 
+ 		where user_name = #{name}
+ 	</select>
+ 	
+ 	<update id="emailUpdate">
+ 		update kimino_recipe_user set user_email = #{user_email}
+ 		where user_num = #{user_num}
+ 	</update>
+ 	
+ 	<update id="nameUpdate" parameterType="hashmap">
+ 		update kimino_recipe_user set user_name = #{user_name} 
+ 		where user_num = #{user_num} 
+ 	</update>
+ 	
+ 	<update id="passUpdate" parameterType="hashmap">
+ 	 	update kimino_recipe_user set user_pass = #{user_pass} 
+ 		where user_num = #{user_num} 
+ 	</update>
+ 	
+ 	<!-- 관리자 -->
+ 	<select id="get_Admin" resultType="com.kimino_recipe.desktop.domain.adminVO">
+ 		select * from kimino_recipe_admin 
+ 		where admin_id = #{user_id}
+ 	</select>
+ 	
+ 	<select id="select_AllUser" parameterType="hashmap" resultType="com.kimino_recipe.desktop.domain.userVO">
+ 		select * from 
+ 		(select T.*, row_number() over(order by user_id asc) as rnum from kimino_recipe_user T)
+ 		where rnum between #{startNum} and #{endNum}
+ 	</select>
+ 	
+ 	<select id="get_userCount" resultType="int">
+ 		select count(*) from kimino_recipe_user
+ 	</select>
+ 	
+ 	 <update id="emailUpdate_Admin">
+ 		update kimino_recipe_admin set admin_email = #{admin_email}
+ 		where admin_num = #{admin_num}
+ 	</update>
+ 	
+ 	<update id="nameUpdate_Admin" parameterType="hashmap">
+ 		update kimino_recipe_admin set admin_name = #{admin_name} 
+ 		where admin_num = #{admin_num} 
+ 	</update>
+ 	
+ 	<update id="passUpdate_Admin" parameterType="hashmap">
+ 	 	update kimino_recipe_admin set admin_pass = #{admin_pass} 
+ 		where admin_num = #{admin_num} 
+ 	</update>
+ 	
+ 	 <select id="emailCheck_Admin" resultType="int">
+ 		select count(*) from kimino_recipe_admin
+ 		where admin_email = #{admin_email}
  	</select>
  </mapper>

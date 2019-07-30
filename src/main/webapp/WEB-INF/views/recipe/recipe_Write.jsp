@@ -10,7 +10,8 @@
                 </div>
             </div>          
             <div class="row"><div class="col py-3"></div></div>  
-            <form action="inserted_Board?board_id=${board_id }" method="POST">
+            
+            <form action="inserted_Board?board_id=${board_id }" method="POST" enctype="multipart/form-data">
             	 <input type="hidden"  name="user_id"  value="${loginUser.user_id }">
             	  <input type="hidden"  name="user_name" value="${loginUser.user_name }">
             	
@@ -26,9 +27,9 @@
                     </div>
                 <div class="row justify-content-center my-2">
                     <div class="col-8">
-                        <div class="input-group mb-3">                    
+                        <div class="input-group mb-3" style="display: flex;">                    
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="inputGroupFile01" name="image" aria-describedby="inputGroupFileAddon01">
+                                <input type="file" class="custom-file-input" id="inputGroupFile01" name="file" aria-describedby="inputGroupFileAddon01">
                                 <label class="custom-file-label" for="inputGroupFile01">사진올리기</label>
                             </div>
                         </div>
@@ -43,6 +44,7 @@
                     </div>
                 </div>
             </form>
+            
         </div>     
     </body> 
 </html>

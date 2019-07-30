@@ -28,12 +28,12 @@ public interface boardMapper {
 	public int get_BoardCount(String board_id); // 해당 게시판에 몇개의 게시글이 작성됐는지 검색
 	
 	/*추천  게시판*/
-	public List<boardVO> select_AllBoard_Up(HashMap<String, Object> map); // 추천,비추천 게시판 리스트  가져옴
-	public int get_BoardCount_Up(HashMap<String, Object> map); //추천,비추천 게시판에 몇개의 글이 있는지 검색
+	public List<boardVO> select_AllBoard_Up(HashMap<String, Object> map); // 추천 게시판 리스트  가져옴
+	public int get_BoardCount_Up(HashMap<String, Object> map); //추천 게시판에 몇개의 글이 있는지 검색
 	
 	/*비추천 게시판*/
-	public List<boardVO> select_AllBoard_Down(HashMap<String, Object> map); // 추천,비추천 게시판 리스트  가져옴
-	public int get_BoardCount_Down(HashMap<String, Object> map); //추천,비추천 게시판에 몇개의 글이 있는지 검색
+	public List<boardVO> select_AllBoard_Down(HashMap<String, Object> map); // 비추천 게시판 리스트  가져옴
+	public int get_BoardCount_Down(HashMap<String, Object> map); // 비추천 게시판에 몇개의 글이 있는지 검색
 	
 	/*통합 게시판*/
 	public List<boardVO> select_AllBoard_Total(HashMap<String, Object> map); // 비추천게시판 리스트  가져옴
@@ -41,7 +41,7 @@ public interface boardMapper {
 	
 	/*신고 게시판*/
 	public List<boardVO> select_AllBoard_Report(HashMap<String, Object> map); // 신고게시판 검색
-	public int get_BoardCount_Report(HashMap<String, Object> map); //신고게시판에 몇개의 글이 있는지 검색
+	public int get_BoardCount_Report(); //신고게시판에 몇개의 글이 있는지 검색
 
 	/*공지사항 게시판*/
 	public List<boardVO> select_AllBoard_Notice(HashMap<String, Object> map); //공지사항검색
@@ -50,6 +50,22 @@ public interface boardMapper {
 	/*회원관리 게시판*/
 	public List<userVO> select_AllBoard_User(int page); // 회원관리게시판에 몇개의 계정이 있는지 검색
 	public int get_UserCount(); //몇명의 회원이 있는지 검색
+	
+	/*메인 게시글*/
+	public List<boardVO> select_Season_Up(HashMap<String, Object> map);
+	public List<boardVO> select_Country_Up(HashMap<String, Object> map);
+	public List<boardVO> select_Single_Up(HashMap<String, Object> map);
+	
+	/*게시판1에 해당하는 드롭메뉴 기능*/
+	public List<boardVO> select_Board_Comment(HashMap<String, Object> map);
+	public List<boardVO> select_Board_ReadCount(HashMap<String, Object> map);
+	public List<boardVO> select_Board_Up(HashMap<String, Object> map);
+	public List<boardVO> select_Board_Down(HashMap<String, Object> map);
+	
+	/*마이페이지*/
+	public List<boardVO> select_MyWriteList(HashMap<String, Object> map);
+	public int select_MyWriteCount(String user_id);
+
 	
 
 }

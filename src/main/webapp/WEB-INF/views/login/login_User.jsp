@@ -10,14 +10,14 @@
                 
                     <h1 class="text-center mt-2">君のレシピ</h1>
                     
-                    <form action="logined_User" method="POST">
+                    <form action="logined_User" method="POST" name="form" onsubmit="return login()">
                         <div class="form-group">
                             <label for="exampleInputEmail1">ID</label>
-                            <input type="text" class="form-control" name="user_id" id="" placeholder="아뒤 입력 ">      
+                            <input type="text" class="form-control" name="user_id" id="user_id" placeholder="아뒤 입력 ">      
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Password</label>
-                            <input type="password" class="form-control" name="user_pass" id="" placeholder="비번 입ㅂ력">
+                            <input type="password" class="form-control" name="user_pass" id="user_pass" placeholder="비번 입ㅂ력">
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-4 text-center">
@@ -44,3 +44,37 @@
         </div>
     </body> 
 </html>
+
+	<!-- 회원가입 체크 -->
+	<script>
+		function login() {
+			if(document.form.user_id.value=="") {
+				alert("IDを入力してください。");
+				form.user_id.focus();
+				return false;
+			}
+			if(document.form.user_id.value.length<6) {
+				alert("IDは6字以上入力してください。");
+				form.user_id.focus();
+				return false;
+			}
+			if(document.form.user_pass.value.length==0) {
+				alert("パスワードを入力してください。");
+				form.user_pass.focus();
+				return false;
+			}
+			if(document.form.user_pass.value.length<5) {
+				alert("パスワードは6字以上入力してください。");
+				form.user_pass.focus();
+				return false;
+			} 
+				 	
+			if(document.form.user_pass.value!=document.form.pass1.value) {
+				alert("パスワードが一致していません。");
+				form.user_pass.focus();
+				return false;
+			}
+			
+			return true;
+	}
+	</script>           

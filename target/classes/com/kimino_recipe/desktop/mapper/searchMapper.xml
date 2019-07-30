@@ -26,72 +26,74 @@
  	</select>
  	
  	<!-- 추천 검색 -->
-	<select id="search_Up">
+	<select id="search_Up" parameterType="hashmap" resultType="com.kimino_recipe.desktop.domain.boardVO">
 		select * from 
  		(select T.*, row_number() over(order by writedate desc) as rnum from kimino_recipe T 
- 		where up <![CDATA[>=]]> #{hotcount} and (title like '%'||#{searchVO.keyWord}||'%' or content like '%'||#{searchVO.keyWord}||'%')) 
+ 		where up <![CDATA[>=]]> #{hotcount} and (title like '%'||#{searchVO.keyword}||'%' or content like '%'||#{searchVO.keyword}||'%')) 
  		where rnum between #{startNum} and #{endNum}
 	</select>
 	
 	<select id="search_Count_Up" resultType="int">
 		 select count(*) from (select * from kimino_recipe 
-		 where title like '%'||#{searchVO.keyWord}||'%' or content like '%'||#{searchVO.keyWord}||'%') 
+		 where title like '%'||#{searchVO.keyword}||'%' or content like '%'||#{searchVO.keyword}||'%') 
 		 where up <![CDATA[>=]]> #{hotcount}
 	</select>
 	
 	 <!-- 비추천 검색 -->
-	<select id="search_Down">
+	<select id="search_Down" parameterType="hashmap" resultType="com.kimino_recipe.desktop.domain.boardVO">
 		select * from 
  		(select T.*, row_number() over(order by writedate desc) as rnum from kimino_recipe T 
- 		where down <![CDATA[>=]]> #{hotcount} and (title like '%'||#{searchVO.keyWord}||'%' or content like '%'||#{searchVO.keyWord}||'%')) 
+ 		where down <![CDATA[>=]]> #{hotcount} and (title like '%'||#{searchVO.keyword}||'%' or content like '%'||#{searchVO.keyword}||'%')) 
  		where rnum between #{startNum} and #{endNum}
 	</select>
 	
 	<select id="search_Count_Down" resultType="int">
 		 select count(*) from (select * from kimino_recipe 
-		 where title like '%'||#{searchVO.keyWord}||'%' or content like '%'||#{searchVO.keyWord}||'%') 
+		 where title like '%'||#{searchVO.keyword}||'%' or content like '%'||#{searchVO.keyword}||'%') 
 		 where down <![CDATA[>=]]> #{hotcount}
 	</select>
 	
 	<!-- 신고 검색 -->
-	<select id="search_Report">
+	<select id="search_Report" parameterType="hashmap" resultType="com.kimino_recipe.desktop.domain.boardVO">
 	 	select * from 
  		(select T.*, row_number() over(order by writedate desc) as rnum from kimino_recipe T 
- 		where report <![CDATA[>=]]> 1 and (title like '%'||#{searchVO.keyWord}||'%' or content like '%'||#{searchVO.keyWord}||'%')) 
+ 		where report <![CDATA[>=]]> 1 and (title like '%'||#{searchVO.keyword}||'%' or content like '%'||#{searchVO.keyword}||'%')) 
  		where rnum between #{startNum} and #{endNum}
 	</select>
 	
 	<select id="search_Count_Report" resultType="int">
-		 select count(*) from (select * from kimino_recipe 
-		 where title like '%'||#{searchVO.keyWord}||'%' or content like '%'||#{searchVO.keyWord}||'%') 
+		 select count(*) from 
+		 (select * from kimino_recipe 
+		 where title like '%'||#{searchVO.keyword}||'%' or content like '%'||#{searchVO.keyword}||'%') 
 		 where report <![CDATA[>=]]> 1
 	</select>
 	
 	<!-- 통합 검색 --> 	
- 	<select id="search_Total">
+ 	<select id="search_Total" parameterType="hashmap" resultType="com.kimino_recipe.desktop.domain.boardVO">
  		select * from 
  		(select T.*, row_number() over(order by writedate desc) as rnum from kimino_recipe T 
- 		where title like '%'||#{searchVO.keyWord}||'%' or content  like '%'||#{searchVO.keyWord}||'%') 
+ 		where title like '%'||#{searchVO.keyword}||'%' or content  like '%'||#{searchVO.keyword}||'%') 
  		where rnum between #{startNum} and #{endNum}
  	</select>
  	
  	<select id="search_Count_Total" resultType="int">
  		 select count(*) from (select * from kimino_recipe 
-		 where title like '%'||#{searchVO.keyWord}||'%' or content like '%'||#{searchVO.keyWord}||'%') 
+		 where title like '%'||#{searchVO.keyword}||'%' or content like '%'||#{searchVO.keyword}||'%') 
  	</select>
  	
  	<!-- 회원관리 검색 -->
- 	<select id="search_User">
+ 	<select id="search_User" parameterType="hashmap" resultType="com.kimino_recipe.desktop.domain.userVO">
  		select * from 
- 		(select T.*, row_number() over(order by writedate desc) as rnum from kimino_recipe_user T 
- 		where title like '%'||#{searchVO.keyWord}||'%' or content  like '%'||#{searchVO.keyWord}||'%') 
+ 		(select T.*, row_number() over(order by user_id) as rnum from kimino_recipe_user T 
+ 		where user_id like '%'||#{searchVO.keyword}||'%' or user_name  like '%'||#{searchVO.keyword}||'%') 
  		where rnum between #{startNum} and #{endNum}
  		
  	</select>
  	
- 	<select id="search_Count_User">
- 		 select count(*) from (select * from kimino_recipe_user
-		 where user_id like '%'||#{searchVO.keyWord}||'%' or user_name like '%'||#{searchVO.keyWord}||'%') 
+ 	<select id="search_Count_User" resultType="int">
+ 		 select count(*) from 
+ 		 (select * from kimino_recipe_user
+		 where user_id like '%'||#{searchVO.keyword}||'%' or user_name like '%'||#{searchVO.keyword}||'%') 
  	</select>
  	
  	

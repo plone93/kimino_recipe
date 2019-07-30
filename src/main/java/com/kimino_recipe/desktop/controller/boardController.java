@@ -1,8 +1,11 @@
 package com.kimino_recipe.desktop.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,15 +13,16 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kimino_recipe.desktop.domain.boardVO;
 import com.kimino_recipe.desktop.domain.commentVO;
 import com.kimino_recipe.desktop.domain.countVO;
 import com.kimino_recipe.desktop.domain.pageVO;
-import com.kimino_recipe.desktop.domain.searchVO;
 import com.kimino_recipe.desktop.domain.userVO;
 import com.kimino_recipe.desktop.service.boardService;
 import com.kimino_recipe.desktop.service.commentService;
@@ -32,6 +36,9 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class boardController {
 	
+	@Resource(name="uploadPath")
+	String uploadPath;
+	
 	private loginService login;
 	private userService user;
 	private boardService board;
@@ -44,6 +51,7 @@ public class boardController {
 	public String boardList(HttpSession session, HttpServletRequest request,
 							@RequestParam("board_id") String board_id,
 							Model model) {
+		
 		String url = "recipe/recipe_List";
 		List<boardVO> boardList = new ArrayList<boardVO>();
 		List<userVO> userList = new ArrayList<userVO>();
@@ -74,11 +82,6 @@ public class boardController {
 			boardList = board.select_AllBoard_Total(page, board_id);
 			pageVO.setTotalCount(board.get_BoardCount_Total(board_id));
 			boardCount = pageVO.getTotalCount();
-		} else if(board_id.equals("신고")) {
-			word = "report";
-			boardList = board.select_AllBoard_Report(page, board_id, word);
-			pageVO.setTotalCount(board.get_BoardCount_Report(board_id, word));
-			boardCount = pageVO.getTotalCount();
 		} else if(board_id.equals("회원관리")) {
 			userList = board.select_AllBoard_User(page);
 			pageVO.setTotalCount(board.get_UserCount());
@@ -109,19 +112,16 @@ public class boardController {
 	}
 	
 	//게시판 리스트
-	@GetMapping("/boardList2")
-	public String boardList2(HttpSession session, HttpServletRequest request,
+	@GetMapping("/boardList_Comment")
+	public String boardList_Comment(HttpSession session, HttpServletRequest request,
 							@RequestParam("board_id") String board_id,
 							Model model) {
-		String url = "board/board_List";
+		
+		String url = "recipe/recipe_List";
 		List<boardVO> boardList = new ArrayList<boardVO>();
-		List<userVO> userList = new ArrayList<userVO>();
 		
 		int page = 1;
 		int boardCount = 0;
-		String hotcount = "5"; // 추천,비추천 게시판에 올라가기 위한  조건
-		String word;
-		
 		
 		if(request.getParameter("page") != null){
 			page = Integer.parseInt(request.getParameter("page"));
@@ -129,35 +129,11 @@ public class boardController {
 		pageVO pageVO = new pageVO();
 		pageVO.setPage(page);
 		
-		if(board_id.equals("추천")) {
-			word = "up";
-			boardList = board.select_AllBoard_Up(page, board_id, hotcount);
-			pageVO.setTotalCount(board.get_BoardCount_Up(board_id, hotcount));
-			boardCount = pageVO.getTotalCount();
-		} else if(board_id.equals("비추천")) {
-			word = "down";
-			boardList = board.select_AllBoard_Down(page, board_id, hotcount);
-			pageVO.setTotalCount(board.get_BoardCount_Down(board_id, hotcount));
-			boardCount = pageVO.getTotalCount();
-		} else if(board_id.equals("통합")) {
-			boardList = board.select_AllBoard_Total(page, board_id);
-			pageVO.setTotalCount(board.get_BoardCount_Total(board_id));
-			boardCount = pageVO.getTotalCount();
-		} else if(board_id.equals("신고")) {
-			word = "report";
-			boardList = board.select_AllBoard_Report(page, board_id, word);
-			pageVO.setTotalCount(board.get_BoardCount_Report(board_id, word));
-			boardCount = pageVO.getTotalCount();
-		} else if(board_id.equals("회원관리")) {
-			userList = board.select_AllBoard_User(page);
-			pageVO.setTotalCount(board.get_UserCount());
-			boardCount = pageVO.getTotalCount();
-			url = "";
-		} else {
-			boardList = board.select_AllBoard(page, board_id);
-			pageVO.setTotalCount(board.get_BoardCount(board_id));
-			boardCount = pageVO.getTotalCount();
-		}
+
+		boardList = board.select_Board_Comment(page, board_id);
+		pageVO.setTotalCount(board.get_BoardCount(board_id));
+		boardCount = pageVO.getTotalCount();
+		
 		
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("boardCount", boardCount);
@@ -177,6 +153,131 @@ public class boardController {
 		return url;		
 	}
 	
+	//게시판 리스트
+	@GetMapping("/boardList_ReadCount")
+	public String boardList_ReadCount(HttpSession session, HttpServletRequest request,
+							@RequestParam("board_id") String board_id,
+							Model model) {
+		
+		String url = "recipe/recipe_List";
+		List<boardVO> boardList = new ArrayList<boardVO>();
+		
+		int page = 1;
+		int boardCount = 0;
+		
+		if(request.getParameter("page") != null){
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+		pageVO pageVO = new pageVO();
+		pageVO.setPage(page);
+		
+
+		boardList = board.select_Board_ReadCount(page, board_id);
+		pageVO.setTotalCount(board.get_BoardCount(board_id));
+		boardCount = pageVO.getTotalCount();
+		
+		
+		model.addAttribute("boardList", boardList);
+		model.addAttribute("boardCount", boardCount);
+		model.addAttribute("pageVO", pageVO);
+		model.addAttribute("board_id", board_id);
+		
+		/*일반게시판 공지사항*/
+		String noticeBoard_id = "공지사항";
+		List<boardVO> noticeList = board.select_AllBoard_Notice(page, noticeBoard_id);
+		model.addAttribute("noticeList", noticeList);
+		
+		/*리다이렉트로 날아온 메세지가 있다면 jsp로 보냄*/
+		if(request.getParameter("message") != null) {
+			model.addAttribute("message", request.getParameter("message"));
+		}
+		
+		return url;		
+	}
+	
+	//게시판 리스트
+	@GetMapping("/boardList_Up")
+	public String boardList_Up(HttpSession session, HttpServletRequest request,
+							@RequestParam("board_id") String board_id,
+							Model model) {
+		
+		String url = "recipe/recipe_List";
+		List<boardVO> boardList = new ArrayList<boardVO>();
+
+		int page = 1;
+		int boardCount = 0;
+
+		if(request.getParameter("page") != null){
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+		pageVO pageVO = new pageVO();
+		pageVO.setPage(page);
+		
+
+		boardList = board.select_Board_Up(page, board_id);
+		pageVO.setTotalCount(board.get_BoardCount(board_id));
+		boardCount = pageVO.getTotalCount();
+		
+		
+		model.addAttribute("boardList", boardList);
+		model.addAttribute("boardCount", boardCount);
+		model.addAttribute("pageVO", pageVO);
+		model.addAttribute("board_id", board_id);
+		
+		/*일반게시판 공지사항*/
+		String noticeBoard_id = "공지사항";
+		List<boardVO> noticeList = board.select_AllBoard_Notice(page, noticeBoard_id);
+		model.addAttribute("noticeList", noticeList);
+		
+		/*리다이렉트로 날아온 메세지가 있다면 jsp로 보냄*/
+		if(request.getParameter("message") != null) {
+			model.addAttribute("message", request.getParameter("message"));
+		}
+		
+		return url;		
+	}
+	
+	//게시판 리스트
+	@GetMapping("/boardList_Down")
+	public String boardList_Down(HttpSession session, HttpServletRequest request,
+							@RequestParam("board_id") String board_id,
+							Model model) {
+		
+		String url = "recipe/recipe_List";
+		List<boardVO> boardList = new ArrayList<boardVO>();
+		
+		int page = 1;
+		int boardCount = 0;
+
+		if(request.getParameter("page") != null){
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+		pageVO pageVO = new pageVO();
+		pageVO.setPage(page);
+		
+
+		boardList = board.select_Board_Down(page, board_id);
+		pageVO.setTotalCount(board.get_BoardCount(board_id));
+		boardCount = pageVO.getTotalCount();
+		
+		
+		model.addAttribute("boardList", boardList);
+		model.addAttribute("boardCount", boardCount);
+		model.addAttribute("pageVO", pageVO);
+		model.addAttribute("board_id", board_id);
+		
+		/*일반게시판 공지사항*/
+		String noticeBoard_id = "공지사항";
+		List<boardVO> noticeList = board.select_AllBoard_Notice(page, noticeBoard_id);
+		model.addAttribute("noticeList", noticeList);
+		
+		/*리다이렉트로 날아온 메세지가 있다면 jsp로 보냄*/
+		if(request.getParameter("message") != null) {
+			model.addAttribute("message", request.getParameter("message"));
+		}
+		
+		return url;		
+	}
 	
 	//뷰
 	@GetMapping("/boardView")
@@ -201,24 +302,29 @@ public class boardController {
 			model.addAttribute("keyWord", keyWord);
 		}
 		
-			List<commentVO> commentList = comment.select_Comment(board_num);
-			int readCount = board.get_ReadCount(board_num);
-			board.update_ReadCount(board_num);
-			boardVO boardVO = board.boardView(board_num);
-			String writer = board.select_Writer(board_num);
+		List<commentVO> commentList = comment.select_Comment(board_num);
+		int readCount = board.get_ReadCount(board_num);
+		board.update_ReadCount(board_num);
+		boardVO boardVO = board.boardView(board_num);
+		String writer = board.select_Writer(board_num);
 			
-			model.addAttribute("commentList", commentList);
-			model.addAttribute("readCount", readCount);
-			model.addAttribute("boardVO", boardVO);
-			model.addAttribute("board_id", board_id);
-			model.addAttribute("writer", writer);
+		/*줄바꿈*/
+		String content = boardVO.getContent();
+		content = content.replace("\r\n", "<br>");
+		boardVO.setContent(content);
 			
-			/*리다이렉트로 날아온 메세지가 있다면 jsp로 보냄*/
-			if(request.getParameter("message") != null) {
-				model.addAttribute("message", request.getParameter("message"));
-			}
+		model.addAttribute("commentList", commentList);
+		model.addAttribute("readCount", readCount);
+		model.addAttribute("boardVO", boardVO);
+		model.addAttribute("board_id", board_id);
+		model.addAttribute("writer", writer);
 			
-		return url;		
+		/*리다이렉트로 날아온 메세지가 있다면 jsp로 보냄*/
+		if(request.getParameter("message") != null) {
+			model.addAttribute("message", request.getParameter("message"));
+		}
+			
+	return url;		
 	}
 	
 	//글쓰기 클릭
@@ -233,18 +339,33 @@ public class boardController {
 		return url;		
 	}
 	
+	
 	//글쓰기
 	@PostMapping("/inserted_Board")
 	public String inserted_Board(HttpSession session, HttpServletRequest request,
 							@RequestParam("board_id")String board_id,
 							boardVO boardVO,
-							Model model) {
+							Model model,
+							MultipartFile file) {
 
 		String url = "redirect:/boardList";
+		
+		try {
+			/*파일 업로드*/
+			if(file.getOriginalFilename() != null) { //파일이 업로드 되어서  이름이 가져와지는 경우
+				String image = file.getOriginalFilename();
+				boardVO.setImage(image);
+				File target = new File(uploadPath, image);
+				FileCopyUtils.copy(file.getBytes(), target);//파일 액세스 권한오류가 발생하나 무시
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		boardVO.setBoard_id(board_id);
 		board.insert_Board(boardVO, board_id);
 		model.addAttribute("board_id", board_id);
-		
+
 		return url;		
 	}
 	
@@ -253,12 +374,15 @@ public class boardController {
 	public String edit_Board(HttpSession session, HttpServletRequest request,
 							@RequestParam("board_num")String board_num,
 							@RequestParam("board_id")String board_id,
+							@RequestParam("page")String page,
 							Model model) {
+		
 		String url = "recipe/recipe_ReWrite";
 		boardVO boardVO = board.boardView(board_num);
 		
 		model.addAttribute("boardVO", boardVO);
 		model.addAttribute("board_id", board_id);
+		model.addAttribute("page", page);
 		
 		return url;		
 	}
@@ -268,6 +392,7 @@ public class boardController {
 	public String edited_Board(HttpSession session, HttpServletRequest request,
 							  @RequestParam("board_id")String board_id,
 							  @RequestParam("board_num")String board_num,
+							  @RequestParam("page")String page,
 							  boardVO boardVO,
 							  Model model) {
 		
@@ -281,6 +406,7 @@ public class boardController {
 		}
 		model.addAttribute("board_id", board_id);
 		model.addAttribute("board_num", board_num);
+		model.addAttribute("page", page);
 		
 		return url;		
 	}
@@ -290,12 +416,15 @@ public class boardController {
 	public String delete_Board(HttpSession session, HttpServletRequest request,
 							  @RequestParam("board_id")String board_id,
 							  @RequestParam("board_num")String board_num,
+							  @RequestParam("page")String page,
 							  Model model) {
-		String url = "redirect:/";
+		
+		String url = "redirect:/boardList";
 		board.delete_Board(board_num);
 		
 		model.addAttribute("board_id", board_id);
 		model.addAttribute("message", "글을 삭제했습니다.");
+		model.addAttribute("page", page);
 		
 		return url;		
 	}
@@ -305,7 +434,9 @@ public class boardController {
 	public String board_Up(HttpSession session, HttpServletRequest request, HttpServletResponse response,
 						  @RequestParam("board_id")String board_id,
 						  @RequestParam("board_num")String board_num,
+						  @RequestParam("page")String page,
 						  Model model) {
+		
 		String url = "redirect:/boardView";
 		
 		//쿠키 
@@ -336,6 +467,7 @@ public class boardController {
 		model.addAttribute("countVO", countVO);
 		model.addAttribute("board_id", board_id);
 		model.addAttribute("board_num", board_num);
+		model.addAttribute("page", page);
 		
 		return url;		
 	}
@@ -345,7 +477,9 @@ public class boardController {
 	public String board_Down(HttpSession session, HttpServletRequest request, HttpServletResponse response,
 							@RequestParam("board_num")String board_num,
 							@RequestParam("board_id")String board_id,
+							@RequestParam("page")String page,
 							Model model) {
+		
 		String url = "redirect:/boardView";
 		
 		//쿠키 
@@ -386,7 +520,9 @@ public class boardController {
 	public String board_Report(HttpSession session, HttpServletRequest request, HttpServletResponse response,
 							  @RequestParam("board_num")String board_num,
 							  @RequestParam("board_id")String board_id,
+							  @RequestParam("page")String page,
 							  Model model) {
+		
 		String url = "redirect:/boardView";
 		
 		//쿠키 
@@ -409,18 +545,51 @@ public class boardController {
 			info.setMaxAge(24*60*60); //쿠키 유효 시간 설정
 			response.addCookie(info);
 			board.update_ReportCount(board_num);
-		}
-		
+		}	
 		
 		countVO countVO = board.get_TotalCount(board_num);
 		
 		model.addAttribute("countVO", countVO);
 		model.addAttribute("board_id", board_id);
 		model.addAttribute("board_num", board_num);
+		model.addAttribute("page", page);
 		
 		return url;	
 		
 	}
 	
+	@GetMapping("/my_WriteList")
+	public String my_WriteList(HttpServletRequest request,
+							   @RequestParam("user_id")String user_id,
+						    	Model model) {
+		
+		String url = "myPage/my_WriteList";
+		List<boardVO> boardList = new ArrayList<boardVO>();
+		
+		int page = 1;
+		int boardCount = 0;
+
+		if(request.getParameter("page") != null){
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+		pageVO pageVO = new pageVO();
+		pageVO.setPage(page);
+		
+		boardList = board.select_MyWriteList(page, user_id);
+		pageVO.setTotalCount(board.select_MyWriteCount(user_id));
+		boardCount = pageVO.getTotalCount();
+		
+		model.addAttribute("boardList", boardList);
+		model.addAttribute("boardCount", boardCount);
+		model.addAttribute("pageVO", pageVO);
+		
+		
+		/*리다이렉트로 날아온 메세지가 있다면 jsp로 보냄*/
+		if(request.getParameter("message") != null) {
+			model.addAttribute("message", request.getParameter("message"));
+		}
+		
+		return url;
+	}
 	
 }

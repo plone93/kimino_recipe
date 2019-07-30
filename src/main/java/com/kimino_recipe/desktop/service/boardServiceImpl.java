@@ -176,25 +176,20 @@ public class boardServiceImpl implements boardService {
 	}
 
 	@Override
-	public List<boardVO> select_AllBoard_Report(int page, String board_id, String word) {
+	public List<boardVO> select_AllBoard_Report(int page) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		int startNum = (page-1)*10+1;
 		int endNum = page*10;
 		
 		map.put("startNum", startNum);
 		map.put("endNum", endNum);
-		map.put("board_id", board_id);
 		
 		return board.select_AllBoard_Report(map);
 	}
 
 	@Override
-	public int get_BoardCount_Report(String board_id, String word) {
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("board_id", board_id);
-		map.put("word", word);
-		
-		return board.get_BoardCount_Report(map);
+	public int get_BoardCount_Report() {
+		return board.get_BoardCount_Report();
 	}
 
 	@Override
@@ -226,6 +221,125 @@ public class boardServiceImpl implements boardService {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public List<boardVO> select_Season_Up(int page, String board_id1, String board_id2, String board_id3, String board_id4) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int startNum = (page-1)*10+1;
+		int endNum = page*10;
+		
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+		map.put("board_ida", board_id1);
+		map.put("board_idb", board_id2);
+		map.put("board_idc", board_id3);
+		map.put("board_idd", board_id4);
+		
+		return board.select_Season_Up(map);
+	}
+
+	@Override
+	public List<boardVO> select_Country_Up(int page, String board_id11, String board_id22, String board_id33) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int startNum = (page-1)*10+1;
+		int endNum = page*10;
+		
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+		map.put("board_ida", board_id11);
+		map.put("board_idb", board_id22);
+		map.put("board_idc", board_id33);
+		
+		return board.select_Country_Up(map);
+	}
+
+	@Override
+	public List<boardVO> select_Single_Up(int page, String board_id111) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int startNum = (page-1)*10+1;
+		int endNum = page*10;
+		
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+		map.put("board_ida", board_id111);
+		
+		return board.select_Single_Up(map);
+	}
+
+	@Override
+	public List<boardVO> select_Board_Comment(int page, String board_id) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int startNum = (page-1)*10+1;
+		int endNum = page*10;
+		
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+		map.put("board_id", board_id);
+		
+		return board.select_Board_Comment(map);
+	}
+
+	@Override
+	public List<boardVO> select_Board_ReadCount(int page, String board_id) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int startNum = (page-1)*10+1;
+		int endNum = page*10;
+		
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+		map.put("board_id", board_id);
+		
+		return board.select_Board_ReadCount(map);
+	}
+
+	@Override
+	public List<boardVO> select_Board_Up(int page, String board_id) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int startNum = (page-1)*10+1;
+		int endNum = page*10;
+		
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+		map.put("board_id", board_id);
+		
+		return board.select_Board_Up(map);
+	}
+
+	@Override
+	public List<boardVO> select_Board_Down(int page, String board_id) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int startNum = (page-1)*10+1;
+		int endNum = page*10;
+		
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+		map.put("board_id", board_id);
+		
+		return board.select_Board_Down(map);
+	}
+
+	@Override
+	public List<boardVO> select_MyWriteList(int page, String user_id) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int startNum = (page-1)*10+1;
+		int endNum = page*10;
+		
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+		map.put("user_id", user_id);
+		
+		return board.select_MyWriteList(map);
+	}
+
+	@Override
+	public int select_MyWriteCount(String user_id) {
+		return board.select_MyWriteCount(user_id);
+	}
+
+
+	
+	
+	
 
 
 	

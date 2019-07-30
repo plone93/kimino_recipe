@@ -133,7 +133,9 @@ public class searchServiceImpl implements searchService {
 
 	@Override
 	public int search_Count_Total(searchVO searchVO) {
-		return search.search_Count_Total(searchVO);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("searchVO", searchVO);
+		return search.search_Count_Total(map);
 	}
 
 	@Override
@@ -151,11 +153,10 @@ public class searchServiceImpl implements searchService {
 
 	@Override
 	public int search_Count_User(searchVO searchVO) {
-		return search.search_Count_User(searchVO);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("searchVO", searchVO);
+		return search.search_Count_User(map);
 	}
-
-	
-	
 
 
 
