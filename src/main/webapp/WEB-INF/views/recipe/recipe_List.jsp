@@ -6,7 +6,7 @@
             <div class="row"><div class="col py-3"></div></div>  
             <div class="row justify-content-center mt-1 mb-5">
                 <div class="col-3">
-                    <h1 class="text-center">${board_id} 게시판</h1>
+                    <h1 class="text-center">${board_id}</h1>
                 </div>
             </div>          
             <div class="row"><div class="col py-3"></div></div>  
@@ -28,9 +28,9 @@
                 
                 <div class="col-4"></div>
                 
-                <c:if test="${loginUser eq null or Admin eq null}">
+                <c:if test="${loginUser eq null or loginAdmin eq null}">
 				</c:if>
-				<c:if test="${loginUser ne null or Admin ne null}">
+				<c:if test="${loginUser ne null or loginAdmin ne null}">
 					<div class="col-2 text-right">
 	                    <a class="btn btn-success" href="insert_Board?board_id=${board_id }" role="button">글스기</a>
 	                </div>
@@ -40,13 +40,13 @@
                 <div class="col-1">
                     <div class="dropdown">
                         <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                       		     분류
+                       		     分類
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="boardList_Comment?board_id=${board_id }">댓글순</a>
-                            <a class="dropdown-item" href="boardList_ReadCount?board_id=${board_id }">조회순</a>
-                            <a class="dropdown-item" href="boardList_Up?board_id=${board_id }">추천순</a>
-                            <a class="dropdown-item" href="boardList_Down?board_id=${board_id }">비추천수</a>
+                            <a class="dropdown-item" href="boardList_Comment?board_id=${board_id }">コメント</a>
+                            <a class="dropdown-item" href="boardList_ReadCount?board_id=${board_id }">ビュー</a>
+                            <a class="dropdown-item" href="boardList_Up?board_id=${board_id }">共感順</a>
+                            <a class="dropdown-item" href="boardList_Down?board_id=${board_id }">非共感順</a>
                         </div>
                     </div>
                 </div>

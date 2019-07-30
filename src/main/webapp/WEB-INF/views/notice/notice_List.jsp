@@ -3,8 +3,6 @@
 
 <%@ include file ="../header.jsp" %> 
 
-
-
        <div class="container">
             <div class="row"><div class="col py-3"></div></div>  
             <div class="row justify-content-center mt-1 mb-5">
@@ -21,17 +19,17 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>제목</th>
-                                <th>작성자</th>
-                                <th>작성일</th>
-                                <th>조회수</th>
+                                <th>題目</th>
+                                <th>作成者</th>
+                                <th>日付</th>
+                                <th>ビュー</th>
                             </tr>
                         </thead>  
                         
                     <!-- 공지사항  -->   
-                    <c:if test="${board_id eq '공지사항'}">
+                    <c:if test="${board_id eq 'お知らせ'}">
 					</c:if>
-					<c:if test="${board_id ne '공지사항'}">			                                      
+					<c:if test="${board_id ne 'お知らせ'}">			                                      
                         <tbody>
                          <c:forEach var="boardList" items="${noticeList}" varStatus="status" begin="0" end="2" step="1" >
                             <tr>
@@ -70,7 +68,7 @@
                     <form action="search_Board2?board_id=${board_id}" method="post">
                         <div class="row">
                             <div class="col-9">
-                                <input name="keyword" class="form-control mr-sm-2" type="text" placeholder="지금 게시판에서 検索" aria-label="Search">
+                                <input name="keyword" class="form-control mr-sm-2" type="text" placeholder="検索" aria-label="Search">
                             </div>
                             <div class="col-3">
                                 <button class="btn btn-success my-2 my-sm-0" type="submit">検索</button>
@@ -79,12 +77,12 @@
                     </form>   
                 </div>
                 
-				<c:if test="${board_id eq '공지사항' }">
+				<c:if test="${board_id eq 'お知らせ' }">
 					<c:if test="${loginAdmin eq null }">
 					</c:if>
 					<c:if test="${loginAdmin ne null }">
 						<div class="col-2 text-right">
-		                	<a class="btn btn-success" href="insert_Board2?board_id=${board_id }" role="button">글스기</a>
+		                	<a class="btn btn-success" href="insert_Board2?board_id=${board_id }" role="button">作成</a>
 		                </div>
 	               	</c:if>
 	            </c:if>
@@ -93,13 +91,13 @@
                 <div class="col-1">
                     <div class="dropdown">
                         <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                       		     분류
+                       		    分類
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="boardList_Comment2?board_id=${board_id }">댓글순</a>
-                            <a class="dropdown-item" href="boardList_ReadCount2?board_id=${board_id }">조회순</a>
-                            <a class="dropdown-item" href="boardList_Up2?board_id=${board_id }">추천순</a>
-                            <a class="dropdown-item" href="boardList_Down2?board_id=${board_id }">비추천수</a>
+                            <a class="dropdown-item" href="boardList_Comment2?board_id=${board_id }">コメント</a>
+                            <a class="dropdown-item" href="boardList_ReadCount2?board_id=${board_id }">ビュー</a>
+                            <a class="dropdown-item" href="boardList_Up2?board_id=${board_id }">共感順</a>
+                            <a class="dropdown-item" href="boardList_Down2?board_id=${board_id }">非共感順</a>
                         </div>
                     </div>
                 </div>

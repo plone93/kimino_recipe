@@ -36,4 +36,8 @@ public interface searchMapper {
 	/*회원관리 검색*/
 	public List<userVO> search_User(HashMap<String, Object> map);
 	public int search_Count_User(HashMap<String, Object> map);
+	
+	/*쇼핑몰 검색*/
+	public List<boardVO> search_Product(HashMap<String, Object> map);
+	public int search_Count_Product(HashMap<String, Object> map);
 }

@@ -6,7 +6,7 @@
             <div class="row"><div class="col py-3"></div></div>  
             <div class="row justify-content-center mt-1 mb-5">
                 <div class="col-3">
-                    <h1 class="text-center">${board_id} 쇼핑몰</h1>
+                    <h1 class="text-center">${board_id}</h1>
                 </div>
             </div>          
             <div class="row"><div class="col py-3"></div></div>  
@@ -14,10 +14,10 @@
             <div class="row justify-content-start">
             <!-- 검색 -->
                 <div class="col-4">
-                    <form action="search_Board?board_id=${board_id}" method="post">
+                    <form action="search_Product?board_id=${board_id}" method="post">
                         <div class="row">
                             <div class="col-9">
-                                <input name="keyword" class="form-control mr-sm-2" type="text" placeholder="지금 게시판에서 検索" aria-label="Search">
+                                <input name="keyword" class="form-control mr-sm-2" type="text" placeholder="検索" aria-label="Search">
                             </div>
                             <div class="col-3">
                                 <button class="btn btn-success my-2 my-sm-0" type="submit">検索</button>
@@ -28,26 +28,17 @@
                 
                 <div class="col-4"></div>
                 
-                <c:if test="${loginUser eq null or Admin eq null}">
+                <c:if test="${loginAdmin eq null}">
 				</c:if>
-				<c:if test="${loginUser ne null or Admin ne null}">
+				<c:if test="${loginAdmin ne null}">
 					<div class="col-2 text-right">
-	                    <a class="btn btn-success" href="insert_Product_Board?board_id=${board_id }" role="button">글스기</a>
+	                    <a class="btn btn-success" href="insert_Product_Board?board_id=${board_id }" role="button">作成</a>
 	                </div>
 				</c:if>	
 
                 <!-- 메뉴 -->
                 <div class="col-1">
-                    <div class="dropdown">
-                        <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                       		     분류
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="boardList_Comment?board_id=${board_id }">댓글순</a>
-                            <a class="dropdown-item" href="boardList_ReadCount?board_id=${board_id }">조회순</a>
-                            <a class="dropdown-item" href="boardList_Up?board_id=${board_id }">추천순</a>
-                            <a class="dropdown-item" href="boardList_Down?board_id=${board_id }">비추천수</a>
-                        </div>
+                    <div class="dropdown">   
                     </div>
                 </div>
             </div>  

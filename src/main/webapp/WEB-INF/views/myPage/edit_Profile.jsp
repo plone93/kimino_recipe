@@ -7,17 +7,17 @@
             <div class="row"><div class="col py-3"></div></div>
             <div class="row justify-content-center mt-1 mb-5">
                 <div class="col-3">
-                    <h1 class="text-center">개인정보수정</h1>
+                    <h1 class="text-center">アカウント管理</h1>
                 </div>
             </div>
             <div class="row"><div class="col py-3"></div></div>
             <div class="row">
                 <div class="col-2 ml-2 mt-5">
                     <div class="list-group">
-                        <button type="button" class="list-group-item list-group-item-action active list-group-item-success">내정보</button>
-                        <a href="edit_Profile?user_id=${loginUser.user_id }" class="list-group-item list-group-item-action list-group-item-success">개인정보수정</a>
-                        <a href="my_WriteList?user_id=${loginUser.user_id }" class="list-group-item list-group-item-action list-group-item-light">내글목록</a>
-                        <a href="cancel_User" class="list-group-item list-group-item-action list-group-item-light">회원탈퇴</a>                                    
+                        <button type="button" class="list-group-item list-group-item-action active list-group-item-success">アカウント情報</button>
+                        <a href="edit_Profile?user_id=${loginUser.user_id }" class="list-group-item list-group-item-action list-group-item-success">情報修正</a>
+                        <a href="my_WriteList?user_id=${loginUser.user_id }" class="list-group-item list-group-item-action list-group-item-light">作成履歴</a>
+                        <a href="cancel_User" class="list-group-item list-group-item-action list-group-item-light">アカウント脱退</a>                                    
                     </div>
                 </div>
                 <div class="col-9">
@@ -30,13 +30,13 @@
 					
                         <div class="row justify-content-center mt-5 py-2">
                             <div class="col-2">
-                                <label for="Email">Email</label>
+                                <label for="Email">メール</label>
                             </div>
                             <div class="col-3">
                                 <input type="email" class="form-control"  value="${userVO.user_email }" name="user_email" id="user_email">
                             </div>
                             <div class="col-1">
-                            	<button type="button" class="btn btn-dark" id="emailUpdate">변경</button>  
+                            	<button type="button" class="btn btn-dark" id="emailUpdate">更新</button>  
                             </div>
                         </div>
                         <div class="row justify-content-center py-3">
@@ -47,29 +47,29 @@
                                 <input type="text" class="form-control"  value="${userVO.user_name }" name="user_name" id="user_name">
                             </div>
                             <div class="col-1">
-                                <button type="button" class="btn btn-dark" id="nameUpdate">변경</button>                            
+                                <button type="button" class="btn btn-dark" id="nameUpdate">更新</button>                            
                             </div>
                         </div>
                                          
                         <div class="row justify-content-center py-2">
                             
                             <div class="col-2">
-                                <label for="password">비밀번호</label>
+                                <label for="password">パスワード</label>
                             </div>
                             <div class="col-3">
-                                <input type="password" class="form-control"  placeholder="문자, 숫자, 특수문자 잘 스까서">
+                                <input type="password" class="form-control"  placeholder="ローマ字＋数字">
                             </div>
                             <div class="col-1"></div>
                         </div>
                         <div class="row justify-content-center py-2">
                             <div class="col-2">
-                                <label for="passwordCheck">비밀번호 재확인</label>
+                                <label for="passwordCheck">パスワード確認</label>
                             </div>
                             <div class="col-3">
                                 <input type="password" class="form-control" name="user_pass" id="user_pass">
                             </div>
                             <div class="col-1">
-                            	<button type="button" class="btn btn-dark" id="passUpdate">변경</button> 
+                            	<button type="button" class="btn btn-dark" id="passUpdate">更新</button> 
                             </div>                
                         </div>                                  
 

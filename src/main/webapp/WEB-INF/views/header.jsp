@@ -63,13 +63,13 @@
 				<c:if test="${loginUser ne null or loginAdmin ne null}">
                     <div class="col-4 pt-4">
                     	<c:if test="${loginUser ne null }">
-                    	   <a class="btn btn-success d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="cartList?user_id=${loginUser.user_id }">카트</a>  
-                    	   <a class="btn btn-success d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="edit_Profile?user_id=${loginUser.user_id }">회원정보수정</a>                  
-                    	   <a class="btn btn-success d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="logout">로그아웃</a>  
+                    	   <a class="btn btn-success d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="cartList?user_id=${loginUser.user_id }">カート</a>  
+                    	   <a class="btn btn-success d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="edit_Profile?user_id=${loginUser.user_id }">ユーザー設定</a>                  
+                    	   <a class="btn btn-success d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="logout">ログアウト</a>  
                     	</c:if>
                     	<c:if test="${loginAdmin ne null }">
-                    		<a class="btn btn-success d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="admin_Page?admin_id=${loginAdmin.admin_id }">사이트관리</a>            	  
-                    		<a class="btn btn-success d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="logout">로그아웃</a>  
+                    		<a class="btn btn-success d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="admin_Page?admin_id=${loginAdmin.admin_id }">管理ページ</a>            	  
+                    		<a class="btn btn-success d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="logout">ログアウト</a>  
                     	</c:if>
 
                     </div> 
@@ -81,45 +81,46 @@
         <ul class="nav justify-content-center bg-success">
         
             <li class="nav-item dropdown mx-5">
-                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">계절요리</a>
+                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">季節料理</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              		<c:set var="spring" value="봄"/><a class="dropdown-item" href="boardList?board_id=${spring}">봄</a>
-                    <c:set var="summer" value="여름"/><a class="dropdown-item" href="boardList?board_id=${summer}">여름</a>
-                    <c:set var="fall" value="가을"/><a class="dropdown-item" href="boardList?board_id=${fall}">가을</a>
-                    <c:set var="winter" value="겨울"/><a class="dropdown-item" href="boardList?board_id=${winter}">겨울</a>
+              		<c:set var="spring" value="春"/><a class="dropdown-item" href="boardList?board_id=${spring}">春</a>
+                    <c:set var="summer" value="夏"/><a class="dropdown-item" href="boardList?board_id=${summer}">夏</a>
+                    <c:set var="fall" value="秋"/><a class="dropdown-item" href="boardList?board_id=${fall}">秋</a>
+                    <c:set var="winter" value="冬"/><a class="dropdown-item" href="boardList?board_id=${winter}">冬</a>
                 </div>
             </li>
             
             <li class="nav-item dropdown mx-5">
-                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">외국요리</a>
+                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">世界の料理</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <c:set var="cook_kr" value="한국요리"/><a class="dropdown-item" href="boardList?board_id=${cook_kr}">한국요리</a>
-                    <c:set var="cook_jp" value="일본요리"/><a class="dropdown-item" href="boardList?board_id=${cook_jp}">일본요리</a>
-                    <c:set var="cook_ws" value="서양요리"/><a class="dropdown-item" href="boardList?board_id=${cook_ws}">서양요리</a>
+                    <c:set var="cook_kr" value="韓食"/><a class="dropdown-item" href="boardList?board_id=${cook_kr}">韓食</a>
+                    <c:set var="cook_ch" value="中華"/><a class="dropdown-item" href="boardList?board_id=${cook_ch}">中華</a>
+                    <c:set var="cook_jp" value="和食"/><a class="dropdown-item" href="boardList?board_id=${cook_jp}">和食</a>
+                    <c:set var="cook_ws" value="洋食"/><a class="dropdown-item" href="boardList?board_id=${cook_ws}">洋食</a>
                 </div>
             </li>
             
             <li class="nav-item dropdown mx-5">
-             <c:set var="cook_single" value="자취"/>
-                <a class="nav-link text-white" href="boardList?board_id=${cook_single}" id="navbarDropdown" role="button">자취</a>                
+             <c:set var="cook_single" value="一人暮らし"/>
+                <a class="nav-link text-white" href="boardList?board_id=${cook_single}" id="navbarDropdown" role="button">一人暮らし</a>                
             </li>
             
             <li class="nav-item dropdown mx-5">
-                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">쇼핑</a>
+                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">お買い物</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <c:set var="vegetable" value="야채"/><a class="dropdown-item" href="productList?board_id=${vegetable}">야채</a>
-                    <c:set var="fruit" value="과일"/><a class="dropdown-item" href="productList?board_id=${fruit}">과일</a>
-                    <c:set var="fish" value="생선"/><a class="dropdown-item" href="productList?board_id=${fish}">생선</a>
-                    <c:set var="meet" value="육류"/><a class="dropdown-item" href="productList?board_id=${meet}">육류</a>
-                    <c:set var="hukusima" value="후쿠시마산"/><a class="dropdown-item" href="productList?board_id=${hukusima}">후쿠시마</a>
+                    <c:set var="vegetable" value="野菜"/><a class="dropdown-item" href="productList?board_id=${vegetable}">野菜</a>
+                    <c:set var="fruit" value="果物"/><a class="dropdown-item" href="productList?board_id=${fruit}">果物</a>
+                    <c:set var="fish" value="魚"/><a class="dropdown-item" href="productList?board_id=${fish}">魚</a>
+                    <c:set var="meet" value="肉"/><a class="dropdown-item" href="productList?board_id=${meet}">肉</a>
+                    <c:set var="hukusima" value="福島"/><a class="dropdown-item" href="productList?board_id=${hukusima}">福島</a>
                 </div>
             </li>
             
             <li class="nav-item mx-5">
-                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">게시판</a>
+                <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">掲示板</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                	<c:set var="notice" value="공지사항"/><a class="dropdown-item" href="noticeList?board_id=${notice}">공지사항</a>
-                	<c:set var="free" value="자유게시판"/><a class="dropdown-item" href="boardList2?board_id=${free}">자유게시판</a>                
+                	<c:set var="notice" value="お知らせ"/><a class="dropdown-item" href="noticeList?board_id=${notice}">お知らせ</a>
+                	<c:set var="free" value="自由掲示板"/><a class="dropdown-item" href="boardList2?board_id=${free}">自由掲示板</a>                
                 </div>
             </li>
         </ul>  

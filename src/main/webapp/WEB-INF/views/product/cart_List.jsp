@@ -21,12 +21,12 @@
                         <thead>
                             <tr>                  
                                 <th>#</th>
-                                <th>상품이미지</th>
-                                <th>상품</th>
-                                <th>가격</th>
-                                <th>수량</th>
-                                <th>총계</th>
-                                <th>삭제</th>
+                                <th>商品イメージ</th>
+                                <th>商品</th>
+                                <th>価格</th>
+                                <th>数</th>
+                                <th>総計</th>
+                                <th>削除</th>
                             </tr>
                         </thead>  
                                      
@@ -51,7 +51,7 @@
                     </table>
                     
                      <div class="row justify-content-end">
-                        <div class="col-1">合計: </div>
+                        <div class="col-1">合計　:　 </div>
                         <div class="col-1 total_Price" id="total_Price">   
                             <input class="total_Price"  style="border: 0 none;" readonly>
                             <span><strong class="total_Price"></strong></span>

@@ -7,11 +7,11 @@
             <div class="row"><div class="col py-3"></div></div>
             <div class="row mt-3">
                 <div class="col">
-                    <h4>게시판별 좋아요 랭킹</h4>
+                    <h4>ランキング</h4>
                 </div>
             </div>
             
-            <div class="row mt-5"><div class="col"><h5>계절요리</h5></div></div>
+            <div class="row mt-5"><div class="col"><h5>季節料理</h5></div></div>
             <div class="row">
                 <div class="col">
                     <img src="resources/images/medal-first.png" width="30" height="30" class="d-inline-block align-top">
@@ -45,7 +45,7 @@
             </div>
             
             
-            <div class="row mt-5"><div class="col"><h5>외국요리</h5></div></div>
+            <div class="row mt-5"><div class="col"><h5>世界の料理</h5></div></div>
             <div class="row">
                 <div class="col">
                     <img src="resources/images/medal-first.png" width="30" height="30" class="d-inline-block align-top">
@@ -78,7 +78,7 @@
               </c:forEach>                                      
             </div>
             
-            <div class="row mt-5"><div class="col"><h5>자취</h5></div></div>
+            <div class="row mt-5"><div class="col"><h5>一人暮らし</h5></div></div>
             <div class="row">
                 <div class="col">
                     <img src="resources/images/medal-first.png" width="30" height="30" class="d-inline-block align-top">

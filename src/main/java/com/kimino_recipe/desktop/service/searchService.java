@@ -35,4 +35,8 @@ public interface searchService {
 	/*회원관리 검색*/
 	public List<userVO> search_User(int page, searchVO searchVO);
 	public int search_Count_User(searchVO searchVO);
+	
+	/*일반 게시판 검색*/
+	public List<boardVO> search_Product(int page, searchVO searchVO, String board_id); // 게시판 내 검색
+	public int search_Count_Product(searchVO searchVO, String board_id); // 검색한 내용으로 몇개 검색 됐는지 가져옴
 }

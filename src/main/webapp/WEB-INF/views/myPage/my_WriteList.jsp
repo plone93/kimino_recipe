@@ -7,17 +7,17 @@
             <div class="row"><div class="col py-3"></div></div>
             <div class="row justify-content-center mt-1 mb-5">
                 <div class="col-3">
-                    <h1 class="text-center">내글목록</h1>
+                    <h1 class="text-center">作成履歴</h1>
                 </div>
             </div>
             <div class="row"><div class="col py-3"></div></div>
             <div class="row">
                 <div class="col-2 ml-2 mt-5">
                     <div class="list-group">
-                        <button type="button" class="list-group-item list-group-item-action active list-group-item-light">내정보</button>
-                        <a href="edit_Profile?user_id=${loginUser.user_id }" class="list-group-item list-group-item-action list-group-item-light">개인정보수정</a>
-                        <a href="my_WriteList?user_id=${loginUser.user_id }" class="list-group-item list-group-item-action list-group-item-success">내글목록</a>
-                        <a href="cancel_User" class="list-group-item list-group-item-action list-group-item-light">회원탈퇴</a>                                    
+                        <button type="button" class="list-group-item list-group-item-action active list-group-item-light">アカウント情報</button>
+                        <a href="edit_Profile?user_id=${loginUser.user_id }" class="list-group-item list-group-item-action list-group-item-light">情報修正</a>
+                        <a href="my_WriteList?user_id=${loginUser.user_id }" class="list-group-item list-group-item-action list-group-item-success">作成履歴</a>
+                        <a href="cancel_User" class="list-group-item list-group-item-action list-group-item-light">アカウント脱退</a>                                    
                     </div>
                 </div>
                 
@@ -27,10 +27,10 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>제목</th>
-                                <th>작성자</th>
-                                <th>작성일</th>
-                                <th>조회수</th>
+                                <th>題目</th>
+                                <th>作成者</th>
+                                <th>日付</th>
+                                <th>ビュー</th>
                             </tr>
                         </thead>  
                              

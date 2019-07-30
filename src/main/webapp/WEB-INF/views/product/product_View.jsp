@@ -27,7 +27,7 @@
                     </div>                    
                     <div class="row mb-3">
                         <div class="col">
-                       	   상품종류
+                       	   商品の種類
                         </div>
                     </div>
                     
@@ -37,7 +37,7 @@
                         <div class="row">
                             <div class="col">
                                 <div class="form-group">
-                                    <label for="exampleFormControlSelect1">갯수</label>
+                                    <label for="exampleFormControlSelect1">数</label>
                                     <select class="form-control" id="amount" name="amount">
                                         <c:forEach var="number" begin="1" end="10" step="1" >
                                         	<option value="${number }">${number }</option>
@@ -52,7 +52,7 @@
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">장바구니로 이동</h5>
+                                                <h5 class="modal-title" id="exampleModalLabel">カートに入れる</h5>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>

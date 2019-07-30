@@ -96,5 +96,16 @@
 		 where user_id like '%'||#{searchVO.keyword}||'%' or user_name like '%'||#{searchVO.keyword}||'%') 
  	</select>
  	
+ 	<!-- 쇼핑몰 검색 -->
+ 	<select id="search_Product" parameterType="hashmap" resultType="com.kimino_recipe.desktop.domain.productVO">
+ 		select * from 
+ 		(select T.*, row_number() over(order by writedate desc) as rnum from kimino_recipe_product T 
+ 		where board_id = #{board_id} and (product_name like '%'||#{searchVO.keyword}||'%' or content like '%'||#{searchVO.keyword}||'%')) 
+ 		where rnum between #{startNum} and #{endNum}
+ 	</select>	
+ 	<select id="search_Count_Product" resultType="int">
+ 		select count(*) from kimino_recipe_product
+ 		where board_id = #{board_id} and (product_name like '%'||#{searchVO.keyword}||'%' or content like '%'||#{searchVO.keyword}||'%')	
+ 	</select>
  	
  </mapper>

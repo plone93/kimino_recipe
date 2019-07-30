@@ -66,6 +66,11 @@
  		values(kimino_recipe_seq.nextval, #{boardVO.board_id}, #{boardVO.user_id}, #{boardVO.user_name}, #{boardVO.title}, #{boardVO.content}, #{boardVO.image})
  	</insert>
  	
+ 	 <insert id="insert_Board2" parameterType="hashmap">
+ 		insert into kimino_recipe(board_num, board_id, user_id, user_name, title, content, image)
+ 		values(kimino_recipe_seq.nextval, #{boardVO.board_id}, #{boardVO.user_id}, #{boardVO.user_name}, #{boardVO.title}, #{boardVO.content}, #{boardVO.image})
+ 	</insert>
+ 	
  	<update id="update_Board">
  		update kimino_recipe set title = #{boardVO.title}, content = #{boardVO.content}, image = #{boardVO.image} 
  		where board_num = #{boardVO.board_num}  

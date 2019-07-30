@@ -45,50 +45,20 @@ public class searchController {
 		System.out.println("검색한 키워드 : "+searchVO.getKeyword());
 		
 		List<boardVO> boardList = new ArrayList<boardVO>();
-		List<userVO> userList = new ArrayList<userVO>();
 		
 		int page = 1;
 		int boardCount = 0;
-		String hotcount = "5"; // 추천,비추천 게시판에 올라가기 위한  조건
-		String word;
-		
 		
 		if(request.getParameter("page") != null){
 			page = Integer.parseInt(request.getParameter("page"));
 		}
 		pageVO pageVO = new pageVO();
 		pageVO.setPage(page);
-		
-		if(board_id.equals("추천")) {
-			word = "up";
-			boardList = search.search_Up(page, searchVO, hotcount);
-			pageVO.setTotalCount(search.search_Count_Up(searchVO, hotcount));
-			boardCount = pageVO.getTotalCount();
-		} else if(board_id.equals("비추천")) {
-			word = "down";
-			boardList = search.search_Down(page, searchVO, hotcount);
-			pageVO.setTotalCount(search.search_Count_Down(searchVO, hotcount));
-			boardCount = pageVO.getTotalCount();
-		} else if(board_id.equals("통합")) {
-			boardList = search.search_Total(page, searchVO);
-			pageVO.setTotalCount(search.search_Count_Total(searchVO));
-			boardCount = pageVO.getTotalCount();
-		} else if(board_id.equals("신고")) {
-			word = "report";
-			boardList = search.search_Report(page, searchVO);
-			pageVO.setTotalCount(search.search_Count_Report(searchVO));
-			boardCount = pageVO.getTotalCount();
-		} else if(board_id.equals("회원관리")) {
-			userList = search.search_User(page, searchVO);
-			pageVO.setTotalCount(search.search_Count_User(searchVO));
-			boardCount = pageVO.getTotalCount();
-			url = "";
-		} else {
-			boardList = search.search(page, searchVO, board_id);
-			pageVO.setTotalCount(search.search_Count(searchVO, board_id));
-			boardCount = pageVO.getTotalCount();
-		}
-		
+
+		boardList = search.search(page, searchVO, board_id);
+		pageVO.setTotalCount(search.search_Count(searchVO, board_id));
+		boardCount = pageVO.getTotalCount();
+
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("boardCount", boardCount);
 		model.addAttribute("pageVO", pageVO);
@@ -291,6 +261,50 @@ public class searchController {
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("boardCount", boardCount);
 		model.addAttribute("pageVO", pageVO);
+		
+		/*일반게시판 공지사항*/
+		String noticeBoard_id = "공지사항";
+		List<boardVO> noticeList = board.select_AllBoard_Notice(page, noticeBoard_id);
+		model.addAttribute("noticeList", noticeList);
+		
+		/*리다이렉트로 날아온 메세지가 있다면 jsp로 보냄*/
+		if(request.getParameter("message") != null) {
+			model.addAttribute("message", request.getParameter("message"));
+		}
+		
+		return url;		
+	}
+	
+	
+	//검색
+	@PostMapping("/search_Product")
+	public String search_Product(HttpSession session, HttpServletRequest request,
+							  @RequestParam("board_id")String board_id,
+							  searchVO searchVO,
+							  Model model) {
+		
+		String url = "product/product_List";
+		System.out.println("검색한 키워드 : "+searchVO.getKeyword());
+		
+		List<boardVO> boardList = new ArrayList<boardVO>();
+		
+		int page = 1;
+		int boardCount = 0;
+		
+		if(request.getParameter("page") != null){
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+		pageVO pageVO = new pageVO();
+		pageVO.setPage(page);
+
+		boardList = search.search_Product(page, searchVO, board_id);
+		pageVO.setTotalCount(search.search_Count_Product(searchVO, board_id));
+		boardCount = pageVO.getTotalCount();
+
+		model.addAttribute("boardList", boardList);
+		model.addAttribute("boardCount", boardCount);
+		model.addAttribute("pageVO", pageVO);
+		model.addAttribute("board_id", board_id);
 		
 		/*일반게시판 공지사항*/
 		String noticeBoard_id = "공지사항";

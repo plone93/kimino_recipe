@@ -158,6 +158,29 @@ public class searchServiceImpl implements searchService {
 		return search.search_Count_User(map);
 	}
 
+	@Override
+	public List<boardVO> search_Product(int page, searchVO searchVO, String board_id) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int startNum = (page-1)*10+1;
+		int endNum = page*10;
+		
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+		map.put("searchVO", searchVO);
+		map.put("board_id", board_id);
+		
+		return search.search_Product(map);
+	}
+
+	@Override
+	public int search_Count_Product(searchVO searchVO, String board_id) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("searchVO", searchVO);
+		map.put("board_id", board_id);
+		
+		return search.search_Count_Product(map);
+	}
+
 
 
 }

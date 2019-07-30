@@ -80,9 +80,9 @@
                 </div>
                 
                 
-                <c:if test="${loginUser eq null or Admin eq null}">
+                <c:if test="${loginUser eq null or loginAdmin eq null}">
 				</c:if>
-				<c:if test="${loginUser ne null or Admin ne null}">
+				<c:if test="${loginUser ne null or loginAdmin ne null}">
 					<div class="col-2 text-right">
 	                    <a class="btn btn-success" href="insert_Board2?board_id=${board_id }" role="button">글스기</a>
 	                </div> 

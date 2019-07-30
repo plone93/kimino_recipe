@@ -11,8 +11,16 @@
             </div>          
             <div class="row"><div class="col py-3"></div></div>  
             <form action="inserted_Board2?board_id=${board_id }" method="POST">
-            	 <input type="hidden"  name="user_id"  value="${loginUser.user_id }">
+            
+            <c:if test="${loginUser ne null and loginAdmin eq null}">
+            	  <input type="hidden"  name="user_id"  value="${loginUser.user_id }">
             	  <input type="hidden"  name="user_name" value="${loginUser.user_name }">
+            </c:if>
+            <c:if test="${loginAdmin ne null and loginUser eq null}">
+            	 <input type="hidden"  name="user_id"  value="${loginAdmin.admin_id }">
+            	 <input type="hidden"  name="user_name" value="${loginAdmin.admin_name }">
+            </c:if>
+
             	
                 <div class="row justify-content-center my-2">
                     <div class="col-8">

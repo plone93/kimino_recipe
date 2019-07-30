@@ -6,7 +6,7 @@
             <div class="row"><div class="col py-3"></div></div>  
             <div class="row justify-content-center mt-1 mb-5">
                 <div class="col-3">
-                    <h1 class="text-center">레시피 작성</h1>
+                    <h1 class="text-center">作成</h1>
                 </div>
             </div>          
             <div class="row"><div class="col py-3"></div></div>  
@@ -17,12 +17,12 @@
             	
                 <div class="row justify-content-center my-2">
                     <div class="col-8">
-                        <input type="text" class="form-control" name="title" placeholder="레시피이름을 입력하세요" value="${boardVO.title }">
+                        <input type="text" class="form-control" name="title" placeholder="題目を入力してください。" value="${boardVO.title }">
                     </div>
                 </div>
                 <div class="row justify-content-center my-2">
                         <div class="col-8">
-                            <textarea class="form-control" rows="10" name="content" placeholder="맛있는 레시피를 작성해 주세요">${boardVO.content }</textarea>
+                            <textarea class="form-control" rows="10" name="content" placeholder="内容を入力してください。">${boardVO.content }</textarea>
                         </div>
                     </div>
                 <div class="row justify-content-center my-2">
@@ -30,17 +30,17 @@
                         <div class="input-group mb-3">                    
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="inputGroupFile01" name="image" aria-describedby="inputGroupFileAddon01">
-                                <label class="custom-file-label" for="inputGroupFile01">사진올리기</label>
+                                <label class="custom-file-label" for="inputGroupFile01">アップロード</label>
                             </div>
                         </div>
                     </div>
                 </div>                
                 <div class="row justify-content-center mt-4">
                     <div class="col-2 text-center">
-                        <button type="submit" class="btn btn-success">저장</button>
+                        <button type="submit" class="btn btn-success">作成</button>
                     </div>
                     <div class="col-2 text-center">
-                        <button type="button" class="btn btn-success">취소</button>
+                        <button type="button" class="btn btn-success">取り消し</button>
                     </div>
                 </div>
             </form>

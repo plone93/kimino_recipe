@@ -10,7 +10,7 @@
 
 <!-- copyright -->
 <div class="copy-right-top border-top">
-	<p class="copy-right text-center py-4">&copy; Copyright ⓒ2019 키사마노레시피. All rights reserved
+	<p class="copy-right text-center py-4">&copy; Copyright ⓒ2019 君のレシピ. All rights reserved
 	</p>
 </div>
 <!-- //copyright -->

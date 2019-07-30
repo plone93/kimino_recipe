@@ -46,7 +46,7 @@
             <div class="border-top border-dark">
                 <div class="row my-2">
                     <div class="col-2"></div>
-                    <div class="col-6">댁글내용</div>
+                    <div class="col-6">コメント内容</div>
                     <div class="col-2"></div>                    
                     <div class="col-2"></div>
                 </div>
@@ -65,7 +65,7 @@
 							<input type="hidden" name="comment_num" value="${commentVO.comment_num }">
 							<input type="hidden" name="page" value="${page }">
                             <div class="input-group-append">
-                                <button class="btn btn-outline-success" type="submit" id="button-addon2">작성</button>
+                                <button class="btn btn-outline-success" type="submit" id="button-addon2">作成</button>
                             </div>
                         </div>
                     </div>
@@ -74,19 +74,19 @@
             
                 <div class="row justify-content-center">
                 <div class="col-1 py-3">
-                    <a class="btn btn-success" href="edit_Board?board_id=${boardVO.board_id }&board_num=${boardVO.board_num}" role="button">수정</a>                            
+                    <a class="btn btn-success" href="edit_Board?board_id=${boardVO.board_id }&board_num=${boardVO.board_num}" role="button">修正</a>                            
                 </div>
                 <div class="col-1 py-3">
-                    <a class="btn btn-success" href="boardList?board_id=${board_id}" role="button">목록</a>                            
+                    <a class="btn btn-success" href="boardList?board_id=${board_id}" role="button">リスト</a>                            
                 </div>
                 <div class="col-1 py-3">
-                    <a class="btn btn-danger" href="board_Report?board_id=${board_id }&board_num=${boardVO.board_num}" role="button">신고</a>                            
+                    <a class="btn btn-danger" href="board_Report?board_id=${board_id }&board_num=${boardVO.board_num}" role="button">申告</a>                            
                 </div>
             </div> 
 
 		</div>
 
-        </div>     
+           
     </body> 
 </html>
 

@@ -45,16 +45,16 @@
             
             <div class="border-top border-dark">
                 <div class="row my-2">
-                    <div class="col-2">댓작성자</div>
-                    <div class="col-6">댁글내용</div>
-                    <div class="col-2">작성날짜</div>                    
+                    <div class="col-2">コメント作成者</div>
+                    <div class="col-6">コメント内容</div>
+                    <div class="col-2">日付</div>                    
                     <div class="col-2">
                         <div class="row">
                             <div class="col text-right">
-                                <a href="#" class="badge badge-success">수정</a>                        
+                                <a href="#" class="badge badge-success">修正</a>                        
                             </div>
                             <div class="col text-left">
-                                <a href="#" class="badge badge-danger">삭제</a>                                       
+                                <a href="#" class="badge badge-danger">削除</a>                                       
                             </div>
                         </div>
                     </div>
@@ -70,10 +70,10 @@
 	                	<c:if test="${loginUser.user_id eq writer or Admin ne null}" >
 	                        <div class="row">                 
 	                            <div class="col text-right">
-	                                <a href="edit_Comment?comment_num=${commentList.comment_num }&board_num=${boardVO.board_num}&board_id=${board_id}&page=${page}" class="badge badge-success">수정</a>                        
+	                                <a href="edit_Comment?comment_num=${commentList.comment_num }&board_num=${boardVO.board_num}&board_id=${board_id}&page=${page}" class="badge badge-success">修正</a>                        
 	                            </div>
 	                            <div class="col text-left">
-	                                <a href="delete_Comment?comment_num=${commentList.comment_num }&board_num=${boardVO.board_num}&board_id=${board_id}&page=${page}" class="badge badge-danger" data-toggle="modal" data-target="#confirmDelete">삭제</a>
+	                                <a href="delete_Comment?comment_num=${commentList.comment_num }&board_num=${boardVO.board_num}&board_id=${board_id}&page=${page}" class="badge badge-danger" data-toggle="modal" data-target="#confirmDelete">削除</a>
 	                                
 	                            <!-- Modal -->
                                 <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -86,7 +86,7 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body text-left">
-                                        	        ㄹㅇ?<br>
+                                        	        コメントを削除しますか？<br>
                                             </div>
                                             <div class="modal-footer">
                                                  <a href="delete_Comment?board_id=${boardVO.board_id }&board_num=${boardVO.board_num}&comment_num=${commentList.comment_num }" class="btn btn-secondary">Yes</a>
@@ -120,7 +120,7 @@
 							<input type="hidden" name="user_name" value="${loginUser.user_name }">
 							<input type="hidden" name="page" value="${page}">
                             <div class="input-group-append">
-                                <button class="btn btn-outline-success" type="submit" id="button-addon2">작성</button>
+                                <button class="btn btn-outline-success" type="submit" id="button-addon2">作成</button>
                             </div>
                         </div>
                     </div>
@@ -135,10 +135,10 @@
                 <c:if test="${loginUser.user_id eq writer or Admin ne null}">
                 
                 <div class="col-1 py-3">
-                    <a class="btn btn-success" href="edit_Board?board_id=${boardVO.board_id }&board_num=${boardVO.board_num}&page=${page}" role="button">수정</a>                            
+                    <a class="btn btn-success" href="edit_Board?board_id=${boardVO.board_id }&board_num=${boardVO.board_num}&page=${page}" role="button">修正</a>                            
                 </div>
                 <div class="col-1 py-3">
-                    <a class="btn btn-success" href="delete_Board?board_id=${boardVO.board_id }&board_num=${boardVO.board_num}&page=${page}" role="button">삭제</a>                         
+                    <a class="btn btn-success" href="delete_Board?board_id=${boardVO.board_id }&board_num=${boardVO.board_num}&page=${page}" role="button">削除</a>                         
                 </div>
                 </c:if>
                 
@@ -146,10 +146,10 @@
 				</c:if>
 				
 				<div class="col-1 py-3">
-                    <a class="btn btn-success" href="delete_Board?board_id=${boardVO.board_id }&board_num=${boardVO.board_num}&page=${page}" role="button">삭제</a>                         
+                    <a class="btn btn-success" href="delete_Board?board_id=${boardVO.board_id }&board_num=${boardVO.board_num}&page=${page}" role="button">削除</a>                         
                 </div>
                 <div class="col-1 py-3">
-                    <a class="btn btn-success" href="reportList?page=${page}" role="button">목록</a>                     
+                    <a class="btn btn-success" href="reportList?page=${page}" role="button">リスト</a>                     
                 </div>
             </div> 
             
