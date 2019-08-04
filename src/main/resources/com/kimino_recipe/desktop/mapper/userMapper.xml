@@ -97,4 +97,19 @@
  		select count(*) from kimino_recipe_admin
  		where admin_email = #{admin_email}
  	</select>
+ 	
+ 	<update id="update_Name" parameterType="hashmap">
+ 		update kimino_recipe_user set name = #{name} 
+ 		where user_num = #{user_num} 
+ 	</update>
+ 	
+ 	 <update id="update_Address" parameterType="hashmap">
+ 		update kimino_recipe_user set address1 = #{address_A}, address2 = #{address_B} 
+ 		where user_num = #{user_num} 
+ 	</update>
+ 	
+ 	 <update id="update_Phone_num" parameterType="hashmap">
+ 		update kimino_recipe_user set phone_num = #{phone_num} 
+ 		where user_num = #{user_num} 
+ 	</update>
  </mapper>

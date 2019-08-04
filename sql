@@ -32,6 +32,10 @@ create table kimino_recipe_user(
 	user_pass varchar2(100) not null,
 	user_name varchar2(100) not null,
 	user_email varchar2(100) not null,
+	name varchar2(20),
+	phone_num varvhar(20),
+	address1 varchar(50),
+	address2 varchar(50),
 	signdate date default sysdate
 	);
 	
@@ -52,7 +56,8 @@ insert into KIMINO_RECIPE_admin(admin_num, admin_id, admin_pass, admin_name, adm
 values(kimino_recipe_admin_seq.nextval, 'admin1234', 'admin1234','admin','aaa@aaa.com');	
 
 create table kimino_recipe_product(
-	product_num number(10) primary key, //상품 번호
+	product_num number(10) primary key,
+	product_id varchar2(30) not null,
 	product_name varchar2(30) not null,   //상품 이름
 	price number(30) default 0,  // 상품 가격
 	content varchar2(1000) not null, //상품 설명
@@ -71,6 +76,7 @@ create sequence kimino_recipe_product_seq start with 1 increment by 1;
 create table kimino_recipe_cart(
 	cart_num number(10) primary key, 
 	user_id varchar2(100) not null, //유저 아이디
+	product_id varchar2(30) not null,
 	product_name varchar2(30) not null, // 상품 이름
 	price number(30) default 0, //가격
 	content varchar2(1000) not null, //내용
@@ -79,3 +85,20 @@ create table kimino_recipe_cart(
 );
 
 create sequence kimino_recipe_cart_seq start with 1 increment by 1;
+
+create table kimino_recipe_orderlist(
+	order_num number(10) primary key, 
+	user_id varchar2(50) not null, 
+	product_id varchar2(30) not null, 
+	product_name varchar2(30) not null, 
+	price number(30) default 0, 
+	amount number(30) default 0, 
+	name varchar2(20) not null,
+	phone_num varchar2(20) not null,
+	address1 varchar2(50) not null,
+	address2 varchar2(50) not null,
+	bank_account varchar2(50) not null,
+	orderdate date default sysdate	
+);
+
+create sequence kimino_recipe_orderlist_seq start with 1 increment by 1;

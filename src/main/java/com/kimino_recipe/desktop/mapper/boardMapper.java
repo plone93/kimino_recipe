@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.kimino_recipe.desktop.domain.boardVO;
 import com.kimino_recipe.desktop.domain.countVO;
+import com.kimino_recipe.desktop.domain.orderVO;
 import com.kimino_recipe.desktop.domain.userVO;
 
 public interface boardMapper {
@@ -63,8 +64,10 @@ public interface boardMapper {
 	public List<boardVO> select_Board_Down(HashMap<String, Object> map);
 	
 	/*마이페이지*/
-	public List<boardVO> select_MyWriteList(HashMap<String, Object> map);
+	public List<boardVO> select_MyWriteList(HashMap<String, Object> map); //내가 작성한 글
 	public int select_MyWriteCount(String user_id);
+	public List<orderVO> select_OrderList(HashMap<String, Object> map); //주문내역
+	public int select_OrderCount(String user_id);
 
 	
 

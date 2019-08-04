@@ -12,5 +12,8 @@ public class userVO {
 	private String user_name;
 	private String user_email;
 	private Timestamp signdate;
-	
+	private String name;
+	private String phone_num;
+	private String address1;
+	private String address2;
 }

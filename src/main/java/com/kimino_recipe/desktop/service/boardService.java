@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.kimino_recipe.desktop.domain.boardVO;
 import com.kimino_recipe.desktop.domain.countVO;
+import com.kimino_recipe.desktop.domain.orderVO;
 import com.kimino_recipe.desktop.domain.userVO;
 
 public interface boardService {
@@ -64,7 +65,9 @@ public interface boardService {
 	
 	/*마이페이지*/
 	public List<boardVO> select_MyWriteList(int page, String user_id); /*내가 작성한 글*/
-	public int select_MyWriteCount(String user_id);
+	public int select_MyWriteCount(String user_id); //작성한 글 갯수
+	public List<orderVO> select_OrderList(int page, String user_id); /*주문이력*/
+	public int select_OrderCount(String user_id); // 주문 내역 갯수
 
 	
 }

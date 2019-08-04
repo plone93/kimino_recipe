@@ -10,14 +10,14 @@
                 </div>
             </div>          
             <div class="row"><div class="col py-3"></div></div>  
-            
+            <h4>総${boardCount }件</h4>
             <div class="row justify-content-start">
             <!-- 검색 -->
                 <div class="col-4">
                     <form action="search_Board?board_id=${board_id}" method="post">
                         <div class="row">
                             <div class="col-9">
-                                <input name="keyword" class="form-control mr-sm-2" type="text" placeholder="지금 게시판에서 検索" aria-label="Search">
+                                <input name="keyword" class="form-control mr-sm-2" type="text" placeholder="検索" aria-label="Search">
                             </div>
                             <div class="col-3">
                                 <button class="btn btn-success my-2 my-sm-0" type="submit">検索</button>
@@ -32,7 +32,7 @@
 				</c:if>
 				<c:if test="${loginUser ne null or loginAdmin ne null}">
 					<div class="col-2 text-right">
-	                    <a class="btn btn-success" href="insert_Board?board_id=${board_id }" role="button">글스기</a>
+	                    <a class="btn btn-success" href="insert_Board?board_id=${board_id }" role="button">作成</a>
 	                </div>
 				</c:if>	
 
@@ -67,7 +67,7 @@
 		                        </a>
 		                        
 		                        <div class="card-body">
-		                            <h5 class="card-title">${fn:substring(boardList.title,0,9)}</h5>
+		                            <h5 class="card-title"><a href="boardView?board_num=${boardList.board_num}&board_id=${board_id}&page=${pageVO.page}" class="text-dark">${fn:substring(boardList.title,0,9)}</a></h5>
 		                            <p class="card-text"><a href="boardView?board_num=${boardList.board_num}&board_id=${board_id}&page=${pageVO.page}" class="text-dark">${fn:substring(boardList.content,0,15)}</a></p>
 		                            <p class="card-text"><fmt:formatDate value="${boardList.writedate }"/><span class="btn btn-outline-success" style="float: right;">${boardList.commentcount}</span></p>		                            	      
 		                        </div>

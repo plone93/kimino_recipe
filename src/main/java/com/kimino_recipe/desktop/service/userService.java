@@ -20,6 +20,9 @@ public interface userService {
 	public int emailUpdate(String user_num, String user_email);//이메일 변경
 	public int nameUpdate(String user_num, String user_name);//내정보창에서 닉네임 변경 
 	public int passUpdate(String user_num, String user_pass);//내정보창에서 비밀번호 변경
+	public int update_Name(int user_num, String name); //주문할때 이름 갱신
+	public int update_Address(int user_num, String address1, String address2); //주문할때 주소 갱신
+	public int update_Phone_num(int user_num, String phone_num); //주문할때 연락처 갱신
 	
 	
 	/*관리자*/
@@ -30,6 +33,7 @@ public interface userService {
 	public int passUpdate_Admin(String admin_num, String admin_pass);//내정보창에서 비밀번호 변경
 	public List<userVO> select_AllUser(int page); //관리자 게시판에서 유저리스트 로드
 	public int get_userCount();// 총 회원수 
+
 
 	
 	

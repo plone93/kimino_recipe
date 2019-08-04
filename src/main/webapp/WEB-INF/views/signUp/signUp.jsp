@@ -47,7 +47,7 @@
                                 <label for="passwordCheck">パスワード確認</label>
                             </div>
                             <div class="col-6">
-                                <input type="password" class="form-control" id="passwordCheck" name="user_pass1" placeholder="">
+                                <input type="password" class="form-control" id="passwordCheck" name="user_pass1" id="pass" placeholder="">
                             </div>
                             <div class="col-2"></div>
                         </div>
@@ -77,16 +77,17 @@
    
 <script>
 	$('#idCheck').click(function(){
-		var value = $('#id').val();
-	    var valueCheck = /^[a-zA-Z]+[a-z0-9A-Z]{5,19}$/g;
+		var idValue = $('#id').val();
+	    var idCheck = /^[a-zA-Z]+[a-z0-9A-Z]{5,19}$/g;
 	    
-	    if(!valueCheck.test(value)){
+	    if(!idCheck.test(idValue)){
 	 		alert("IDはローマ字、またはローマ字＋数字で始まる6～２０字の合わせのみ可能です。");
+	 		
 	 	} else {
 	 		$.ajax({
 	 			url:"idCheck",
 	 			type:"post",
-	 			data:{id:value},
+	 			data:{id:idValue},
 	 			dataType:"json",
 	 			success:function(data){
 	 				if(data != 1){
@@ -155,7 +156,8 @@
 				alert("名前を入力してください。");
 				form.user_name.focus();
 				return false;
-			}
+			}			
+		    
 			if(form.nameCheck.value==0) {
 				alert("IDチェックをしてください。");
 				form.user_id.focus;
@@ -166,18 +168,28 @@
 				form.user_pass.focus();
 				return false;
 			}
-			if(document.form.user_pass.value.length<5) {
+			
+			if(document.form.user_pass.value.length<6) {
 				alert("パスワードは6字以上入力してください。");
 				form.user_pass.focus();
 				return false;
 			} 
 				 	
-			if(document.form.user_pass.value!=document.form.pass1.value) {
+			if(document.form.user_pass.value!=document.form.user_pass1.value) {
 				alert("パスワードが一致していません。");
 				form.user_pass.focus();
 				return false;
 			}
 			
+		    var passValue = $('#pass').val();
+		    // var passCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{5,16}$/;
+		    var passCheck = /^[a-zA-Z]+[a-z0-9A-Z]{4,19}$/g;
+		    if(!valueCheck.test(passValue)){
+				alert("パスワードはローマ字＋数字で始まる５～２０字の合わせのみ可能です。");
+				form.user_pass.focus();
+				return false;
+		    }
+
 			return true;
 	}
 	</script>           

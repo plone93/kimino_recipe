@@ -18,8 +18,8 @@
  	</select>
  	
  	<insert id="addCart" parameterType="hashmap">
- 		insert into kimino_recipe_cart(cart_num, user_id, product_name, price, content, image, amount)
- 		values(kimino_recipe_cart_seq.nextval, #{cartVO.user_id}, #{cartVO.product_name}, #{cartVO.price}, #{cartVO.content}, #{cartVO.image}, #{cartVO.amount})
+ 		insert into kimino_recipe_cart(cart_num, user_id, product_id, product_name, price, content, image, amount)
+ 		values(kimino_recipe_cart_seq.nextval, #{cartVO.user_id}, #{cartVO.product_id}, #{cartVO.product_name}, #{cartVO.price}, #{cartVO.content}, #{cartVO.image}, #{cartVO.amount})
  	</insert>
  	
  	<delete id="delete_Board">
@@ -32,8 +32,8 @@
  	</select>
  		
  	<insert id="insert_Board" parameterType="hashmap">
- 		insert into kimino_recipe_product(product_num, product_name, price, content, image, board_id)
- 		values(kimino_recipe_product_seq.nextval, #{productVO.product_name}, #{productVO.price}, #{productVO.content}, #{productVO.image}, #{board_id})
+ 		insert into kimino_recipe_product(product_num, product_name, price, content, image, board_id, product_id)
+ 		values(kimino_recipe_product_seq.nextval, #{productVO.product_name}, #{productVO.price}, #{productVO.content}, #{productVO.image}, #{board_id}, #{productVO.product_id})
  	</insert>
  	
  	<update id="update_Board">
@@ -76,6 +76,24 @@
  		where cart_num = #{cart_num}
  	</delete>
  	
+ 	<!-- 주문리스트 입력 -->
+ 	<insert id="insert_OrderList" parameterType="hashmap">
+ 		insert into kimino_recipe_orderList(order_num, user_id, product_id, product_name, price, amount, name, phone_num, address1, address2, bank_account, order_id)
+ 		values(kimino_recipe_orderList_seq.nextval, #{orderVO.user_id}, #{product_id}, #{product_name}, #{price}, #{amount}, #{orderVO.name}, #{orderVO.phone_num}, #{orderVO.address1}, #{orderVO.address2}, #{orderVO.bank_account}, #{order_id})
+ 	</insert>
+ 	
+ 	<!-- 주문이력 -->
+ 	
+ 	<!-- 주문id 상세보기 -->
+ 	<select id="orderView" parameterType="hashmap" resultType="com.kimino_recipe.desktop.domain.productVO">
+ 		select * from 
+ 		(select T.*, row_number() over(order by price desc) as rnum from kimino_recipe_orderList T where order_id = #{order_id})
+ 		where rnum between #{startNum} and #{endNum}
+ 	</select>
+ 	<!--해당 주문id로 검색된 상품 수  -->
+ 	<select id="get_orderCount" resultType="int">
+ 		select count(*) from kimino_recipe_orderList where order_id = #{order_id}
+ 	</select>
 
  	
  </mapper>

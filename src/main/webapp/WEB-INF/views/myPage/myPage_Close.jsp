@@ -14,7 +14,8 @@
                 <div class="col-2 ml-2 mt-5">
                     <div class="list-group">
                         <button type="button" class="list-group-item list-group-item-action active list-group-item-light">アカウント情報</button>
-                        <a href="edit_Profile?user_id=${loginUser.user_id }" class="list-group-item list-group-item-action list-group-item-light">アカウント修正</a>
+                        <a href="edit_Profile?user_id=${loginUser.user_id }" class="list-group-item list-group-item-action list-group-item-light">情報修正</a>
+                        <a href="my_OrderList?user_id=${loginUser.user_id }" class="list-group-item list-group-item-action list-group-item-light">注文履歴</a>
                         <a href="my_WriteList?user_id=${loginUser.user_id }" class="list-group-item list-group-item-action list-group-item-light">作成履歴</a>
                         <a href="cancel_User" class="list-group-item list-group-item-action list-group-item-success">アカウント脱退</a>                                    
                     </div>

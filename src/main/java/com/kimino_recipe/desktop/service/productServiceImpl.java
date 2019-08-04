@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kimino_recipe.desktop.domain.boardVO;
 import com.kimino_recipe.desktop.domain.cartVO;
+import com.kimino_recipe.desktop.domain.orderVO;
 import com.kimino_recipe.desktop.domain.productVO;
 import com.kimino_recipe.desktop.mapper.productMapper;
 
@@ -104,6 +105,37 @@ public class productServiceImpl implements productService {
 	public void cart_Delete(String cart_num) {
 		product.cart_Delete(cart_num);
 		
+	}
+
+	@Override
+	public int insert_OrderList(orderVO orderVO, String product_id, String product_name, String price, String amount, String order_id) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("orderVO", orderVO);
+		map.put("product_id", product_id);
+		map.put("product_name", product_name);
+		map.put("price", price);
+		map.put("amount", amount);
+		map.put("order_id", order_id);
+		
+		return product.insert_OrderList(map);
+	}
+
+	@Override
+	public List<productVO> orderView(int page, String order_id) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int startNum = (page-1)*10+1;
+		int endNum = page*10;
+		
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+		map.put("order_id", order_id);
+		
+		return product.orderView(map);
+	}
+
+	@Override
+	public int get_orderCount(String order_id) {
+		return product.get_orderCount(order_id);
 	}
 	
 	

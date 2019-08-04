@@ -33,7 +33,7 @@ public interface searchMapper {
 	public List<boardVO> search_Total(HashMap<String, Object> map);
 	public int search_Count_Total(HashMap<String, Object> map);
 	
-	/*회원관리 검색*/
+	/*회원관리 검색*/ 
 	public List<userVO> search_User(HashMap<String, Object> map);
 	public int search_Count_User(HashMap<String, Object> map);
 	

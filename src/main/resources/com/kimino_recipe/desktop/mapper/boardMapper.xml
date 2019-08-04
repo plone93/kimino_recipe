@@ -204,6 +204,8 @@
  	</select>
  	
  	<!-- 마이페이지 -->
+ 	
+ 	<!-- 내가 작성한 글 -->
  	<select id="select_MyWriteList" parameterType="hashmap" resultType="com.kimino_recipe.desktop.domain.boardVO">
  		select * from 
  		(select T.*, row_number() over(order by writedate desc) as rnum from kimino_recipe T where user_id = #{user_id})
@@ -211,6 +213,17 @@
  	</select>
  	<select id="select_MyWriteCount" resultType="int">
  		select count(*) from kimino_recipe where user_id = #{user_id}
+ 	</select>
+ 	
+ 	<!-- 내 주문 내역 -->
+ 	<select id="select_OrderList" parameterType="hashmap" resultType="com.kimino_recipe.desktop.domain.orderVO">
+ 		select * from 
+ 		(select T.*, row_number() over(order by orderdate) as rnum from 
+ 		(select distinct * from kimino_recipe_orderList where user_id = #{user_id}) T)
+ 		where rnum between #{startNum} and #{endNum} 
+ 	</select>
+ 	<select id="select_OrderCount" resultType="int">
+ 		select count(*) from kimino_recipe_orderList where user_id = #{user_id}
  	</select>
 
  	

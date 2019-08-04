@@ -58,9 +58,9 @@ public class adminController {
 			adminVO adminVO = user.get_Admin(admin_id);
 			session = request.getSession();
 			session.setAttribute("loginAdmin", adminVO);
-			model.addAttribute("message", "로그인 성공");
+			model.addAttribute("message", "ログインしました。");
 		} else if(result == 0) {
-			model.addAttribute("message", "아이디나 비밀번호 확인해주셈");
+			model.addAttribute("message", "IDやパスワードを確認してください。");
 		}
 				
 		return url;	
@@ -187,9 +187,9 @@ public class adminController {
 		result = user.delete_User(user_num);
 		
 		if(result >= 1) {
-			model.addAttribute("message", "계정삭제 성공");
+			model.addAttribute("message", "アカウントを削除しました。");
 		} else {
-			model.addAttribute("message", "계정삭제 실패");
+			model.addAttribute("message", "アカウント削除に失敗しました。");
 		}
 		
 		model.addAttribute("page", page);

@@ -4,9 +4,8 @@ package com.kimino_recipe.desktop.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.Cookie;
+
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -17,25 +16,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kimino_recipe.desktop.domain.boardVO;
 import com.kimino_recipe.desktop.domain.commentVO;
-import com.kimino_recipe.desktop.domain.countVO;
 import com.kimino_recipe.desktop.domain.pageVO;
-import com.kimino_recipe.desktop.domain.userVO;
 import com.kimino_recipe.desktop.service.boardService;
 import com.kimino_recipe.desktop.service.commentService;
-import com.kimino_recipe.desktop.service.loginService;
-import com.kimino_recipe.desktop.service.searchService;
-import com.kimino_recipe.desktop.service.userService;
 
 import lombok.AllArgsConstructor;
 
 @Controller
 @AllArgsConstructor
 public class boardController2 {
-	
-	private loginService login;
-	private userService user;
+
 	private boardService board;
-	private searchService search;
 	private commentService comment;
 	
 	
@@ -47,44 +38,20 @@ public class boardController2 {
 		
 		String url = "board/board_List";
 		List<boardVO> boardList = new ArrayList<boardVO>();
-		List<userVO> userList = new ArrayList<userVO>();
 		
 		int page = 1;
 		int boardCount = 0;
-		String hotcount = "5"; // 추천,비추천 게시판에 올라가기 위한  조건
-		String word;
-		
+		String hotcount = "5"; // 추천,비추천 게시판에 올라가기 위한  조건	
 		
 		if(request.getParameter("page") != null){
 			page = Integer.parseInt(request.getParameter("page"));
 		}
 		pageVO pageVO = new pageVO();
 		pageVO.setPage(page);
-		
-		if(board_id.equals("추천")) {
-			word = "up";
-			boardList = board.select_AllBoard_Up(page, board_id, hotcount);
-			pageVO.setTotalCount(board.get_BoardCount_Up(board_id, hotcount));
-			boardCount = pageVO.getTotalCount();
-		} else if(board_id.equals("비추천")) {
-			word = "down";
-			boardList = board.select_AllBoard_Down(page, board_id, hotcount);
-			pageVO.setTotalCount(board.get_BoardCount_Down(board_id, hotcount));
-			boardCount = pageVO.getTotalCount();
-		} else if(board_id.equals("통합")) {
-			boardList = board.select_AllBoard_Total(page, board_id);
-			pageVO.setTotalCount(board.get_BoardCount_Total(board_id));
-			boardCount = pageVO.getTotalCount();
-		} else if(board_id.equals("회원관리")) {
-			userList = board.select_AllBoard_User(page);
-			pageVO.setTotalCount(board.get_UserCount());
-			boardCount = pageVO.getTotalCount();
-			url = "";
-		} else {
-			boardList = board.select_AllBoard(page, board_id);
-			pageVO.setTotalCount(board.get_BoardCount(board_id));
-			boardCount = pageVO.getTotalCount();
-		}
+	
+		boardList = board.select_AllBoard(page, board_id);
+		pageVO.setTotalCount(board.get_BoardCount(board_id));
+		boardCount = pageVO.getTotalCount();
 		
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("boardCount", boardCount);
@@ -92,7 +59,7 @@ public class boardController2 {
 		model.addAttribute("board_id", board_id);
 		
 		/*일반게시판 공지사항*/
-		String noticeBoard_id = "공지사항";
+		String noticeBoard_id = "お知らせ";
 		List<boardVO> noticeList = board.select_AllBoard_Notice(page, noticeBoard_id);
 		model.addAttribute("noticeList", noticeList);
 		
@@ -102,6 +69,55 @@ public class boardController2 {
 		}
 		
 		return url;		
+	}
+	
+	
+	//뷰
+	@GetMapping("/boardView2")
+	public String boardView2(HttpSession session, HttpServletRequest request,
+							@RequestParam("board_num")String board_num,
+							@RequestParam("board_id")String board_id,
+							Model model) {
+		
+		String url = "board/board_View";
+		
+		/*뒤로가기를 눌렀을 때 이전 페이지를 전달하기 위한 기능*/
+		int page = 1;
+		if(request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+			model.addAttribute("page", page); 
+		}
+		
+		/*검색한 페이지로 들어왔을때 검색한 키워드를 전달하기 위한 기능*/
+		String keyWord = null;
+		if(request.getParameter("keyWord") != null) {
+			keyWord = request.getParameter("keyWord");
+			model.addAttribute("keyWord", keyWord);
+		}
+		
+		List<commentVO> commentList = comment.select_Comment(board_num);
+		int readCount = board.get_ReadCount(board_num);
+		board.update_ReadCount(board_num);
+		boardVO boardVO = board.boardView(board_num);
+		String writer = board.select_Writer(board_num);
+			
+		/*줄바꿈*/
+		String content = boardVO.getContent();
+		content = content.replace("\r\n", "<br>");
+		boardVO.setContent(content);
+			
+		model.addAttribute("commentList", commentList);
+		model.addAttribute("readCount", readCount);
+		model.addAttribute("boardVO", boardVO);
+		model.addAttribute("board_id", board_id);
+		model.addAttribute("writer", writer);
+			
+		/*리다이렉트로 날아온 메세지가 있다면 jsp로 보냄*/
+		if(request.getParameter("message") != null) {
+			model.addAttribute("message", request.getParameter("message"));
+		}
+			
+	return url;		
 	}
 	
 	//글쓰기 클릭

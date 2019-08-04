@@ -67,7 +67,7 @@
 	                    <div class="col-2"><fmt:formatDate value="${commentList.writedate }"></fmt:formatDate></div>
 	                	<div class="col-2">
 	                	
-	                	<c:if test="${loginUser.user_id eq writer or loginAdmin ne null}" >
+	                	<c:if test="${loginUser.user_id eq commentList.user_id or loginAdmin ne null}" >
 	                        <div class="row">                 
 	                            <div class="col text-right">
 	                                <a href="edit_Comment?comment_num=${commentList.comment_num }&board_num=${boardVO.board_num}&board_id=${board_id}&page=${page}" class="badge badge-success">수정</a>                        
@@ -154,7 +154,7 @@
 				</c:if>
 				
                 <div class="col-1 py-3">
-                    <a class="btn btn-success" href="boardList?board_id=${board_id}&page=${page}" role="button">목록</a>                            
+                    <a class="btn btn-success" href="boardList2?board_id=${board_id}&page=${page}" role="button">목록</a>                            
                 </div>
                 <div class="col-1 py-3">
                     <a class="btn btn-danger" href="board_Report?board_id=${board_id }&board_num=${boardVO.board_num}&page=${page}" role="button">신고</a>                            

@@ -13,7 +13,7 @@
             <div class="row"><div class="col py-3"></div></div>  
             <div class="row">
                 <div class="col mt-5"> 
-                                  
+                    <h4>総${boardCount }件</h4>              
                     <table class="table" style="margin-bottom:50px; ">    
                     	<!-- 게시판 목록 -->                                                      
                         <thead>
@@ -82,7 +82,7 @@
 					</c:if>
 					<c:if test="${loginAdmin ne null }">
 						<div class="col-2 text-right">
-		                	<a class="btn btn-success" href="insert_Board2?board_id=${board_id }" role="button">作成</a>
+		                	<a class="btn btn-success" href="insert_Notice?board_id=${board_id }" role="button">作成</a>
 		                </div>
 	               	</c:if>
 	            </c:if>
@@ -94,10 +94,10 @@
                        		    分類
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="boardList_Comment2?board_id=${board_id }">コメント</a>
-                            <a class="dropdown-item" href="boardList_ReadCount2?board_id=${board_id }">ビュー</a>
-                            <a class="dropdown-item" href="boardList_Up2?board_id=${board_id }">共感順</a>
-                            <a class="dropdown-item" href="boardList_Down2?board_id=${board_id }">非共感順</a>
+                            <a class="dropdown-item" href="noticeList_Comment?board_id=${board_id }">コメント</a>
+                            <a class="dropdown-item" href="noticeList_ReadCount?board_id=${board_id }">ビュー</a>
+                            <a class="dropdown-item" href="noticeList_Up?board_id=${board_id }">共感順</a>
+                            <a class="dropdown-item" href="noticeList_Down?board_id=${board_id }">非共感順</a>
                         </div>
                     </div>
                 </div>

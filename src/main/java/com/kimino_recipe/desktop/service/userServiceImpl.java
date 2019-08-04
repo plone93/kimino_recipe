@@ -148,6 +148,34 @@ public class userServiceImpl implements userService {
 		return user.emailCheck_Admin(admin_email);
 	}
 
+	@Override
+	public int update_Name(int user_num, String name) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("user_num", user_num);
+		map.put("name", name);
+		
+		return user.update_Name(map);
+	}
+
+	@Override
+	public int update_Address(int user_num, String address1, String address2) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("user_num", user_num);
+		map.put("address_A", address1); //쿼리문을 처리할때 변수에 숫자를 쓰면 에러가 발생하므로  문자로 변환
+		map.put("address_B", address2); //쿼리문을 처리할때 변수에 숫자를 쓰면 에러가 발생하므로  문자로 변환
+		
+		return user.update_Address(map);
+	}
+
+	@Override
+	public int update_Phone_num(int user_num, String phone_num) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("user_num", user_num);
+		map.put("phone_num", phone_num);
+		
+		return user.update_Phone_num(map);
+	}
+
 
 
 

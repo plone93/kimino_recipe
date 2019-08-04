@@ -21,5 +21,11 @@ public interface productMapper {
 	public int amount_Up(HashMap<String, Object> map ); // 상품 수량 증가
 	public int amount_Down(HashMap<String, Object> map ); // 상품 수량 감소
 	public void cart_Delete(String cart_num); // 카트에서 상품 삭제
+	public int insert_OrderList(HashMap<String, Object> map); // 주문완료 후 주문 리스트에 입력
+	
+	/*주문이력*/
+	public List<productVO> orderView(HashMap<String, Object> map); //주문id에 해당하는 리스트 가져옴
+	public int get_orderCount(String order_id); //주문id에 해당하는 주문건수
+
 
 }

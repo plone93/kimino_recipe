@@ -71,18 +71,6 @@
                     </div>
                 </div> 
             </form>
-            
-                <div class="row justify-content-center">
-                <div class="col-1 py-3">
-                    <a class="btn btn-success" href="edit_Board?board_id=${boardVO.board_id }&board_num=${boardVO.board_num}" role="button">수정</a>                            
-                </div>
-                <div class="col-1 py-3">
-                    <a class="btn btn-success" href="boardList?board_id=${board_id}" role="button">목록</a>                            
-                </div>
-                <div class="col-1 py-3">
-                    <a class="btn btn-danger" href="board_Report?board_id=${board_id }&board_num=${boardVO.board_num}" role="button">신고</a>                            
-                </div>
-            </div> 
 
 		</div>
     

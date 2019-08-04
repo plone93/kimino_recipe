@@ -3,8 +3,6 @@
 
 <%@ include file ="../header.jsp" %> 
 
-
-
        <div class="container">
             <div class="row"><div class="col py-3"></div></div>  
             <div class="row justify-content-center mt-1 mb-5">
@@ -15,45 +13,41 @@
             <div class="row"><div class="col py-3"></div></div>  
             <div class="row">
                 <div class="col mt-5"> 
-                                  
+                    <h4>総${boardCount }件</h4>              
                     <table class="table" style="margin-bottom:50px;">    
                     	<!-- 게시판 목록 -->                                                      
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>제목</th>
-                                <th>작성자</th>
-                                <th>작성일</th>
-                                <th>조회수</th>
+                                <th>題目</th>
+                                <th>作成者</th>
+                                <th>日付</th>
+                                <th>ビュー</th>
                             </tr>
                         </thead>  
                         
-                    <!-- 공지사항  -->   
-                    <c:if test="${board_id eq '공지사항'}">
-					</c:if>
-					<c:if test="${board_id ne '공지사항'}">			                                      
+                    <!-- 공지사항  -->   	                                      
                         <tbody>
-                         <c:forEach var="boardList" items="${noticeList}" varStatus="status" begin="0" end="2" step="1" >
+                         <c:forEach var="noticeList" items="${noticeList}" varStatus="status" begin="0" end="2" step="1" >
                             <tr>
-                            	<!-- {해당게시판 총게시글 수 - 0~9 - ((시작페이지-1) * 한페이지에 보여질 수)}-->
-                                <th>#</th>
-                                <td><a style="color:#666;" href="boardView?board_num=${boardList.board_num}&board_id=${board_id}&page=${pageVO.page}">${boardList.title }</a>
-                                &nbsp;&nbsp;<span class="btn btn-outline-success">${boardList.commentcount}</span></td>
-                                <td>${boardList.user_name }</td>
-                                <td><fmt:formatDate value="${boardList.writedate }"/></td>
-                                <td>${boardList.readcount }</td>
+                                <td><span class="badge badge-danger" style="color:white;">お知らせ</span></td>
+                                <td><a style="color:#666;" href="boardView2?board_num=${noticeList.board_num}&board_id=${board_id}&page=${pageVO.page}">${noticeList.title }</a>
+                                &nbsp;&nbsp;<span class="btn btn-outline-success">${noticeList.commentcount}</span></td>
+                                <td>${noticeList.user_name }</td>
+                                <td><fmt:formatDate value="${noticeList.writedate }"/></td>
+                                <td>${noticeList.readcount }</td>
                             </tr>
                          </c:forEach>   
                         </tbody>                                  
-                    </c:if>
+              
                              
                         <!-- 게시판 -->                           
                         <tbody>
                          <c:forEach var="boardList" items="${boardList}" varStatus="status" begin="0" end="9" step="1" >
                             <tr>
                             	<!-- {해당게시판 총게시글 수 - 0~9 - ((시작페이지-1) * 한페이지에 보여질 수)}-->
-                                <th>${boardCount-status.index-((pageVO.page-1)*pageVO.displayRow)}</th>
-                                <td><a style="color:#666;" href="boardView?board_num=${boardList.board_num}&board_id=${board_id}&page=${pageVO.page}">${boardList.title }</a>
+                                <td>${boardCount-status.index-((pageVO.page-1)*pageVO.displayRow)}</td>
+                                <td><a style="color:#666;" href="boardView2?board_num=${boardList.board_num}&board_id=${board_id}&page=${pageVO.page}">${boardList.title }</a>
                                 &nbsp;&nbsp;<span class="btn btn-outline-success">${boardList.commentcount}</span></td>
                                 <td>${boardList.user_name }</td>
                                 <td><fmt:formatDate value="${boardList.writedate }"/></td>
@@ -70,7 +64,7 @@
                     <form action="search_Board2?board_id=${board_id}" method="post">
                         <div class="row">
                             <div class="col-9">
-                                <input name="keyword" class="form-control mr-sm-2" type="text" placeholder="지금 게시판에서 検索" aria-label="Search">
+                                <input name="keyword" class="form-control mr-sm-2" type="text" placeholder="検索" aria-label="Search">
                             </div>
                             <div class="col-3">
                                 <button class="btn btn-success my-2 my-sm-0" type="submit">検索</button>
@@ -84,7 +78,7 @@
 				</c:if>
 				<c:if test="${loginUser ne null or loginAdmin ne null}">
 					<div class="col-2 text-right">
-	                    <a class="btn btn-success" href="insert_Board2?board_id=${board_id }" role="button">글스기</a>
+	                    <a class="btn btn-success" href="insert_Board2?board_id=${board_id }" role="button">作成</a>
 	                </div> 
 				</c:if>	
 
@@ -92,13 +86,13 @@
                 <div class="col-1">
                     <div class="dropdown">
                         <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                       		     분류
+                       		     分類
                         </button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" href="boardList_Comment2?board_id=${board_id }">댓글순</a>
-                            <a class="dropdown-item" href="boardList_ReadCount2?board_id=${board_id }">조회순</a>
-                            <a class="dropdown-item" href="boardList_Up2?board_id=${board_id }">추천순</a>
-                            <a class="dropdown-item" href="boardList_Down2?board_id=${board_id }">비추천수</a>
+                            <a class="dropdown-item" href="boardList_Comment2?board_id=${board_id }">コメント</a>
+                            <a class="dropdown-item" href="boardList_ReadCount2?board_id=${board_id }">ビュー</a>
+                            <a class="dropdown-item" href="boardList_Up2?board_id=${board_id }">共感順</a>
+                            <a class="dropdown-item" href="boardList_Down2?board_id=${board_id }">非共感順</a>
                         </div>
                     </div>
                 </div>

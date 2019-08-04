@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kimino_recipe.desktop.domain.boardVO;
 import com.kimino_recipe.desktop.domain.countVO;
+import com.kimino_recipe.desktop.domain.orderVO;
 import com.kimino_recipe.desktop.domain.userVO;
 import com.kimino_recipe.desktop.mapper.boardMapper;
 
@@ -334,6 +335,24 @@ public class boardServiceImpl implements boardService {
 	@Override
 	public int select_MyWriteCount(String user_id) {
 		return board.select_MyWriteCount(user_id);
+	}
+
+	@Override
+	public List<orderVO> select_OrderList(int page, String user_id) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int startNum = (page-1)*10+1;
+		int endNum = page*10;
+		
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+		map.put("user_id", user_id);
+		
+		return board.select_OrderList(map);
+	}
+
+	@Override
+	public int select_OrderCount(String user_id) {
+		return board.select_OrderCount(user_id);
 	}
 
 

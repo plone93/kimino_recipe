@@ -1,7 +1,6 @@
 package com.kimino_recipe.desktop.controller;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,9 +25,7 @@ import com.kimino_recipe.desktop.domain.pageVO;
 import com.kimino_recipe.desktop.domain.userVO;
 import com.kimino_recipe.desktop.service.boardService;
 import com.kimino_recipe.desktop.service.commentService;
-import com.kimino_recipe.desktop.service.loginService;
-import com.kimino_recipe.desktop.service.searchService;
-import com.kimino_recipe.desktop.service.userService;
+
 
 import lombok.AllArgsConstructor;
 
@@ -39,10 +36,7 @@ public class boardController {
 	@Resource(name="uploadPath")
 	String uploadPath;
 	
-	private loginService login;
-	private userService user;
 	private boardService board;
-	private searchService search;
 	private commentService comment;
 	
 	
@@ -54,13 +48,9 @@ public class boardController {
 		
 		String url = "recipe/recipe_List";
 		List<boardVO> boardList = new ArrayList<boardVO>();
-		List<userVO> userList = new ArrayList<userVO>();
 		
 		int page = 1;
 		int boardCount = 0;
-		String hotcount = "5"; // 추천,비추천 게시판에 올라가기 위한  조건
-		String word;
-		
 		
 		if(request.getParameter("page") != null){
 			page = Integer.parseInt(request.getParameter("page"));
@@ -68,30 +58,10 @@ public class boardController {
 		pageVO pageVO = new pageVO();
 		pageVO.setPage(page);
 		
-		if(board_id.equals("추천")) {
-			word = "up";
-			boardList = board.select_AllBoard_Up(page, board_id, hotcount);
-			pageVO.setTotalCount(board.get_BoardCount_Up(board_id, hotcount));
-			boardCount = pageVO.getTotalCount();
-		} else if(board_id.equals("비추천")) {
-			word = "down";
-			boardList = board.select_AllBoard_Down(page, board_id, hotcount);
-			pageVO.setTotalCount(board.get_BoardCount_Down(board_id, hotcount));
-			boardCount = pageVO.getTotalCount();
-		} else if(board_id.equals("통합")) {
-			boardList = board.select_AllBoard_Total(page, board_id);
-			pageVO.setTotalCount(board.get_BoardCount_Total(board_id));
-			boardCount = pageVO.getTotalCount();
-		} else if(board_id.equals("회원관리")) {
-			userList = board.select_AllBoard_User(page);
-			pageVO.setTotalCount(board.get_UserCount());
-			boardCount = pageVO.getTotalCount();
-			url = "";
-		} else {
-			boardList = board.select_AllBoard(page, board_id);
-			pageVO.setTotalCount(board.get_BoardCount(board_id));
-			boardCount = pageVO.getTotalCount();
-		}
+		boardList = board.select_AllBoard(page, board_id);
+		pageVO.setTotalCount(board.get_BoardCount(board_id));
+		boardCount = pageVO.getTotalCount();
+		
 		
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("boardCount", boardCount);
@@ -99,7 +69,7 @@ public class boardController {
 		model.addAttribute("board_id", board_id);
 		
 		/*일반게시판 공지사항*/
-		String noticeBoard_id = "공지사항";
+		String noticeBoard_id = "お知らせ";
 		List<boardVO> noticeList = board.select_AllBoard_Notice(page, noticeBoard_id);
 		model.addAttribute("noticeList", noticeList);
 		
@@ -132,8 +102,7 @@ public class boardController {
 
 		boardList = board.select_Board_Comment(page, board_id);
 		pageVO.setTotalCount(board.get_BoardCount(board_id));
-		boardCount = pageVO.getTotalCount();
-		
+		boardCount = pageVO.getTotalCount();	
 		
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("boardCount", boardCount);
@@ -141,7 +110,7 @@ public class boardController {
 		model.addAttribute("board_id", board_id);
 		
 		/*일반게시판 공지사항*/
-		String noticeBoard_id = "공지사항";
+		String noticeBoard_id = "お知らせ";
 		List<boardVO> noticeList = board.select_AllBoard_Notice(page, noticeBoard_id);
 		model.addAttribute("noticeList", noticeList);
 		
@@ -171,11 +140,9 @@ public class boardController {
 		pageVO pageVO = new pageVO();
 		pageVO.setPage(page);
 		
-
 		boardList = board.select_Board_ReadCount(page, board_id);
 		pageVO.setTotalCount(board.get_BoardCount(board_id));
 		boardCount = pageVO.getTotalCount();
-		
 		
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("boardCount", boardCount);
@@ -183,7 +150,7 @@ public class boardController {
 		model.addAttribute("board_id", board_id);
 		
 		/*일반게시판 공지사항*/
-		String noticeBoard_id = "공지사항";
+		String noticeBoard_id = "お知らせ";
 		List<boardVO> noticeList = board.select_AllBoard_Notice(page, noticeBoard_id);
 		model.addAttribute("noticeList", noticeList);
 		
@@ -213,11 +180,9 @@ public class boardController {
 		pageVO pageVO = new pageVO();
 		pageVO.setPage(page);
 		
-
 		boardList = board.select_Board_Up(page, board_id);
 		pageVO.setTotalCount(board.get_BoardCount(board_id));
 		boardCount = pageVO.getTotalCount();
-		
 		
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("boardCount", boardCount);
@@ -225,7 +190,7 @@ public class boardController {
 		model.addAttribute("board_id", board_id);
 		
 		/*일반게시판 공지사항*/
-		String noticeBoard_id = "공지사항";
+		String noticeBoard_id = "お知らせ";
 		List<boardVO> noticeList = board.select_AllBoard_Notice(page, noticeBoard_id);
 		model.addAttribute("noticeList", noticeList);
 		
@@ -255,11 +220,9 @@ public class boardController {
 		pageVO pageVO = new pageVO();
 		pageVO.setPage(page);
 		
-
 		boardList = board.select_Board_Down(page, board_id);
 		pageVO.setTotalCount(board.get_BoardCount(board_id));
 		boardCount = pageVO.getTotalCount();
-		
 		
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("boardCount", boardCount);
@@ -267,7 +230,7 @@ public class boardController {
 		model.addAttribute("board_id", board_id);
 		
 		/*일반게시판 공지사항*/
-		String noticeBoard_id = "공지사항";
+		String noticeBoard_id = "お知らせ";
 		List<boardVO> noticeList = board.select_AllBoard_Notice(page, noticeBoard_id);
 		model.addAttribute("noticeList", noticeList);
 		
@@ -400,9 +363,9 @@ public class boardController {
 		int result = board.update_Board(boardVO, board_num);
 		
 		if(result == 1) { /* 1 : 업데이트 성공*/
-			model.addAttribute("message", "글을 갱신했습니다.");
+			model.addAttribute("message", "更新しました。");
 		} else {
-			model.addAttribute("message", "수정실패");
+			model.addAttribute("message", "修正に失敗しました。");
 		}
 		model.addAttribute("board_id", board_id);
 		model.addAttribute("board_num", board_num);
@@ -423,7 +386,7 @@ public class boardController {
 		board.delete_Board(board_num);
 		
 		model.addAttribute("board_id", board_id);
-		model.addAttribute("message", "글을 삭제했습니다.");
+		model.addAttribute("message", "削除しました。");
 		model.addAttribute("page", page);
 		
 		return url;		
@@ -453,7 +416,7 @@ public class boardController {
 		}
 		String str = ""+System.currentTimeMillis();//시간을 쪼갬
 		if(found) { //쿠키가 있다면  알림창
-			model.addAttribute("message", "이미 클릭하셨습니다"); //경고창
+			model.addAttribute("message", "既にクリックしました。"); //경고창
 		}else if(!found) {  //쿠키가 없다면
 			info = new Cookie("Kiminorecipe_boardUp"+board_num, str);
 			info.setMaxAge(24*60*60); //쿠키 유효 시간 설정
@@ -496,7 +459,7 @@ public class boardController {
 		}
 		String str = ""+System.currentTimeMillis();//시간을 쪼갬
 		if(found) { //쿠키가 있다면  알림창
-			model.addAttribute("message", "이미 클릭하셨습니다"); //경고창
+			model.addAttribute("message", "既にクリックしました。"); //경고창
 		}else if(!found) {  //쿠키가 없다면
 			info = new Cookie("Kiminorecipe_boardDown"+board_num, str);
 			info.setMaxAge(24*60*60); //쿠키 유효 시간 설정
@@ -539,7 +502,7 @@ public class boardController {
 		}
 		String str = ""+System.currentTimeMillis();//시간을 쪼갬
 		if(found) { //쿠키가 있다면  알림창
-			model.addAttribute("message", "이미 클릭하셨습니다"); //경고창
+			model.addAttribute("message", "既にクリックしました。"); //경고창
 		}else if(!found) {  //쿠키가 없다면
 			info = new Cookie("Kiminorecipe_boardReport"+board_num, str);
 			info.setMaxAge(24*60*60); //쿠키 유효 시간 설정
@@ -558,38 +521,5 @@ public class boardController {
 		
 	}
 	
-	@GetMapping("/my_WriteList")
-	public String my_WriteList(HttpServletRequest request,
-							   @RequestParam("user_id")String user_id,
-						    	Model model) {
-		
-		String url = "myPage/my_WriteList";
-		List<boardVO> boardList = new ArrayList<boardVO>();
-		
-		int page = 1;
-		int boardCount = 0;
 
-		if(request.getParameter("page") != null){
-			page = Integer.parseInt(request.getParameter("page"));
-		}
-		pageVO pageVO = new pageVO();
-		pageVO.setPage(page);
-		
-		boardList = board.select_MyWriteList(page, user_id);
-		pageVO.setTotalCount(board.select_MyWriteCount(user_id));
-		boardCount = pageVO.getTotalCount();
-		
-		model.addAttribute("boardList", boardList);
-		model.addAttribute("boardCount", boardCount);
-		model.addAttribute("pageVO", pageVO);
-		
-		
-		/*리다이렉트로 날아온 메세지가 있다면 jsp로 보냄*/
-		if(request.getParameter("message") != null) {
-			model.addAttribute("message", request.getParameter("message"));
-		}
-		
-		return url;
-	}
-	
 }

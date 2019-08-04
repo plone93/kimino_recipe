@@ -13,25 +13,25 @@
                     <form action="logined_User" method="POST" name="form" onsubmit="return login()">
                         <div class="form-group">
                             <label for="exampleInputEmail1">ID</label>
-                            <input type="text" class="form-control" name="user_id" id="user_id" placeholder="아뒤 입력 ">      
+                            <input type="text" class="form-control" name="user_id" id="user_id" placeholder="ID入力">      
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Password</label>
-                            <input type="password" class="form-control" name="user_pass" id="user_pass" placeholder="비번 입ㅂ력">
+                            <input type="password" class="form-control" name="user_pass" id="user_pass" placeholder="パスワード入力">
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-4 text-center">
                                 <button type="submit" class="btn btn-dark">ローグイン</button>
                             </div>
                             <div class="col-4 text-center">
-                                <a href="insert_User" class="btn btn-dark">회원가입</a>
+                                <a href="insert_User" class="btn btn-dark">アカウント登録</a>
                             </div>
                         </div>    
                     </form>
                     
                     <div class="row my-2">
                         <div class="col">
-                            <a href="#" class="text-decoration-none text-light">Forgot Password?</a>
+                            <a href="#" class="text-decoration-none text-light">お忘れですか？</a>
                         </div>
                     </div>    
                     <div class="row">

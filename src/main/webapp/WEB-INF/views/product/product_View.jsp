@@ -46,7 +46,7 @@
                                 </div>
                             </div>                         
                             <div class="col pt-4">
-                                <a class="btn btn-success btn-lg" role="button" data-toggle="modal" data-target="#addCart_Modal">カートに入れる</a>                                     
+                                <a class="btn btn-success btn-lg" style="color:white;" role="button" data-toggle="modal" data-target="#addCart_Modal">カートに入れる</a>                                     
                                 <!-- Modal -->
                                 <div class="modal fade" id="addCart_Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -82,6 +82,7 @@
 	$('#addCart').click(function(){
 		/*자바스크립트에서 변수에  표현식을 표현할때 앞뒤에 ""를  붙여야함*/
 		var user_id = "${loginUser.user_id}"
+		var product_id = "${productVO.product_id}"
 		var product_name = "${productVO.product_name}"
 		var price = "${productVO.price}"
 		var content = "${productVO.content}"
@@ -89,6 +90,7 @@
 		var amount = $('#amount').val();
 		
 	    var allData = { "user_id": user_id,
+	    				"product_id": product_id,
 	    				"product_name": product_name,
 	    				"price": price,
 	    				"content": content,
@@ -102,9 +104,9 @@
 	 			dataType:"json",
 	 			success:function(data){
 	 				if(data == 1){
-	 					alert("카트에 넣음");
+	 					alert("カートに入れました。");
 	 				} else {
-	 					alert("카드담기 실패");
+	 					alert("エラーが発生しました。");
 	 				}
 	 			}, error:function(request, status, error){
 	 				alert("에러러");

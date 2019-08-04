@@ -1,5 +1,8 @@
 package com.kimino_recipe.desktop.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -10,7 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kimino_recipe.desktop.domain.boardVO;
+import com.kimino_recipe.desktop.domain.orderVO;
+import com.kimino_recipe.desktop.domain.pageVO;
 import com.kimino_recipe.desktop.domain.userVO;
+import com.kimino_recipe.desktop.service.boardService;
 import com.kimino_recipe.desktop.service.loginService;
 import com.kimino_recipe.desktop.service.userService;
 
@@ -22,6 +29,7 @@ public class userController {
 	
 	private loginService login;
 	private userService user;
+	private boardService board;
 	
 	//유저 회원가입 버튼 
 	@GetMapping("/insert_User")
@@ -37,7 +45,7 @@ public class userController {
 							 Model model) {
 				String url = "redirect:/main";
 				user.insert_User(userVO);
-				model.addAttribute("message", "회원가입 성공");
+				model.addAttribute("message", "アカウント登録に成功しました。");
 
 		return url;		
 	}
@@ -65,9 +73,9 @@ public class userController {
 			userVO userVO = user.get_User(user_id);
 			session = request.getSession();
 			session.setAttribute("loginUser", userVO);
-			model.addAttribute("message", "로그인 성공");
+			model.addAttribute("message", "ログインしました。");
 		} else if(result == 0) {
-			model.addAttribute("message", "아이디나 비밀번호 확인해주셈");
+			model.addAttribute("message", "IDやパスワードを確認してください。");
 			url = "login/login_User";
 		}
 		
@@ -99,13 +107,84 @@ public class userController {
 		result = user.update_User(userVO, user_num);
 		
 		if(result == 1) {
-			model.addAttribute("message", "회원정보수정 완료");
+			model.addAttribute("message", "更新完了");
 		} else if(result == 0) {
-			model.addAttribute("message", "회원정보수정 실패");
+			model.addAttribute("message", "更新失敗");
 		}
 		
 		return url;	
 	}
+	
+	@GetMapping("/my_WriteList")
+	public String my_WriteList(HttpServletRequest request,
+							   @RequestParam("user_id")String user_id,
+						    	Model model) {
+		
+		String url = "myPage/my_WriteList";
+		List<boardVO> boardList = new ArrayList<boardVO>();
+		
+		int page = 1;
+		int boardCount = 0;
+
+		if(request.getParameter("page") != null){
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+		pageVO pageVO = new pageVO();
+		pageVO.setPage(page);
+		
+		boardList = board.select_MyWriteList(page, user_id);
+		pageVO.setTotalCount(board.select_MyWriteCount(user_id));
+		boardCount = pageVO.getTotalCount();
+		
+		model.addAttribute("boardList", boardList);
+		model.addAttribute("boardCount", boardCount);
+		model.addAttribute("pageVO", pageVO);
+		
+		
+		/*리다이렉트로 날아온 메세지가 있다면 jsp로 보냄*/
+		if(request.getParameter("message") != null) {
+			model.addAttribute("message", request.getParameter("message"));
+		}
+		
+		return url;
+	}
+	
+	@GetMapping("/my_OrderList")
+	public String my_OrderList(HttpServletRequest request,
+							   @RequestParam("user_id")String user_id,
+						    	Model model) {
+		
+		String url = "myPage/my_OrderList";
+		List<orderVO> orderList = new ArrayList<orderVO>();
+		
+		int page = 1;
+		int boardCount = 0;
+
+		if(request.getParameter("page") != null){
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+		pageVO pageVO = new pageVO();
+		pageVO.setPage(page);
+		
+		orderList = board.select_OrderList(page, user_id);
+		pageVO.setTotalCount(board.select_OrderCount(user_id));
+		boardCount = pageVO.getTotalCount();
+		
+		model.addAttribute("orderList", orderList);
+		model.addAttribute("boardCount", boardCount);
+		model.addAttribute("pageVO", pageVO);
+		
+		
+		/*리다이렉트로 날아온 메세지가 있다면 jsp로 보냄*/
+		if(request.getParameter("message") != null) {
+			model.addAttribute("message", request.getParameter("message"));
+		}
+		
+		return url;
+	}
+	
+	
+	
 	
 	//회원탈퇴 버튼
 	@GetMapping("/cancel_User")
@@ -126,9 +205,9 @@ public class userController {
 		
 		if(user_pass == input_pass) {
 			user.delete_User(user_num);
-			model.addAttribute("message", "계정삭제 성공");
+			model.addAttribute("message", "アカウントを削除しました。");
 		} else {
-			model.addAttribute("message", "계정삭제 실패");
+			model.addAttribute("message", "アカウント削除に失敗しました。");
 		}
 		
 		return url;
@@ -143,7 +222,7 @@ public class userController {
 		String url = "redirect:/main";
 		session = request.getSession();
 		session.invalidate();
-		model.addAttribute("message", "로그아웃했다눙");
+		model.addAttribute("message", "ログアウトしました。");
 		
 		return url;		
 	}
@@ -255,6 +334,54 @@ public class userController {
 		
 		return result;		
 	}
+	
+	//이름 갱신
+	@ResponseBody
+	@PostMapping("/update_Name")
+	public int update_Name(HttpSession session, HttpServletRequest request,
+							userVO userVO,
+							Model model) {
+		
+		int result = 0; //jsp에서 ajax를 통해 결과를 알려줄 변수
+		
+		result = user.update_Name(userVO.getUser_num(), userVO.getName());
+		model.addAttribute("result", result);
+		
+		return result;		
+	}
+	
+	//주소 갱신
+	@ResponseBody
+	@PostMapping("/update_Address")
+	public int update_Address(HttpSession session, HttpServletRequest request,
+						    	userVO userVO,
+								Model model) {
+		
+		int result = 0; //jsp에서 ajax를 통해 결과를 알려줄 변수
+		
+		result = user.update_Address(userVO.getUser_num(), userVO.getAddress1(), userVO.getAddress2());
+		model.addAttribute("result", result);
+		
+		return result;		
+	}
+	
+	//연락처 갱신
+	@ResponseBody
+	@PostMapping("/update_Phone_num")
+	public int update_Phone_num(HttpSession session, HttpServletRequest request,
+	    						userVO userVO,
+	    						Model model) {
+		
+		int result = 0; //jsp에서 ajax를 통해 결과를 알려줄 변수
+		
+		result = user.update_Phone_num(userVO.getUser_num(), userVO.getPhone_num());
+		model.addAttribute("result", result);
+		
+		return result;		
+	}
+	
+	
+	
 	
 
 }

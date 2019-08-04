@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.kimino_recipe.desktop.domain.boardVO;
 import com.kimino_recipe.desktop.domain.cartVO;
+import com.kimino_recipe.desktop.domain.orderVO;
 import com.kimino_recipe.desktop.domain.productVO;
 
 public interface productService {
@@ -21,5 +22,11 @@ public interface productService {
 	public int amount_Up(String user_id, String cart_num);//상품 수량 증가
 	public int amount_Down(String user_id, String cart_num);//상품 수량 감수
 	public void cart_Delete(String cart_num);//카트에서 상품 삭제
+	public int insert_OrderList(orderVO orderVO, String product_id, String product_name, String price, String amount, String order_id);// 주문완료 후 주문 리스트로 이동
+	
+	/*주문이력*/
+	public List<productVO> orderView(int page, String order_id);//주문id에 해당하는 리스트 가져오기
+	public int get_orderCount(String order_id); // 주문id에 해당하는 주문건수
+
 	
 }

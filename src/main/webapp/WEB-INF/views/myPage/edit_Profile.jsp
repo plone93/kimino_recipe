@@ -16,6 +16,7 @@
                     <div class="list-group">
                         <button type="button" class="list-group-item list-group-item-action active list-group-item-success">アカウント情報</button>
                         <a href="edit_Profile?user_id=${loginUser.user_id }" class="list-group-item list-group-item-action list-group-item-success">情報修正</a>
+                        <a href="my_OrderList?user_id=${loginUser.user_id }" class="list-group-item list-group-item-action list-group-item-light">注文履歴</a>
                         <a href="my_WriteList?user_id=${loginUser.user_id }" class="list-group-item list-group-item-action list-group-item-light">作成履歴</a>
                         <a href="cancel_User" class="list-group-item list-group-item-action list-group-item-light">アカウント脱退</a>                                    
                     </div>
@@ -57,7 +58,7 @@
                                 <label for="password">パスワード</label>
                             </div>
                             <div class="col-3">
-                                <input type="password" class="form-control"  placeholder="ローマ字＋数字">
+                                <input type="password" class="form-control" name="user_pass" id="user_pass" placeholder="ローマ字＋数字" >
                             </div>
                             <div class="col-1"></div>
                         </div>
@@ -66,7 +67,7 @@
                                 <label for="passwordCheck">パスワード確認</label>
                             </div>
                             <div class="col-3">
-                                <input type="password" class="form-control" name="user_pass" id="user_pass">
+                                <input type="password" class="form-control" name="user_pass1" id="user_pass1" placeholder="ローマ字＋数字" >
                             </div>
                             <div class="col-1">
                             	<button type="button" class="btn btn-dark" id="passUpdate">更新</button> 
@@ -111,13 +112,13 @@
 <script>
 	$('#nameUpdate').click(function(){
 		var user_name = $('#user_name').val();
-		var user_num = ${loginUser.user_num}
+		var user_num = "${loginUser.user_num}"
 	    var valueCheck = /^[a-zA-Z]+[a-z0-9A-Z]{3,19}$/g;
 	    
 	    var allData = { "user_name": user_name, "user_num": user_num };//여러개의 변수를  배열에 저장
 	    
 	    if(!valueCheck.test(user_name)){
-	 		alert("닉네임은 영어 영어+숫자 한글 ");
+	 		alert("ニックネームはローマ字、またはローマ字＋数字で始まる2～２０字の合わせのみ可能です。");
 	 	} else {
 	 		$.ajax({
 	 			url:"nameUpdate",
@@ -140,14 +141,32 @@
 
 <script>
 	$('#passUpdate').click(function(){
+		if(document.form.user_pass.value.length==0) {
+			alert("パスワードを入力してください。");
+			form.user_pass.focus();
+			return false;
+		}
+		
+		if(document.form.user_pass.value.length<6) {
+			alert("パスワードは6字以上入力してください。");
+			form.user_pass.focus();
+			return false;
+		} 
+			 	
+		if(document.form.user_pass.value!=document.form.user_pass1.value) {
+			alert("パスワードが一致していません。");
+			form.user_pass.focus();
+			return false;
+		}
+		
 		var user_pass = $('#user_pass').val();
-		var user_num = ${loginUser.user_num}
-	    var valueCheck = /^[a-zA-Z]+[a-z0-9A-Z]{5,19}$/g;
+		var user_num = "${loginUser.user_num}"
+	    var valueCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{5,16}$/;
 	    
 	    var allData = { "user_pass": user_pass, "user_num": user_num };//여러개의 변수를  배열에 저장
 	    
 	    if(!valueCheck.test(user_pass)){
-	 		alert("비번はローマ字、またはローマ字＋数字で始まる6～２０字の合わせのみ可能です。");
+	    	alert("パスワードはローマ字＋数字で始まる５～２０字の合わせのみ可能です。");
 	 	} else {
 	 		$.ajax({
 	 			url:"passUpdate",

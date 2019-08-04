@@ -11,12 +11,12 @@
                     
                     <form action="Logined_Admin" method="POST">
                         <div class="form-group">
-                            <label for="exampleInputEmail1">아디</label>
-                            <input type="text" name="admin_id" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="아디">      
+                            <label for="exampleInputEmail1">ID</label>
+                            <input type="text" name="admin_id" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="ID入力">      
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">비번</label>
-                            <input type="password" name="admin_pass" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                            <label for="exampleInputPassword1">パスワード</label>
+                            <input type="password" name="admin_pass" class="form-control" id="exampleInputPassword1" placeholder="パスワード入力">
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-4 text-center">

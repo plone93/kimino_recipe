@@ -20,6 +20,9 @@ public interface userMapper {
 	public int emailUpdate(HashMap<String, Object> map); //이메일 변경
 	public int nameUpdate(HashMap<String, Object> map);//개인정보창에서 닉네임 변경
 	public int passUpdate(HashMap<String, Object> map);//개인정보창에서 비밀번호 변경
+	public int update_Name(HashMap<String, Object> map);  // 주문창에서 이름 변경
+	public int update_Address(HashMap<String, Object> map); // 주문창에서 주소변경
+	public int update_Phone_num(HashMap<String, Object> map); //주문창에서 연락처 변경
 	
 	/*관리자*/
 	public adminVO get_Admin(String user_id); //회원정보수정 임시
@@ -29,9 +32,6 @@ public interface userMapper {
 	public int nameUpdate_Admin(HashMap<String, Object> map); // 관리자 닉네임 변경
 	public int passUpdate_Admin(HashMap<String, Object> map); // 관리자 비밀번호 변경
 	public int emailCheck_Admin(String admin_email);// 관리자 이메일 중복체크
-	
-	
-	
 	
 	
 }

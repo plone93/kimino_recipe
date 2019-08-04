@@ -56,16 +56,16 @@
                     
                 <c:if test="${loginUser eq null and loginAdmin eq null}">
                     <div class="col-4 pt-4">
-                  	    <a class="btn btn-success d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="insert_User">ID新規取得</a> 
+                  	    <a class="btn btn-success d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="insert_User">ID登録</a> 
                         <a class="btn btn-success d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="login_User">ログイン</a>                  
                     </div> 
 				</c:if>
 				<c:if test="${loginUser ne null or loginAdmin ne null}">
                     <div class="col-4 pt-4">
                     	<c:if test="${loginUser ne null }">
-                    	   <a class="btn btn-success d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="cartList?user_id=${loginUser.user_id }">カート</a>  
-                    	   <a class="btn btn-success d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="edit_Profile?user_id=${loginUser.user_id }">ユーザー設定</a>                  
-                    	   <a class="btn btn-success d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="logout">ログアウト</a>  
+                    	   <a class="btn btn-success d-lg-inline-block mb-3 mb-md-0 ml-md-2" href="cartList?user_id=${loginUser.user_id }">カート</a>  
+                    	   <a class="btn btn-success d-lg-inline-block mb-3 mb-md-0 ml-md-2" href="edit_Profile?user_id=${loginUser.user_id }">ユーザー設定</a>                  
+                    	   <a class="btn btn-success d-lg-inline-block mb-3 mb-md-0 ml-md-2" href="logout">ログアウト</a>  
                     	</c:if>
                     	<c:if test="${loginAdmin ne null }">
                     		<a class="btn btn-success d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="admin_Page?admin_id=${loginAdmin.admin_id }">管理ページ</a>            	  
