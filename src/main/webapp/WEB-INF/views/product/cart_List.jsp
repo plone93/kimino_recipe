@@ -12,7 +12,16 @@
                     <h1 class="text-center">注文ページ</h1>
                 </div>
             </div>          
-            <div class="row"><div class="col py-3"></div></div>  
+            <div class="row"><div class="col py-3"></div></div>
+            
+            <c:if test="${boardCount == '0' }">
+	            <div class="row justify-content-center mt-1 mb-5">
+	                <div class="col-6">
+	                    <h1 class="text-center">保存された商品はありません。</h1>
+	                </div>
+	            </div>      
+            </c:if>
+            <c:if test="${boardCount != '0'}">  
             <div class="row">
                 <div class="col mt-5"> 
                     <h4>総${boardCount }件</h4>              
@@ -42,7 +51,7 @@
                                 <td style="vertical-align: middle;">${boardList.price}</td>
                                 <td style="vertical-align: middle;">${boardList.amount }
 								<a class="glyphicon glyphicon-triangle-top" href="amount_Up?cart_num=${boardList.cart_num }&user_id=${loginUser.user_id}" aria-hidden="true">▲</a>
-                                <a class="glyphicon glyphicon-triangle-bottom" href="amount_Down?cart_num=${boardList.cart_num }&user_id=${loginUser.user_id}" aria-hidden="true">▼</a></td>
+                                <a class="glyphicon glyphicon-triangle-bottom" href="amount_Down?cart_num=${boardList.cart_num }&user_id=${loginUser.user_id}&amount=${boardList.amount}" aria-hidden="true">▼</a></td>
                                 <td style="vertical-align: middle;"><fmt:formatNumber pattern="###,###,###" value="${boardList.price * boardList.amount}"/></td>
                             	<td style="vertical-align: middle;"><span class="btn btn-outline-danger"><a href="cart_Delete?cart_num=${boardList.cart_num }&user_id=${loginUser.user_id}" style="color:#dc3545;">削除</a></span></td>
                             </tr>
@@ -101,10 +110,12 @@
               	<input type="hidden" name="user_id" value="${loginUser.user_id }">
               	<button type="submit" class="btn btn-success">購入</button>
               </form>
-	
+		
                                      
                 </div>
             </div>
+           </c:if> 
+            
         </div>     
     </body> 
 </html>

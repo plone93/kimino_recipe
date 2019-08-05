@@ -12,7 +12,7 @@
             </div>
             
             <div class="row mt-5"><div class="col"><h5>季節料理</h5></div></div>
-            <div class="row">
+            <div class="row" style="width: 72%;">
                 <div class="col">
                     <img src="resources/images/medal-first.png" width="30" height="30" class="d-inline-block align-top">
                 </div>
@@ -21,7 +21,7 @@
                 </div>                
                 <div class="col">
                     <img src="resources/images/medal-third.png" width="30" height="30" class="d-inline-block align-top">
-                </div>                    
+                </div>
             </div>
             
             <div class="row">
@@ -40,13 +40,14 @@
 	                            <h5 class="card-title"><a style="color:#666;"href="boardView?board_num=${season.board_num}&board_id=${board_id}">${fn:substring(season.title,0,9)}</a></h5>                                    
 	                        </div>
 	                    </div>
-               		 </div>   
-              </c:forEach>                                      
+               		 </div>
+              </c:forEach>
+              <span class="btn btn-outline-success"><a href="cart_Delete" style="color:#28a745;">削除</a></span>                                         
             </div>
             
             
             <div class="row mt-5"><div class="col"><h5>世界の料理</h5></div></div>
-            <div class="row">
+            <div class="row" style="width: 72%;">
                 <div class="col">
                     <img src="resources/images/medal-first.png" width="30" height="30" class="d-inline-block align-top">
                 </div>
@@ -79,7 +80,7 @@
             </div>
             
             <div class="row mt-5"><div class="col"><h5>一人暮らし</h5></div></div>
-            <div class="row">
+            <div class="row" style="width: 72%;">
                 <div class="col">
                     <img src="resources/images/medal-first.png" width="30" height="30" class="d-inline-block align-top">
                 </div>

@@ -204,6 +204,8 @@ public class productController {
 		String url = "redirect:/cartList";
 		
 		product.amount_Up(user_id, cart_num);
+	
+		
 		model.addAttribute("user_id", user_id);
 		
 		return url;
@@ -213,11 +215,18 @@ public class productController {
 	@GetMapping("/amount_Down")
 	public String amount_Down(@RequestParam("user_id")String user_id,
 						 @RequestParam("cart_num")String cart_num,
+						 @RequestParam("amount")String amount,
 						 Model model) {
 		
 		String url = "redirect:/cartList";
+		System.out.println(amount);
 		
-		product.amount_Down(user_id, cart_num);
+		if(Integer.parseInt(amount) == 1) {
+			model.addAttribute("message", "最低数量は一つ以上です。");
+		} else {
+			product.amount_Down(user_id, cart_num);
+		}
+		
 		model.addAttribute("user_id", user_id);
 		
 		return url;

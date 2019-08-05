@@ -59,10 +59,10 @@
 		                    <div class="card" style="width: 18rem;">
 		                        <a href="boardView?board_num=${boardList.board_num}&board_id=${board_id}&page=${pageVO.page}">
 			                        <c:if test="${boardList.image eq null}">
-			                        	<img src="resources/images/food-1932466_640.jpg" class="card-img-top">
+			                        	<img src="resources/images/food-1932466_640.jpg" class="card-img-top" style="max-width: 100%;">
 			                        </c:if>
 			                        <c:if test="${boardList.image ne null}">
-			                        	<img src="resources/images/${boardList.image}" class="card-img-top">
+			                        	<img src="resources/images/${boardList.image}" class="card-img-top" style="max-width: 100%;">
 			                        </c:if>	
 		                        </a>
 		                        
