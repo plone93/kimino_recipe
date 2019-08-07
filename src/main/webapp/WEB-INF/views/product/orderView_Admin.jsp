@@ -38,7 +38,9 @@
                                 <td style="vertical-align: middle;"><a style="color:#666;">${boardList.product_name }</a></td>
                                 <td style="vertical-align: middle;">${boardList.price}</td>
                                 <td style="vertical-align: middle;">${boardList.amount }</td>
-                                <td style="vertical-align: middle;"><fmt:formatNumber pattern="###,###,###" value="${boardList.price * boardList.amount}"/></td>
+                                <td style="vertical-align: middle;"><fmt:formatNumber pattern="###,###,###" value="${boardList.price * boardList.amount}"/>
+                                <input type="hidden" name="price" value="${boardList.price * boardList.amount}">
+                                </td>
                             </tr>
                          </c:forEach>   
                         </tbody>                                  
@@ -92,25 +94,18 @@
 			 
 			 <!-- 주소 -->
 				<form method="POST" action="ordered" name="form" onsubmit="return userUpdate()">
-
-					<c:forEach var="boardList" items="${boardList}" varStatus="status">
-						<input type="hidden" name="product_id" value="${boardList.product_id}">
-						<input type="hidden" name="product_name" value="${boardList.product_name}">
-						<input type="hidden" name="price" value="${boardList.price}">
-						<input type="hidden" name="amount" value="${boardList.amount}">
-						<input type="hidden" name="cart_num" value="${boardList.cart_num }">
-					</c:forEach>
-					<input type="hidden" name="user_id" value="${loginUser.user_id }">	 					 		 	  	                 
-					
+					<c:forEach var="boardList" items="${boardList}" varStatus="status" begin="0" end="0" step="1" >				 		 	  	                 
+						<input type="hidden" value="${boardList.order_id}" name="order_id" id="order_id">
+						
                         <div class="row justify-content-center mt-5 py-2">
                             <div class="col-2">
                                 <label for="Email">お名前</label>
                             </div>
                             <div class="col-8">
-                                <input type="text" class="form-control"  value="${userVO.name }" name="name" id="name">
+                                <input type="text" class="form-control"  value="${boardList.name}" name="name" id="name">
                             </div>
                             <div class="col-1">
-                            	<button type="button" class="btn btn-dark" id="nameUpdate">更新</button>  
+        
                             </div>
                         </div>
                         
@@ -119,7 +114,7 @@
                                 <label for="name">アドレス1</label>
                             </div>
                             <div class="col-8">
-                                <input type="text" class="form-control"  value="${userVO.address1 }" name="address1" id="address1">
+                                <input type="text" class="form-control"  value="${boardList.address1}" name="address1" id="address1">
                             </div>
                             <div class="col-1">                         
                             </div>
@@ -129,10 +124,10 @@
                                 <label for="name">アドレス2</label>
                             </div>
                             <div class="col-8">
-                                <input type="text" class="form-control"  value="${userVO.address2 }" name="address2" id="address2">
+                                <input type="text" class="form-control"  value="${boardList.address2}" name="address2" id="address2">
                             </div>
                             <div class="col-1">
-                                <button type="button" class="btn btn-dark" id="addressUpdate">更新</button>                            
+                                                
                             </div>
                         </div>
                                          
@@ -141,10 +136,10 @@
                                 <label for="name">連絡先</label>
                             </div>
                             <div class="col-8">
-                                <input type="text" class="form-control"  value="${userVO.phone_num }" name="phone_num" id="phone_num">
+                                <input type="text" class="form-control"  value="${boardList.phone_num}" name="phone_num" id="phone_num">
                             </div>
                             <div class="col-1">
-                                <button type="button" class="btn btn-dark" id="phoneUpdate">更新</button>                            
+                                         
                             </div>
                         </div>
                         
@@ -153,37 +148,52 @@
                                 <label for="name">発送メッセージ</label>
                             </div>
                             <div class="col-8">
-                                <input type="text" class="form-control"  value="" name="message" id="message">
+                                <input type="text" class="form-control"  value="${boardList.message}" name="message" id="message">
                             </div>
                             <div class="col-1">                           
                             </div>
                         </div>
-                        <!-- 계좌선택 -->	
-                        <div class="row justify-content-center py-3">
+                        <!-- 계좌 -->	
+                         <div class="row justify-content-center py-3">
                             <div class="col-2">
                                 <label for="name">口座</label>
                             </div>
                             <div class="col-8">
-                               <select class="form-control" name="bank_account" id="bank_account">
-                                  <option value="UJF 0000-11111-22222">UJF 0000-11111-22222</option>
-                                  <option value="みずほ 0000-11111-22222">みずほ 0000-11111-22222</option>
-                                  <option value="三菱 0000-11111-22222">三菱 0000-11111-22222</option>
-                          	　  </select>
+                                <input type="text" class="form-control" value="${boardList.bank_account}" readonly>
                             </div>
-                            <div class="col-1">                    
+                            <div class="col-1">                           
                             </div>
                         </div>
+                        
+                        </c:forEach>
                         
                         <div class="row justify-content-center py-3" style="text-align:center;">
                             <div class="col-2">
                                 <label for=""></label>
                             </div>
                             <div class="col-8">
-                            	<button type="submit" class="btn btn-success">注文完了</button>
+                        
                             </div>
                             <div class="col-1">                    
                             </div>
-                        </div>  
+                        </div>
+                        
+                        <div class="row justify-content-center py-3">
+                            <div class="col-2">
+                                <label for="name">ポスト番号</label>
+                            </div>
+                            <div class="col-8">
+                            	<select class="form-control" name="postValue" id="postValue">
+									<option value="ヤマト運送">ヤマト運送</option>
+		                            <option value="佐川運送">佐川運送</option>
+		                            <option value="日本郵政">日本郵政</option>
+		                        </select>
+                                <input type="text" class="form-control"  value="" name="post_num" id="post_num">
+                            </div>
+                            <div class="col-1">
+                                <button type="button" class="btn btn-dark" id="postUpdate">更新</button>                            
+                            </div>
+                        </div>             
                                                                	
                     </form>
 						                
@@ -193,75 +203,23 @@
     </body> 
 </html>
 
-<!-- 이름 갱신 -->
-<script>
-	$('#nameUpdate').click(function(){
-		var name = $('#name').val();
-		var user_num = "${loginUser.user_num}"
-		
-		var allData = { "name": name, 
-						"user_num": user_num };//여러개의 변수를  배열에 저장
-	 		$.ajax({
-	 			url:"update_Name",
-	 			type:"post",
-	 			data:allData,
-	 			dataType:"json",
-	 			success:function(data){
-	 				if(data == 1){
-	 					alert("更新しました。");
-	 				} else {
-	 					alert("更新に失敗しました。");
-	 				}
-	 			}, error:function(request, status, error){
-	 				alert("エラーが発生しました。");
-	 			}
-	 		}); 	
-	});
-</script>
-
-<!-- 주소 갱신 -->
-<script>
-	$('#addressUpdate').click(function(){
-		var address1 = $('#address1').val();
-		var address2 = $('#address2').val();
-		var user_num = "${loginUser.user_num}"
-		
-		var allData = { "address1": address1, 
-						"address2": address2,
-						"user_num": user_num };//여러개의 변수를  배열에 저장
-	 		$.ajax({
-	 			url:"update_Address",
-	 			type:"post",
-	 			data:allData,
-	 			dataType:"json",
-	 			success:function(data){
-	 				if(data == 1){
-	 					alert("更新しました。");
-	 				} else {
-	 					alert("更新に失敗しました。");
-	 				}
-	 			}, error:function(request, status, error){
-	 				alert("エラーが発生しました。");
-	 			}
-	 		}); 	
-	});
-</script>
-
 <!-- 연락처 갱신 -->
 <script>
-	$('#phoneUpdate').click(function(){
-		var phone_num = $('#phone_num').val();
-		var user_num = "${loginUser.user_num}"
+	$('#postUpdate').click(function(){
+		var postValue = $('#postValue').val(); //택배회사
+		var post_num = $('#post_num').val();  //택배 번호
+		var order_id = $('#order_id').val(); //주문 id
 		
-		var allData = { "phone_num": phone_num, 
-						"user_num": user_num };//여러개의 변수를  배열에 저장
+		var allData = { "postValue": postValue, 
+						"post_num": post_num,
+						"order_id" : order_id };
 	 		$.ajax({
-	 			url:"update_Phone_num",
+	 			url:"update_Post",
 	 			type:"post",
 	 			data:allData,
 	 			dataType:"json",
 	 			success:function(data){
-	 				if(data == 1){
+	 				if(data >= 1){
 	 					alert("更新しました。");
 	 				} else {
 	 					alert("更新に失敗しました。");
@@ -285,13 +243,9 @@
 		} */
 		var total = 0;
 		
-		//체크된 값만 가져오기
-		var size = document.getElementsByName("check").length;
+		var size = "${fn:length(boardList)}"
 		for(var i =0; i<size; i++){
-			if(document.getElementsByName("check")[i].checked == true){
-				total += Number(document.getElementsByName("check")[i].value); // Number()  int로 형변환 대소문자 구분 중요
-				
-			}
+				total += Number(document.getElementsByName("price")[i].value); // Number()  int로 형변환 대소문자 구분 중요
 		}
 		/*total_Price라는 클래스이름을 가진 곳에 속성(value에, total을 집어넣음) */
 		$('.total_Price').attr('value', total);

@@ -16,11 +16,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kimino_recipe.desktop.domain.adminVO;
 import com.kimino_recipe.desktop.domain.boardVO;
 import com.kimino_recipe.desktop.domain.commentVO;
+import com.kimino_recipe.desktop.domain.orderVO;
 import com.kimino_recipe.desktop.domain.pageVO;
+import com.kimino_recipe.desktop.domain.productVO;
 import com.kimino_recipe.desktop.domain.userVO;
 import com.kimino_recipe.desktop.service.boardService;
 import com.kimino_recipe.desktop.service.commentService;
 import com.kimino_recipe.desktop.service.loginService;
+import com.kimino_recipe.desktop.service.productService;
 import com.kimino_recipe.desktop.service.userService;
 
 import lombok.AllArgsConstructor;
@@ -33,6 +36,7 @@ public class adminController {
 	private userService user;
 	private boardService board;
 	private commentService comment;
+	private productService product;
 	
 
 	//관리자 로그인 버튼
@@ -293,5 +297,117 @@ public class adminController {
 	return url;		
 	}
 	
+	//주문관리
+	@GetMapping("/orderList")
+	public String orderList(HttpServletRequest request,
+							Model model) {
+		String url = "myPage/orderList";
+		
+		int page = 1;
+		int boardCount = 0;
+		
+		List<orderVO> orderList = new ArrayList<orderVO>();
+
+		if(request.getParameter("page") != null){
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+		pageVO pageVO = new pageVO();
+		pageVO.setPage(page);
+		
+		orderList = board.select_AllOrderList(page);
+		pageVO.setTotalCount(board.select_AllOrderCount());
+		boardCount = pageVO.getTotalCount();
+		
+		model.addAttribute("orderList", orderList);
+		model.addAttribute("boardCount", boardCount);
+		model.addAttribute("pageVO", pageVO);
+		
+		
+		/*리다이렉트로 날아온 메세지가 있다면 jsp로 보냄*/
+		if(request.getParameter("message") != null) {
+			model.addAttribute("message", request.getParameter("message"));
+		}
+		
+		return url;
+	}
+	
+	
+	//상품 배송상황 변경
+	@PostMapping("/deliveryUpdate")
+	public String deliveryUpdate(HttpServletRequest request,
+								 @RequestParam("order_id")String order_id,
+								 @RequestParam("deliveryValue")String deliveryValue,
+								 Model model) {
+		String url = "redirect:/orderList";
+		
+		/*주문한 리스트*/
+		int page = 1;
+		
+		if(request.getParameter("page") != null){
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+		pageVO pageVO = new pageVO();
+		pageVO.setPage(page);
+		
+		int result = 0; // 결과값 초기화 
+		result = product.deliveryUpdate(order_id, deliveryValue); // 처리
+		
+		if(result >= 1) { // 성공적으로 반영 되었으면
+			model.addAttribute("message", "更新されました。");
+		} else { // 아니면
+			model.addAttribute("message", "更新に失敗しました。");
+		}
+		
+		model.addAttribute("page", page); //리다이렉트에 페이지 전달
+		return url;
+	}
+	
+	/*주문내역에서 주문id를 클릭했을 때  해당 id와 동일한 상품 표기 (같이 주문한 상품의 주문id는 전부 동일함)*/
+	@GetMapping("/orderView_Admin")
+	public String orderView_Admin(HttpServletRequest request,
+							@RequestParam("order_id")String order_id,
+							Model model) {
+		String url = "product/orderView_Admin";
+		
+		List<orderVO> boardList = new ArrayList<orderVO>();
+		
+		/*주문한 리스트*/
+		int page = 1;
+		int boardCount = 0;
+		
+		if(request.getParameter("page") != null){
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+		pageVO pageVO = new pageVO();
+		pageVO.setPage(page);
+		
+		boardList = product.orderView(page, order_id);
+		pageVO.setTotalCount(product.get_orderCount(order_id));
+		boardCount = pageVO.getTotalCount();	
+		
+		model.addAttribute("boardList", boardList);
+		model.addAttribute("boardCount", boardCount);
+		model.addAttribute("pageVO", pageVO);
+		
+		return url;
+	}
+	
+	//택배번호 갱신
+	@ResponseBody
+	@PostMapping("/update_Post")
+	public int update_Post(@RequestParam("postValue")String postValue,
+						   @RequestParam("post_num")String post_Number,
+						   @RequestParam("order_id")String order_id) {
+		
+		int result = 0; //jsp에서 ajax를 통해 결과를 알려줄 변수
+
+		String post_num = postValue +"  "+ post_Number;
+		
+		System.out.println(order_id);
+		System.out.println(post_num);
+		result = product.update_Post_num(post_num, order_id);
+		
+		return result;	
+	}
 	
 }

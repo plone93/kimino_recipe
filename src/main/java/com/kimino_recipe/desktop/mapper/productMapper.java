@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.kimino_recipe.desktop.domain.boardVO;
+import com.kimino_recipe.desktop.domain.orderVO;
 import com.kimino_recipe.desktop.domain.productVO;
 
 public interface productMapper {
@@ -24,8 +25,12 @@ public interface productMapper {
 	public int insert_OrderList(HashMap<String, Object> map); // 주문완료 후 주문 리스트에 입력
 	
 	/*주문이력*/
-	public List<productVO> orderView(HashMap<String, Object> map); //주문id에 해당하는 리스트 가져옴
+	public List<orderVO> orderView(HashMap<String, Object> map); //주문id에 해당하는 리스트 가져옴
 	public int get_orderCount(String order_id); //주문id에 해당하는 주문건수
+	
+	/*주문이력-관리자 기능*/
+	public int deliveryUpdate(HashMap<String, Object> map);//배송상황 변경
+	public int update_Post_num(HashMap<String, Object> map);//발송 후 배송추적번호 갱신
 
 
 }

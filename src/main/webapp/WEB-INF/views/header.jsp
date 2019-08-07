@@ -55,13 +55,13 @@
                 </form>  
                     
                 <c:if test="${loginUser eq null and loginAdmin eq null}">
-                    <div class="col-4 pt-4">
+                    <div class="col-4 pt-4 text-right">
                   	    <a class="btn btn-success d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="insert_User">ID登録</a> 
                         <a class="btn btn-success d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="login_User">ログイン</a>                  
                     </div> 
 				</c:if>
 				<c:if test="${loginUser ne null or loginAdmin ne null}">
-                    <div class="col-4 pt-4">
+                    <div class="col-4 pt-4 text-right">
                     	<c:if test="${loginUser ne null }">
                     	   <a class="btn btn-success d-lg-inline-block mb-3 mb-md-0 ml-md-2" href="cartList?user_id=${loginUser.user_id }">カート</a>  
                     	   <a class="btn btn-success d-lg-inline-block mb-3 mb-md-0 ml-md-2" href="edit_Profile?user_id=${loginUser.user_id }">ユーザー設定</a>                  

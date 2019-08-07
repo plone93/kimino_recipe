@@ -7,16 +7,17 @@
             <div class="row"><div class="col py-3"></div></div>
             <div class="row justify-content-center mt-1 mb-5">
                 <div class="col-3">
-                    <h1 class="text-center">내글목록</h1>
+                    <h1 class="text-center">申告管理</h1>
                 </div>
             </div>
             <div class="row"><div class="col py-3"></div></div>
             <div class="row">
                 <div class="col-2 ml-2 mt-5">
                     <div class="list-group">
-                        <button type="button" class="list-group-item list-group-item-action active list-group-item-success">내정보</button>
-                        <a href="userList" class="list-group-item list-group-item-action list-group-item-light">유저 관리</a>
-                        <a href="reportList" class="list-group-item list-group-item-action list-group-item-success">신고 관리</a>                                     
+                        <button type="button" class="list-group-item list-group-item-action active list-group-item-success">アカウント情報</button>
+                        <a href="userList" class="list-group-item list-group-item-action list-group-item-light">ユーザー管理</a>
+                        <a href="reportList" class="list-group-item list-group-item-action list-group-item-success">申告管理</a>
+                        <a href="orderList" class="list-group-item list-group-item-action list-group-item-light">注文管理</a>                                        
                     </div>
                 </div>
                 
@@ -26,7 +27,7 @@
                         <thead>
                             <tr>
 	                            <th>#</th>
-	                            <th>レシピのタイトル</th>
+	                            <th>タイトル</th>
 	                            <th>作成者</th>
 	                            <th>登録日</th>
 	                            <th>申告数</th>
@@ -45,7 +46,7 @@
                                 <td>${boardList.user_name }</td>
                                 <td><fmt:formatDate value="${boardList.writedate }"/></td>
                                 <td>${boardList.report }</td>
-                                <td><span class="btn btn-outline-danger"><a href="" style="color:#dc3545;" data-toggle="modal" data-target="#delete_Board_Report">삭제</a></span>
+                                <td><span class="btn btn-outline-danger"><a href="" style="color:#dc3545;" data-toggle="modal" data-target="#delete_Board_Report">削除</a></span>
                                 
                                 	<!-- Modal -->
                                     <div class="modal fade" id="delete_Board_Report" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -58,7 +59,7 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body text-left">
-                                                 	   갑질하시겠습니까?<br>
+                                                 	   削除しますか?<br>
                                                     (消し後、戻れません。)
                                                 </div>
                                                 <div class="modal-footer">
@@ -119,7 +120,7 @@
                     <form action="search_Board_Report" method="post">
                         <div class="row">
                             <div class="col-9">
-                                <input name="keyword" class="form-control mr-sm-2" type="text" placeholder="지금 게시판에서 検索" aria-label="Search">
+                                <input name="keyword" class="form-control mr-sm-2" type="text" placeholder="検索" aria-label="Search">
                             </div>
                             <div class="col-3">
                                 <button class="btn btn-success my-2 my-sm-0" type="submit">検索</button>

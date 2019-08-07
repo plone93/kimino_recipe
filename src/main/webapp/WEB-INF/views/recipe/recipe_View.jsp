@@ -30,7 +30,7 @@
             <div class="row">
                 <div class="col py-3">
 	                <c:if test="${boardVO.image ne null}">
-				       <img src="resources/images/${boardVO.image}" class="card-img-top">
+				       <img src="resources/images/${boardVO.image}" class="card-img-top" style="width:30rem; height: 29rem">
 				    </c:if>	
                 <br>     
  			  	${boardVO.content }

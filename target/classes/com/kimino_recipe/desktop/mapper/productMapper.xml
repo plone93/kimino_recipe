@@ -78,14 +78,14 @@
  	
  	<!-- 주문리스트 입력 -->
  	<insert id="insert_OrderList" parameterType="hashmap">
- 		insert into kimino_recipe_orderList(order_num, user_id, product_id, product_name, price, amount, name, phone_num, address1, address2, bank_account, order_id)
- 		values(kimino_recipe_orderList_seq.nextval, #{orderVO.user_id}, #{product_id}, #{product_name}, #{price}, #{amount}, #{orderVO.name}, #{orderVO.phone_num}, #{orderVO.address1}, #{orderVO.address2}, #{orderVO.bank_account}, #{order_id})
+ 		insert into kimino_recipe_orderList(order_num, user_id, product_id, product_name, price, amount, name, phone_num, address1, address2, bank_account, message, image, order_id)
+ 		values(kimino_recipe_orderList_seq.nextval, #{orderVO.user_id}, #{product_id}, #{product_name}, #{price}, #{amount}, #{orderVO.name}, #{orderVO.phone_num}, #{orderVO.address1}, #{orderVO.address2}, #{orderVO.bank_account}, #{orderVO.message}, #{orderVO.image}, #{order_id})
  	</insert>
  	
  	<!-- 주문이력 -->
  	
  	<!-- 주문id 상세보기 -->
- 	<select id="orderView" parameterType="hashmap" resultType="com.kimino_recipe.desktop.domain.productVO">
+ 	<select id="orderView" parameterType="hashmap" resultType="com.kimino_recipe.desktop.domain.orderVO">
  		select * from 
  		(select T.*, row_number() over(order by price desc) as rnum from kimino_recipe_orderList T where order_id = #{order_id})
  		where rnum between #{startNum} and #{endNum}
@@ -94,6 +94,16 @@
  	<select id="get_orderCount" resultType="int">
  		select count(*) from kimino_recipe_orderList where order_id = #{order_id}
  	</select>
-
+	
+	<!-- 배송상황 변경 -->
+	<update id="deliveryUpdate" parameterType="hashmap">
+		update kimino_recipe_orderList set delivery = #{deliveryValue}
+		where order_id = #{order_id}
+	</update>
  	
+ 	<!-- 발송 후 배송추적번호 갱신 -->
+ 	<update id="update_Post_num" parameterType="hashmap">
+ 		update kimino_recipe_orderList set post_num = #{post_num}
+		where order_id = #{order_id}
+ 	</update>
  </mapper>

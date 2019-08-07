@@ -24,6 +24,8 @@ public interface userService {
 	public int update_Address(int user_num, String address1, String address2); //주문할때 주소 갱신
 	public int update_Phone_num(int user_num, String phone_num); //주문할때 연락처 갱신
 	
+	/*주문내역 > 주문상품 > 갱신*/
+	public int update_OrderName(String name, String order_id);//주문한 상품 수령인 이름 변경
 	
 	/*관리자*/
 	public adminVO get_Admin(String admin_id); //회원정보수정 임시
@@ -33,6 +35,7 @@ public interface userService {
 	public int passUpdate_Admin(String admin_num, String admin_pass);//내정보창에서 비밀번호 변경
 	public List<userVO> select_AllUser(int page); //관리자 게시판에서 유저리스트 로드
 	public int get_userCount();// 총 회원수 
+
 
 
 	

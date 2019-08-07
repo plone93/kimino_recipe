@@ -16,7 +16,8 @@
                     <div class="list-group">
                         <button type="button" class="list-group-item list-group-item-action active list-group-item-success">アカウント情報</button>
                         <a href="userList" class="list-group-item list-group-item-action list-group-item-success">ユーザー管理</a>
-                        <a href="reportList" class="list-group-item list-group-item-action list-group-item-light">申告管理</a>                                  
+                        <a href="reportList" class="list-group-item list-group-item-action list-group-item-light">申告管理</a>
+                        <a href="orderList" class="list-group-item list-group-item-action list-group-item-light">注文管理</a>                                  
                     </div>
                 </div>
                 <div class="col-9">
@@ -147,7 +148,7 @@
 	    var allData = { "admin_pass": admin_pass,
 	    				"admin_num": admin_num };//여러개의 변수를  배열에 저장
 	    
-	    if(!valueCheck.test(admin _pass)){
+	    if(!valueCheck.test(admin_pass)){
 	 		alert("비번はローマ字、またはローマ字＋数字で始まる6～２０字の合わせのみ可能です。");
 	 	} else {
 	 		$.ajax({

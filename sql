@@ -98,6 +98,10 @@ create table kimino_recipe_orderlist(
 	address1 varchar2(50) not null,
 	address2 varchar2(50) not null,
 	bank_account varchar2(50) not null,
+	delivery number(5) default 0,
+	image varchar2(50),
+	message varchar2(50),
+	post_num varchar2(50),
 	orderdate date default sysdate	
 );
 

@@ -355,6 +355,23 @@ public class boardServiceImpl implements boardService {
 		return board.select_OrderCount(user_id);
 	}
 
+	@Override
+	public List<orderVO> select_AllOrderList(int page) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int startNum = (page-1)*10+1;
+		int endNum = page*10;
+		
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+		
+		return board.select_AllOrderList(map);
+	}
+
+	@Override
+	public int select_AllOrderCount() {
+		return board.select_AllOrderCount();
+	}
+
 
 	
 	

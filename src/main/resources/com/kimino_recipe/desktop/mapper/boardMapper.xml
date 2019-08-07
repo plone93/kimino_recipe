@@ -225,6 +225,17 @@
  	<select id="select_OrderCount" resultType="int">
  		select count(*) from kimino_recipe_orderList where user_id = #{user_id}
  	</select>
-
+ 	
+ 	<!-- 관리자 주문관리 -->
+	<select id="select_AllOrderList" parameterType="hashmap" resultType="com.kimino_recipe.desktop.domain.orderVO">
+		select * from 
+ 		(select T.*, row_number() over(order by orderdate) as rnum from 
+ 		(select distinct * from kimino_recipe_orderList) T)
+ 		where rnum between #{startNum} and #{endNum} 
+	</select>
+	
+	<select id="select_AllOrderCount" resultType="int">
+		select count(*) from kimino_recipe_orderList
+	</select>
  	
  </mapper>

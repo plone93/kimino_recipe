@@ -121,7 +121,7 @@ public class productServiceImpl implements productService {
 	}
 
 	@Override
-	public List<productVO> orderView(int page, String order_id) {
+	public List<orderVO> orderView(int page, String order_id) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		int startNum = (page-1)*10+1;
 		int endNum = page*10;
@@ -136,6 +136,24 @@ public class productServiceImpl implements productService {
 	@Override
 	public int get_orderCount(String order_id) {
 		return product.get_orderCount(order_id);
+	}
+
+	@Override
+	public int deliveryUpdate(String order_id, String deliveryValue) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("order_id", order_id);
+		map.put("deliveryValue", deliveryValue);
+		
+		return product.deliveryUpdate(map);
+	}
+
+	@Override
+	public int update_Post_num(String post_num, String order_id) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("post_num", post_num);
+		map.put("order_id", order_id);
+		
+		return product.update_Post_num(map);
 	}
 	
 	

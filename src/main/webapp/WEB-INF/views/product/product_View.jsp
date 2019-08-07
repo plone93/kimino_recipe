@@ -7,7 +7,13 @@
             <div class="row my-5"><div class="col"></div></div>
             <div class="row">
                 <div class="col-6">
-                    <img src="resources/images/${productVO.image }" class="img-fluid" alt="Responsive image">
+               		<c:if test="${productVO.image eq null}">
+				       	<img src="resources/images/food-1932466_640.jpg" class="card-img-top" style="width: 30rem; height: 29rem;">
+				    </c:if>
+				    <c:if test="${season.image ne null}">
+				        <img src="resources/images/${productVO.image }" class="img-fluid" style="width: 30rem; height: 29rem;">
+				    </c:if>	
+
                 </div>
                 <div class="col-6">
                     <div class="row mb-5">

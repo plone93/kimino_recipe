@@ -68,6 +68,10 @@ public interface boardService {
 	public int select_MyWriteCount(String user_id); //작성한 글 갯수
 	public List<orderVO> select_OrderList(int page, String user_id); /*주문이력*/
 	public int select_OrderCount(String user_id); // 주문 내역 갯수
+	
+	/*관리자 페이지*/
+	public List<orderVO> select_AllOrderList(int page);//관리자페이지>주문관리
+	public int select_AllOrderCount();// 관리자페이지>주문관리에 몇건이 있는가
 
 	
 }

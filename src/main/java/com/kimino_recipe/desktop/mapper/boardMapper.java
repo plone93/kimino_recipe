@@ -68,6 +68,10 @@ public interface boardMapper {
 	public int select_MyWriteCount(String user_id);
 	public List<orderVO> select_OrderList(HashMap<String, Object> map); //주문내역
 	public int select_OrderCount(String user_id);
+	
+	/*관리자페이지*/
+	public List<orderVO> select_AllOrderList(HashMap<String, Object> map);//관리자페이지>주문관리 리스트
+	public int select_AllOrderCount();// 관리자페이지> 주문관리 리스트 카운트
 
 	
 

@@ -176,6 +176,15 @@ public class userServiceImpl implements userService {
 		return user.update_Phone_num(map);
 	}
 
+	@Override
+	public int update_OrderName(String name, String order_id) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("name", name);
+		map.put("order_id", order_id);
+		
+		return user.update_OrderName(map);
+	}
+
 
 
 

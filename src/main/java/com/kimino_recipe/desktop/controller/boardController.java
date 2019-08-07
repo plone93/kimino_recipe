@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.kimino_recipe.desktop.domain.boardVO;
 import com.kimino_recipe.desktop.domain.commentVO;
@@ -312,6 +313,11 @@ public class boardController {
 							MultipartFile file) {
 
 		String url = "redirect:/boardList";
+		/*
+		 * MultipartHttpServletRequest multipartRequest =
+		 * (MultipartHttpServletRequest)request; List<MultipartFile> files =
+		 * multipartRequest.getFiles("file"); System.out.println(files.toString());
+		 */
 		
 		try {
 			/*파일 업로드*/

@@ -25,8 +25,12 @@ public interface productService {
 	public int insert_OrderList(orderVO orderVO, String product_id, String product_name, String price, String amount, String order_id);// 주문완료 후 주문 리스트로 이동
 	
 	/*주문이력*/
-	public List<productVO> orderView(int page, String order_id);//주문id에 해당하는 리스트 가져오기
+	public List<orderVO> orderView(int page, String order_id);//주문id에 해당하는 리스트 가져오기
 	public int get_orderCount(String order_id); // 주문id에 해당하는 주문건수
+	
+	/*주문이력-관리자 기능*/
+	public int deliveryUpdate(String order_id, String deliveryValue);//배송상황변경
+	public int update_Post_num(String post_num, String order_id); //택배 배송번호 갱신
 
 	
 }

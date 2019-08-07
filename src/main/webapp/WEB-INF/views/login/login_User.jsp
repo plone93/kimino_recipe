@@ -23,7 +23,7 @@
                             <div class="col-4 text-center">
                                 <button type="submit" class="btn btn-dark">ローグイン</button>
                             </div>
-                            <div class="col-4 text-center">
+                            <div class="col-5 text-center">
                                 <a href="insert_User" class="btn btn-dark">アカウント登録</a>
                             </div>
                         </div>    

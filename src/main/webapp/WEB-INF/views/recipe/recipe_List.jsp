@@ -26,11 +26,11 @@
                     </form>   
                 </div>
                 
-                <div class="col-4"></div>
-                
-                <c:if test="${loginUser eq null or loginAdmin eq null}">
+                <c:if test="${loginUser eq null}">
+                	<div class="col-6"></div>
 				</c:if>
-				<c:if test="${loginUser ne null or loginAdmin ne null}">
+				<c:if test="${loginUser ne null}">
+				<div class="col-4"></div>
 					<div class="col-2 text-right">
 	                    <a class="btn btn-success" href="insert_Board?board_id=${board_id }" role="button">作成</a>
 	                </div>
@@ -59,10 +59,10 @@
 		                    <div class="card" style="width: 18rem;">
 		                        <a href="boardView?board_num=${boardList.board_num}&board_id=${board_id}&page=${pageVO.page}">
 			                        <c:if test="${boardList.image eq null}">
-			                        	<img src="resources/images/food-1932466_640.jpg" class="card-img-top" style="max-width: 100%;">
+			                        	<img src="resources/images/food-1932466_640.jpg" class="card-img-top" style="height: 12rem;">
 			                        </c:if>
 			                        <c:if test="${boardList.image ne null}">
-			                        	<img src="resources/images/${boardList.image}" class="card-img-top" style="max-width: 100%;">
+			                        	<img src="resources/images/${boardList.image}" class="card-img-top" style="height: 12rem;">
 			                        </c:if>	
 		                        </a>
 		                        

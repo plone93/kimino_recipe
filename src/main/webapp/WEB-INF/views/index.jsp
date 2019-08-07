@@ -12,21 +12,21 @@
             </div>
             
             <div class="row mt-5"><div class="col"><h5>季節料理</h5></div></div>
-            <div class="row" style="width: 72%;">
+            <div class="row">
                 <div class="col">
                     <img src="resources/images/medal-first.png" width="30" height="30" class="d-inline-block align-top">
-                </div>
+                </div>                
                 <div class="col">
                     <img src="resources/images/medal-second.png" width="30" height="30" class="d-inline-block align-top">
-                </div>                
+                </div>                               
                 <div class="col">
                     <img src="resources/images/medal-third.png" width="30" height="30" class="d-inline-block align-top">
                 </div>
             </div>
             
             <div class="row">
-          	  <c:forEach var="season" items="${season}" varStatus="status" begin="0" end="3" step="1">
-                	<div class="col" style="flex-grow:0;">
+          	  <c:forEach var="season" items="${season}" varStatus="status" begin="0" end="2" step="1">
+                	<div class="col-4" style="flex-grow:0;">
 	                    <div class="card" style="width: 15rem;">
 	                        <a href="boardView?board_num=${season.board_num}&board_id=${board_id}">
 				                <c:if test="${season.image eq null}">
@@ -41,8 +41,7 @@
 	                        </div>
 	                    </div>
                		 </div>
-              </c:forEach>
-              <span class="btn btn-outline-success"><a href="cart_Delete" style="color:#28a745;">削除</a></span>                                         
+              </c:forEach>                                       
             </div>
             
             
@@ -50,18 +49,18 @@
             <div class="row" style="width: 72%;">
                 <div class="col">
                     <img src="resources/images/medal-first.png" width="30" height="30" class="d-inline-block align-top">
-                </div>
-                <div class="col">
-                    <img src="resources/images/medal-second.png" width="30" height="30" class="d-inline-block align-top">
                 </div>                
                 <div class="col">
+                    <img src="resources/images/medal-second.png" width="30" height="30" class="d-inline-block align-top">
+                </div>                               
+                <div class="col">
                     <img src="resources/images/medal-third.png" width="30" height="30" class="d-inline-block align-top">
-                </div>                    
+                </div>                
             </div>
             
             <div class="row">
           	  <c:forEach var="country" items="${country}" varStatus="status" begin="0" end="3" step="1">
-                	<div class="col" style="flex-grow:0;">
+                	<div class="col-4" style="flex-grow:0;">
 	                    <div class="card" style="width: 15rem;">
 	                        <a href="boardView?board_num=${country.board_num}&board_id=${board_id}">
 				                <c:if test="${country.image eq null}">
@@ -93,7 +92,7 @@
             </div>
             <div class="row">
           	  <c:forEach var="single" items="${single}" varStatus="status" begin="0" end="3" step="1">
-                	<div class="col" style="flex-grow:0;">
+                	<div class="col-4" style="flex-grow:0;">
 	                    <div class="card" style="width: 15rem;">
 	                        <a href="boardView?board_num=${single.board_num}&board_id=${board_id}">
 				                <c:if test="${single.image eq null}">

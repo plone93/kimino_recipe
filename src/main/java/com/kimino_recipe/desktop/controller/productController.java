@@ -343,7 +343,7 @@ public class productController {
 							Model model) {
 		String url = "product/orderView";
 		
-		List<productVO> boardList = new ArrayList<productVO>();
+		List<orderVO> boardList = new ArrayList<orderVO>();
 		
 		/*주문한 리스트*/
 		int page = 1;
@@ -369,5 +369,6 @@ public class productController {
 		return url;
 	}
 	
+
 
 }

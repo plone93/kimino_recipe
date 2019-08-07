@@ -230,9 +230,7 @@ public class userController {
 	//아이디 중복 체크
 	@ResponseBody
 	@PostMapping("/idCheck")
-	public int idCheck(HttpSession session, HttpServletRequest request,
-					   @RequestParam("id")String id,
-					   Model model) {
+	public int idCheck(@RequestParam("id")String id) {
 		
 		int idCheck = 0;
 		int result = 0;
@@ -240,9 +238,7 @@ public class userController {
 		
 		if(idCheck == 1) {
 			result = 1; /* 1이면 중복된 아이디가 검색되서 1이 리턴됐으므로 사용불가, 검색된 행의 갯수를 리턴함 */
-			model.addAttribute("result", result);
 		} else if(idCheck == 0){
-			model.addAttribute("result", result);
 		}
 		
 		return result;		
@@ -251,9 +247,7 @@ public class userController {
 	//이름 중복 체크
 	@ResponseBody
 	@PostMapping("/nameCheck")
-	public int nameCheck(HttpSession session, HttpServletRequest request,
-					   @RequestParam("name")String name,
-					   Model model) {
+	public int nameCheck(@RequestParam("name")String name) {
 		
 		int nameCheck = 0;
 		int result = 0;
@@ -262,9 +256,7 @@ public class userController {
 		
 		if(nameCheck == 1) {
 			result = 1; /* 1이면 중복된 아이디가 검색되서 1이 리턴됐으므로 사용불가, 검색된 행의 갯수를 리턴함 */
-			model.addAttribute("result", result);
 		} else if(nameCheck == 0){
-			model.addAttribute("result", result);
 		}
 		
 		return result;		
@@ -273,10 +265,8 @@ public class userController {
 	//이메일 갱신
 	@ResponseBody
 	@PostMapping("/emailUpdate")
-	public int emailUpdate(HttpSession session, HttpServletRequest request,
-					   @RequestParam("user_email")String user_email,
-					   @RequestParam("user_num")String user_num,
-					   Model model) {
+	public int emailUpdate(@RequestParam("user_email")String user_email,
+					       @RequestParam("user_num")String user_num) {
 		
 		int emailCheck = 0;
 		int result = 0; //jsp에서 ajax를 통해 결과를 알려줄 변수
@@ -285,10 +275,8 @@ public class userController {
 		
 		if(emailCheck >= 1) {
 			result = 1; /* 1이면 중복된 이메일 검색되서 1이상이 리턴됐으므로 사용불가, 검색된 행의 갯수를 리턴함 */
-			model.addAttribute("result", result);	
 		} else if(emailCheck == 0){ // 중복이 없음
 			user.emailUpdate(user_num, user_email); //이메일 변경
-			model.addAttribute("result", result);	
 		}
 		
 		return result;		
@@ -297,10 +285,8 @@ public class userController {
 	//닉네임 갱신
 	@ResponseBody
 	@PostMapping("/nameUpdate")
-	public int nameUpdate(HttpSession session, HttpServletRequest request,
-					   @RequestParam("user_name")String user_name,
-					   @RequestParam("user_num")String user_num,
-					   Model model) {
+	public int nameUpdate(@RequestParam("user_name")String user_name,
+					      @RequestParam("user_num")String user_num) {
 		
 		int nameCheck = 0;
 		int result = 0; //jsp에서 ajax를 통해 결과를 알려줄 변수
@@ -309,10 +295,8 @@ public class userController {
 		
 		if(nameCheck >= 1) {
 			result = 1; /* 1이면 중복된 아이디가 검색되서 1이 리턴됐으므로 사용불가, 검색된 행의 갯수를 리턴함 */
-			model.addAttribute("result", result);	
 		} else if(nameCheck == 0){
 			user.nameUpdate(user_num, user_name); //닉네임 변경
-			model.addAttribute("result", result);	
 		}
 		
 		return result;		
@@ -322,15 +306,12 @@ public class userController {
 	//비밀번호 갱신
 	@ResponseBody
 	@PostMapping("/passUpdate")
-	public int passUpdate(HttpSession session, HttpServletRequest request,
-					   @RequestParam("user_pass")String user_pass,
-					   @RequestParam("user_num")String user_num,
-					   Model model) {
+	public int passUpdate(@RequestParam("user_pass")String user_pass,
+			 			  @RequestParam("user_num")String user_num) {
 		
 		int result = 0; //jsp에서 ajax를 통해 결과를 알려줄 변수
 		
 		result = user.passUpdate(user_num, user_pass);
-		model.addAttribute("result", result);
 		
 		return result;		
 	}
@@ -338,14 +319,11 @@ public class userController {
 	//이름 갱신
 	@ResponseBody
 	@PostMapping("/update_Name")
-	public int update_Name(HttpSession session, HttpServletRequest request,
-							userVO userVO,
-							Model model) {
+	public int update_Name(userVO userVO) {
 		
 		int result = 0; //jsp에서 ajax를 통해 결과를 알려줄 변수
 		
 		result = user.update_Name(userVO.getUser_num(), userVO.getName());
-		model.addAttribute("result", result);
 		
 		return result;		
 	}
@@ -353,14 +331,11 @@ public class userController {
 	//주소 갱신
 	@ResponseBody
 	@PostMapping("/update_Address")
-	public int update_Address(HttpSession session, HttpServletRequest request,
-						    	userVO userVO,
-								Model model) {
+	public int update_Address(userVO userVO) {
 		
 		int result = 0; //jsp에서 ajax를 통해 결과를 알려줄 변수
 		
 		result = user.update_Address(userVO.getUser_num(), userVO.getAddress1(), userVO.getAddress2());
-		model.addAttribute("result", result);
 		
 		return result;		
 	}
@@ -368,20 +343,28 @@ public class userController {
 	//연락처 갱신
 	@ResponseBody
 	@PostMapping("/update_Phone_num")
-	public int update_Phone_num(HttpSession session, HttpServletRequest request,
-	    						userVO userVO,
-	    						Model model) {
+	public int update_Phone_num(userVO userVO) {
 		
 		int result = 0; //jsp에서 ajax를 통해 결과를 알려줄 변수
 		
 		result = user.update_Phone_num(userVO.getUser_num(), userVO.getPhone_num());
-		model.addAttribute("result", result);
 		
 		return result;		
 	}
 	
 	
-	
+	//주문자 이름 변경
+	@ResponseBody
+	@PostMapping("/update_OrderName")
+	public int update_OrderName(@RequestParam("name")String name,
+								@RequestParam("order_id")String order_id) {
+		
+		int result = 0; //jsp에서 ajax를 통해 결과를 알려줄 변수
+		
+		result = user.update_OrderName(name, order_id);
+		
+		return result;		
+	}
 	
 
 }

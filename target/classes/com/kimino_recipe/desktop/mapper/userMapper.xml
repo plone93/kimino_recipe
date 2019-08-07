@@ -112,4 +112,10 @@
  		update kimino_recipe_user set phone_num = #{phone_num} 
  		where user_num = #{user_num} 
  	</update>
+ 	
+ 	<!-- 사용자) 주문내역 > 주문상품 > 갱신  -->
+ 	<update id="update_OrderName" parameterType="hashmap">
+ 		update kimino_recipe_orderList set name = #{name} 
+ 		where order_id = #{order_id} 
+ 	</update>
  </mapper>

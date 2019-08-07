@@ -26,7 +26,7 @@
                     </form>   
                 </div>
                 
-                <div class="col-4"></div>
+                <div class="col-5"></div>
                 
                 <c:if test="${loginAdmin eq null}">
 				</c:if>
@@ -35,12 +35,6 @@
 	                    <a class="btn btn-success" href="insert_Product_Board?board_id=${board_id }" role="button">作成</a>
 	                </div>
 				</c:if>	
-
-                <!-- 메뉴 -->
-                <div class="col-1">
-                    <div class="dropdown">   
-                    </div>
-                </div>
             </div>  
             	  <!-- 게시판 리스트ㅡ -->	
           		  <div class="row mt-5">
@@ -50,10 +44,10 @@
 		                    <div class="card" style="width: 18rem;">
 		                        <a href="product_View?product_num=${boardList.product_num}&board_id=${board_id}&page=${pageVO.page}">
 			                        <c:if test="${boardList.image eq null}">
-			                        	<img src="resources/images/food-1932466_640.jpg" class="card-img-top">
+			                        	<img src="resources/images/food-1932466_640.jpg" class="card-img-top" style="height: 12rem;">
 			                        </c:if>
 			                        <c:if test="${boardList.image ne null}">
-			                        	<img src="resources/images/${boardList.image}" class="card-img-top">
+			                        	<img src="resources/images/${boardList.image}" class="card-img-top" style="height: 12rem;">
 			                        </c:if>	
 		                        </a>
 		                        
@@ -89,7 +83,7 @@
 				     </c:when>
 			    	 <c:otherwise>
 			    		 <li class="page-item">
-			    	  		 <a class="page-link" href="boardList?page=${i}&board_id=${board_id}">${i}</a>
+			    	  		 <a class="page-link" href="productList?page=${i}&board_id=${board_id}">${i}</a>
 			    	  	 </li>  
 			         </c:otherwise>
 				</c:choose>

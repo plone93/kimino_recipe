@@ -16,7 +16,7 @@
             
             <c:if test="${boardCount == '0' }">
 	            <div class="row justify-content-center mt-1 mb-5">
-	                <div class="col-6">
+	                <div class="col-7">
 	                    <h1 class="text-center">保存された商品はありません。</h1>
 	                </div>
 	            </div>      
@@ -60,12 +60,18 @@
                     </table>
                     
                      <div class="row justify-content-end">
-                        <div class="col-1">合計　:　 </div>
+                        <div class="col-2">合計　:　 </div>
                         <div class="col-1 total_Price" id="total_Price">   
                             <input class="total_Price"  style="border: 0 none;" readonly>
                             <span><strong class="total_Price"></strong></span>
                         </div>
                     </div> 
+                    <div class="row justify-content-end mt-3">
+                    	 <form action="order" method="post" style="text-align:center;">
+	              			<input type="hidden" name="user_id" value="${loginUser.user_id }">
+	              			<button type="submit" class="btn btn-success">購入</button>
+              			</form>
+                    </div>
                     
 			 <!-- 페이지 -->
 			  <ul class="pagination justify-content-center" style="margin-top:50px;">
@@ -103,15 +109,7 @@
 			    </li>
 			  </c:if> 	  
 			  </ul> 
-			 <!-- 페이지 끝 --> 
-			 
-                   
-              <form action="order" method="post" style="text-align:center;">
-              	<input type="hidden" name="user_id" value="${loginUser.user_id }">
-              	<button type="submit" class="btn btn-success">購入</button>
-              </form>
-		
-                                     
+			 <!-- 페이지 끝 --> 			 		                                     
                 </div>
             </div>
            </c:if> 
