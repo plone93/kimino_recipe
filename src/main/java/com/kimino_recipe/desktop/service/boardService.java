@@ -54,7 +54,7 @@ public interface boardService {
 	
 	/*메인 게시글*/
 	public List<boardVO> select_Season_Up(int page, String board_id1, String board_id2, String board_id3, String board_id4);
-	public List<boardVO> select_Country_Up(int page, String board_id11, String board_id22, String board_id33);
+	public List<boardVO> select_Country_Up(int page, String board_id11, String board_id22, String board_id33, String board_id44);
 	public List<boardVO> select_Single_Up(int page, String board_id111);
 	
 	/*게시판1에 해당하는 드롭메뉴*/

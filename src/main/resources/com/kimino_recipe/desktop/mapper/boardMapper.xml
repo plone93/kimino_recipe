@@ -171,7 +171,7 @@
  	
  	<select id="select_Country_Up" parameterType="hashmap" resultType="com.kimino_recipe.desktop.domain.boardVO">
  		select * from
- 		(select * from kimino_recipe where board_id = #{board_ida} or board_id = #{board_idb} or board_id = #{board_idc})
+ 		(select * from kimino_recipe where board_id = #{board_ida} or board_id = #{board_idb} or board_id = #{board_idc} or board_id = #{board_idd})
  		order by up desc
  	</select>
  	

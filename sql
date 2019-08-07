@@ -58,7 +58,7 @@ values(kimino_recipe_admin_seq.nextval, 'admin1234', 'admin1234','admin','aaa@aa
 create table kimino_recipe_product(
 	product_num number(10) primary key,
 	product_id varchar2(30) not null,
-	product_name varchar2(30) not null,   //상품 이름
+	product_name varchar2(200) not null,   //상품 이름
 	price number(30) default 0,  // 상품 가격
 	content varchar2(1000) not null, //상품 설명
 	image varchar2(500), //상품 이미지

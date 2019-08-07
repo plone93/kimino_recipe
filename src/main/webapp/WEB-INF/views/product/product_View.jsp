@@ -10,7 +10,7 @@
                		<c:if test="${productVO.image eq null}">
 				       	<img src="resources/images/food-1932466_640.jpg" class="card-img-top" style="width: 30rem; height: 29rem;">
 				    </c:if>
-				    <c:if test="${season.image ne null}">
+				    <c:if test="${productVO.image ne null}">
 				        <img src="resources/images/${productVO.image }" class="img-fluid" style="width: 30rem; height: 29rem;">
 				    </c:if>	
 

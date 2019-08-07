@@ -45,16 +45,16 @@
             
             <div class="border-top border-dark">
                 <div class="row my-2">
-                    <div class="col-2">댓작성자</div>
-                    <div class="col-6">댁글내용</div>
-                    <div class="col-2">작성날짜</div>                    
+                    <div class="col-2">コメント作成者</div>
+                    <div class="col-6">コメント内容</div>
+                    <div class="col-2">日付</div>                       
                     <div class="col-2">
                         <div class="row">
                             <div class="col text-right">
-                                <a href="#" class="badge badge-success">수정</a>                        
+                                <a href="#" class="badge badge-success">修正</a>                        
                             </div>
                             <div class="col text-left">
-                                <a href="#" class="badge badge-danger">삭제</a>                                       
+                                <a href="#" class="badge badge-danger">削除</a>                                       
                             </div>
                         </div>
                     </div>

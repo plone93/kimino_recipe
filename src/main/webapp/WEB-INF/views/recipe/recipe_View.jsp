@@ -117,7 +117,7 @@
                 <div class="row">
                     <div class="col-12 py-3">
                         <div class="input-group mb-3">
-                            <input type="text" name="content" class="form-control" placeholder="코멘토" aria-label="Recipient's username" aria-describedby="button-addon2">
+                            <input type="text" name="content" class="form-control" placeholder="" aria-label="Recipient's username" aria-describedby="button-addon2">
 
 							<c:if test="${loginUser ne null and loginAdmin eq null}">
 				            	<input type="hidden" name="board_num" value="${boardVO.board_num}">
@@ -161,7 +161,7 @@
 				<c:if test="${loginUser.user_id ne writer and loginAdmin eq null}" >
 				</c:if>
 				
-                <div class="col-1 py-3">
+                <div class="col-2 py-3">
                     <a class="btn btn-success" href="boardList?board_id=${board_id}&page=${page}" role="button">リスト</a>                            
                 </div>
                 <div class="col-1 py-3">

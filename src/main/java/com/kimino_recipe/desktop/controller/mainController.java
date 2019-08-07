@@ -48,22 +48,23 @@ public class mainController {
 		}
 		
 		List<boardVO> boardList_Season_Up = new ArrayList<boardVO>();
-		String board_id1 = "봄";
-		String board_id2 = "여름";
-		String board_id3 = "가을";
-		String board_id4 = "겨울";
+		String board_id1 = "春";
+		String board_id2 = "夏";
+		String board_id3 = "秋";
+		String board_id4 = "冬";
 		boardList_Season_Up = board.select_Season_Up(page, board_id1, board_id2, board_id3, board_id4);
 		model.addAttribute("season", boardList_Season_Up);
 		
 		List<boardVO> boardList_Country_Up = new ArrayList<boardVO>();
-		String board_id11 = "한국요리";
-		String board_id22 = "일본요리";
-		String board_id33 = "서양요리";
-		boardList_Country_Up = board.select_Country_Up(page, board_id11, board_id22, board_id33);
+		String board_id11 = "韓食";
+		String board_id22 = "中華";
+		String board_id33 = "和食";
+		String board_id44 = "洋食";
+		boardList_Country_Up = board.select_Country_Up(page, board_id11, board_id22, board_id33, board_id44);
 		model.addAttribute("country", boardList_Country_Up);
 		
 		List<boardVO> boardList_Single = new ArrayList<boardVO>();
-		String board_id111 = "자취";
+		String board_id111 = "一人暮らし";
 		boardList_Single = board.select_Single_Up(page, board_id111);
 		model.addAttribute("single", boardList_Single);
 		

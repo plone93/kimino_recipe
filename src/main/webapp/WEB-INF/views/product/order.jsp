@@ -99,6 +99,7 @@
 						<input type="hidden" name="price" value="${boardList.price}">
 						<input type="hidden" name="amount" value="${boardList.amount}">
 						<input type="hidden" name="cart_num" value="${boardList.cart_num }">
+						<input type="hidden" name="image" value="${boardList.image}">
 					</c:forEach>
 					<input type="hidden" name="user_id" value="${loginUser.user_id }">	 					 		 	  	                 
 					

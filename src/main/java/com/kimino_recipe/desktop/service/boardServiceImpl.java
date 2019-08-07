@@ -240,7 +240,7 @@ public class boardServiceImpl implements boardService {
 	}
 
 	@Override
-	public List<boardVO> select_Country_Up(int page, String board_id11, String board_id22, String board_id33) {
+	public List<boardVO> select_Country_Up(int page, String board_id11, String board_id22, String board_id33, String board_id44) {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		int startNum = (page-1)*10+1;
 		int endNum = page*10;
@@ -250,6 +250,7 @@ public class boardServiceImpl implements boardService {
 		map.put("board_ida", board_id11);
 		map.put("board_idb", board_id22);
 		map.put("board_idc", board_id33);
+		map.put("board_idd", board_id44);
 		
 		return board.select_Country_Up(map);
 	}

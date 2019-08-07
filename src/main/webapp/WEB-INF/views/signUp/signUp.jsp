@@ -37,7 +37,7 @@
                                 <label for="password">パスワード</label>
                             </div>
                             <div class="col-6">
-                                <input type="password" class="form-control" id="password" name="user_pass" placeholder="10자이상">
+                                <input type="password" class="form-control" id="password" name="user_pass" placeholder="">
                             </div>
                             <div class="col-2"></div>
                         </div>
